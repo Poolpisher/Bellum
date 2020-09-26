@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Player.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Input/Player.inputactions'
 
 using System;
 using System.Collections;
@@ -30,6 +30,22 @@ public class @Player : IInputActionCollection, IDisposable
                     ""name"": ""Shoot"",
                     ""type"": ""Value"",
                     ""id"": ""c8502538-194b-4bd6-9f5e-a89625aa41e0"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""MouseClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""dcddc70e-c244-4832-82c6-8a941ea42bcd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""MousePosition"",
+                    ""type"": ""Value"",
+                    ""id"": ""7375ae87-9513-4580-8008-e68feef239dc"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -145,6 +161,28 @@ public class @Player : IInputActionCollection, IDisposable
                     ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1f3539f5-8beb-44ae-ae44-3af6730c9d51"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8e63a2df-30a9-4c0c-822b-224c847d53cb"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MousePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -155,6 +193,8 @@ public class @Player : IInputActionCollection, IDisposable
         m_Action = asset.FindActionMap("Action", throwIfNotFound: true);
         m_Action_Move = m_Action.FindAction("Move", throwIfNotFound: true);
         m_Action_Shoot = m_Action.FindAction("Shoot", throwIfNotFound: true);
+        m_Action_MouseClick = m_Action.FindAction("MouseClick", throwIfNotFound: true);
+        m_Action_MousePosition = m_Action.FindAction("MousePosition", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -206,12 +246,16 @@ public class @Player : IInputActionCollection, IDisposable
     private IActionActions m_ActionActionsCallbackInterface;
     private readonly InputAction m_Action_Move;
     private readonly InputAction m_Action_Shoot;
+    private readonly InputAction m_Action_MouseClick;
+    private readonly InputAction m_Action_MousePosition;
     public struct ActionActions
     {
         private @Player m_Wrapper;
         public ActionActions(@Player wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Action_Move;
         public InputAction @Shoot => m_Wrapper.m_Action_Shoot;
+        public InputAction @MouseClick => m_Wrapper.m_Action_MouseClick;
+        public InputAction @MousePosition => m_Wrapper.m_Action_MousePosition;
         public InputActionMap Get() { return m_Wrapper.m_Action; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -227,6 +271,12 @@ public class @Player : IInputActionCollection, IDisposable
                 @Shoot.started -= m_Wrapper.m_ActionActionsCallbackInterface.OnShoot;
                 @Shoot.performed -= m_Wrapper.m_ActionActionsCallbackInterface.OnShoot;
                 @Shoot.canceled -= m_Wrapper.m_ActionActionsCallbackInterface.OnShoot;
+                @MouseClick.started -= m_Wrapper.m_ActionActionsCallbackInterface.OnMouseClick;
+                @MouseClick.performed -= m_Wrapper.m_ActionActionsCallbackInterface.OnMouseClick;
+                @MouseClick.canceled -= m_Wrapper.m_ActionActionsCallbackInterface.OnMouseClick;
+                @MousePosition.started -= m_Wrapper.m_ActionActionsCallbackInterface.OnMousePosition;
+                @MousePosition.performed -= m_Wrapper.m_ActionActionsCallbackInterface.OnMousePosition;
+                @MousePosition.canceled -= m_Wrapper.m_ActionActionsCallbackInterface.OnMousePosition;
             }
             m_Wrapper.m_ActionActionsCallbackInterface = instance;
             if (instance != null)
@@ -237,6 +287,12 @@ public class @Player : IInputActionCollection, IDisposable
                 @Shoot.started += instance.OnShoot;
                 @Shoot.performed += instance.OnShoot;
                 @Shoot.canceled += instance.OnShoot;
+                @MouseClick.started += instance.OnMouseClick;
+                @MouseClick.performed += instance.OnMouseClick;
+                @MouseClick.canceled += instance.OnMouseClick;
+                @MousePosition.started += instance.OnMousePosition;
+                @MousePosition.performed += instance.OnMousePosition;
+                @MousePosition.canceled += instance.OnMousePosition;
             }
         }
     }
@@ -245,5 +301,7 @@ public class @Player : IInputActionCollection, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
+        void OnMouseClick(InputAction.CallbackContext context);
+        void OnMousePosition(InputAction.CallbackContext context);
     }
 }
