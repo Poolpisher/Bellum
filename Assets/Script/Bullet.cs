@@ -4,7 +4,7 @@ public class Bullet : MonoBehaviour
 {
     //Orientation de la balle
     public Vector2 fixinputValue;
-    private Rigidbody rigidbody;
+    private new Rigidbody rigidbody;
 
     // Start is called before the first frame update
     void Start()
