@@ -11,6 +11,7 @@ public class Control : MonoBehaviour
     [SerializeField] private int layerMask;
     //Orientation du joueur
     private Vector2 inputValue;
+    private Vector3 inputValue3D;
 
     //Caméra
     private Camera cam;
@@ -51,11 +52,12 @@ public class Control : MonoBehaviour
     private void Move(InputAction.CallbackContext obj)
     {
         inputValue = obj.ReadValue<Vector2>();
+        inputValue3D = new Vector3(inputValue.x, 0, inputValue.y);
     }
     //Arret du déplacement
     private void Stop(InputAction.CallbackContext obj)
     {
-        inputValue = Vector2.zero;
+        inputValue3D = Vector2.zero;
     }
 
     private void Click(InputAction.CallbackContext obj)
@@ -121,7 +123,7 @@ public class Control : MonoBehaviour
     void FixedUpdate()
     {
         //Mise a jour de la vitesse
-        rigidbody.velocity = inputValue * speed;
+        rigidbody.velocity = inputValue3D * speed;
 
         //Mise a jour de la position de la souris dans la variable mousePos
         /*
