@@ -12,7 +12,8 @@ public class Control : MonoBehaviour
     //Orientation du joueur
     private Vector2 inputValue;
     private Vector3 inputValue3D;
-
+    //HUD
+    private GameObject HUD;
     //Caméra
     private Camera cam;
     //Permet de récupérer la position de la souris
@@ -21,7 +22,6 @@ public class Control : MonoBehaviour
     private Vector3 point;
     //Position de la souris
     private Vector2 mousePos;
-    private Vector2 mousePos2;
 
     //Control
     private Player playerInput;
@@ -42,11 +42,31 @@ public class Control : MonoBehaviour
     //tir
     void Shoot(InputAction.CallbackContext obj)
     {
+        Debug.Log(mousePos + "mousePos");
         //Orientation du tir
-        var shootinputValue = obj.ReadValue<Vector2>();
+            //Il faut maintenir l'axe y au niveau du joueur
+        point = cam.ScreenToWorldPoint(new Vector3(mousePos.x, transform.position.y, mousePos.y));
+        Debug.Log(point + "point");
+
+        //Raycast avec la position de la souris
+        RaycastHit hit;
+        // Does the ray intersect any objects excluding the player layer
+        if (Physics.Raycast(transform.position, point, out hit, Mathf.Infinity))
+        {
+            Debug.DrawRay(transform.position, point, Color.yellow);
+            Debug.Log("Did Hit");
+            //Debug.Break();
+        }
+        else
+        {
+            Debug.DrawRay(transform.position, point, Color.white);
+            Debug.Log("Did not Hit");
+            //Debug.Break();
+        }
+        var shootinputValue = mousePos;
         //Créer le projectile
         var createBullet = Instantiate(bulletPrefab, rigidbody.position, Quaternion.identity);
-        createBullet.GetComponent<Bullet>().fixinputValue = shootinputValue;
+        createBullet.GetComponent<Bullet>().fixinputValue = point;
     }
 
     //Déplacement
@@ -63,39 +83,33 @@ public class Control : MonoBehaviour
 
     private void Click(InputAction.CallbackContext obj)
     {
-        //Test Variable:
-        /*
-        Debug.Log(layerMask);
-        Debug.Log(Event.current);
-        Debug.Log(mousePos);
-        Debug.Log(point);
-        */
-
         //Raycast avec la position de la souris
-        Debug.Log(mousePos);
         point = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, (transform.position - cam.transform.position).magnitude));
-        var debugCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        debugCube.transform.position = point;
 
         RaycastHit hit;
         // Does the ray intersect any objects excluding the player layer
-        if (Physics.Raycast(cam.transform.position, point-cam.transform.position, out hit, Mathf.Infinity, layerMask))
+        if (Physics.Raycast(cam.transform.position, point - cam.transform.position, out hit, Mathf.Infinity, layerMask))
         {
             Debug.DrawRay(cam.transform.position, point - cam.transform.position, Color.yellow);
             Debug.Log("Did Hit");
+                //Le HUD ne s'affiche pas
+            //active canvas HUD
+            HUD.SetActive(true);
         }
         else
         {
             Debug.DrawRay(cam.transform.position, point - cam.transform.position, Color.white);
             Debug.Log("Did not Hit");
             //Debug.Break();
+
+            //désactive canvas HUD
+            HUD.SetActive(false);
         }
     }
 
     private void MousePosition(InputAction.CallbackContext obj)
     {
         mousePos = obj.ReadValue<Vector2>();
-        Debug.Log(mousePos + "MousePosition");
     }
 
     // Start is called before the first frame update
@@ -103,47 +117,14 @@ public class Control : MonoBehaviour
     {
         rigidbody = GetComponent<Rigidbody>();
         cam = Camera.main;
+        //Enregistre les éléments du HUD pour les supprimer/réafficher via les variables
+        HUD = GameObject.FindGameObjectWithTag("HUD");
     }
-    /*
-    void OnGUI()
-    {
-        //Debug Taille de l'écran/Position de la souris/
-        Vector3 point = new Vector3();
-        Event currentEvent = Event.current;
-        Vector2 mousePos2 = new Vector2();
 
-        // Get the mouse position from Event.
-        // Note that the y position from Event is inverted.
-        mousePos2.x = currentEvent.mousePosition.x;
-        mousePos2.y = cam.pixelHeight - currentEvent.mousePosition.y;
-
-        point = cam.ScreenToWorldPoint(new Vector3(mousePos2.x, mousePos2.y, cam.nearClipPlane));
-
-        GUILayout.BeginArea(new Rect(20, 20, 250, 120));
-        GUILayout.Label("Screen pixels: " + cam.pixelWidth + ":" + cam.pixelHeight);
-        GUILayout.Label("Mouse position: " + mousePos2);
-        GUILayout.Label("World position: " + point.ToString("F3"));
-        GUILayout.EndArea();
-    }
-    */
     // Update is called once per frame
     void FixedUpdate()
     {
         //Mise a jour de la vitesse
         rigidbody.velocity = inputValue3D * speed;
-
-        /*
-        //Mise a jour de la position de la souris dans la variable mousePos
-        Vector3 point = new Vector3();
-        Event currentEvent = Event.current;
-        Vector2 mousePos = new Vector2();
-
-        // Get the mouse position from Event.
-        // Note that the y position from Event is inverted.
-        mousePos.x = currentEvent.mousePosition.x;
-        mousePos.y = cam.pixelHeight - currentEvent.mousePosition.y;
-
-        point = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, cam.nearClipPlane));
-        */
     }
 }

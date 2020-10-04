@@ -16,8 +16,10 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        Debug.Log(fixinputValue);
         //Déplacement de la balle
-        rigidbody.AddForce(fixinputValue * 400);
+            //Multiplier par 1 pour ralentir la balle pour l'instant mais à changer plus tard
+        rigidbody.AddForce(fixinputValue * 1);
     }
     void OnBecameInvisible()
     {
