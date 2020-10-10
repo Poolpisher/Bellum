@@ -4,22 +4,21 @@ public class Bullet : MonoBehaviour
 {
     //Orientation de la balle
     public Vector2 fixinputValue;
+    //Vitesse de la balle
+    [SerializeField] private int bulletSpeed;
     private new Rigidbody rigidbody;
 
     // Start is called before the first frame update
     void Start()
     {
-        //Limitation de l'orientation de la balle 
         rigidbody = GetComponent<Rigidbody>();
+        //Déplacement de la balle
+        rigidbody.AddForce(fixinputValue * bulletSpeed);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.Log(fixinputValue);
-        //Déplacement de la balle
-            //Multiplier par 1 pour ralentir la balle pour l'instant mais à changer plus tard
-        rigidbody.AddForce(fixinputValue * 1);
     }
     void OnBecameInvisible()
     {

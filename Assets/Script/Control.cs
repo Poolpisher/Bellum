@@ -22,9 +22,9 @@ public class Control : MonoBehaviour
     private Vector3 point;
     //Position de la souris
     private Vector2 mousePos;
-
     //Control
     private Player playerInput;
+
     private new Rigidbody rigidbody;
 
     //Activation des controles
@@ -42,28 +42,6 @@ public class Control : MonoBehaviour
     //tir
     void Shoot(InputAction.CallbackContext obj)
     {
-        Debug.Log(mousePos + "mousePos");
-        //Orientation du tir
-            //Il faut maintenir l'axe y au niveau du joueur
-        point = cam.ScreenToWorldPoint(new Vector3(mousePos.x, transform.position.y, mousePos.y));
-        Debug.Log(point + "point");
-
-        //Raycast avec la position de la souris
-        RaycastHit hit;
-        // Does the ray intersect any objects excluding the player layer
-        if (Physics.Raycast(transform.position, point, out hit, Mathf.Infinity))
-        {
-            Debug.DrawRay(transform.position, point, Color.yellow);
-            Debug.Log("Did Hit");
-            //Debug.Break();
-        }
-        else
-        {
-            Debug.DrawRay(transform.position, point, Color.white);
-            Debug.Log("Did not Hit");
-            //Debug.Break();
-        }
-        var shootinputValue = mousePos;
         //Créer le projectile
         var createBullet = Instantiate(bulletPrefab, rigidbody.position, Quaternion.identity);
         createBullet.GetComponent<Bullet>().fixinputValue = point;
@@ -83,9 +61,6 @@ public class Control : MonoBehaviour
 
     private void Click(InputAction.CallbackContext obj)
     {
-        //Raycast avec la position de la souris
-        point = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, (transform.position - cam.transform.position).magnitude));
-
         RaycastHit hit;
         // Does the ray intersect any objects excluding the player layer
         if (Physics.Raycast(cam.transform.position, point - cam.transform.position, out hit, Mathf.Infinity, layerMask))
@@ -120,9 +95,22 @@ public class Control : MonoBehaviour
         //Enregistre les éléments du HUD pour les supprimer/réafficher via les variables
         HUD = GameObject.FindGameObjectWithTag("HUD");
     }
+    void Update()
+    {
+        //Transformation de la position de la souris dans le monde
+        point = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, (transform.position - cam.transform.position).magnitude));
+        //Distance entre le joueur et la souris
+        var look = (point - transform.position).normalized;
+        //Calcul de l'angle a partir de "look"
+        var aimAngle = Vector3.SignedAngle(Vector3.forward , look, Vector3.down);
+        //Application de l'angle sur la rotation du joueur
+        transform.rotation = Quaternion.AngleAxis(aimAngle, Vector3.down);
+        //Changement de l'orientation de la balle en fonction de la souris
+        GetComponent<Bullet>().fixinputValue = look;
+    }
 
-    // Update is called once per frame
-    void FixedUpdate()
+// Update is called once per frame
+void FixedUpdate()
     {
         //Mise a jour de la vitesse
         rigidbody.velocity = inputValue3D * speed;
