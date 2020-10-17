@@ -3,7 +3,7 @@
 public class Bullet : MonoBehaviour
 {
     //Orientation de la balle
-    public Vector2 fixinputValue;
+    public Vector3 fixinputValue;
     //Vitesse de la balle
     [SerializeField] private int bulletSpeed;
     private new Rigidbody rigidbody;
@@ -13,7 +13,7 @@ public class Bullet : MonoBehaviour
     {
         rigidbody = GetComponent<Rigidbody>();
         //Déplacement de la balle
-        rigidbody.AddForce(fixinputValue * bulletSpeed);
+        rigidbody.AddForce(fixinputValue * bulletSpeed, ForceMode.Impulse);
     }
 
     // Update is called once per frame

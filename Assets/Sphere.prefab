@@ -109,7 +109,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f7dbaed1b3bd65418feb9b9c58406a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 471770573186888270, guid: b43a6e07c1f73784dbf7f19ffef67e33, type: 3}
+  fixinputValue: {x: 0, y: 0}
+  bulletSpeed: 2
 --- !u!54 &2902277249925503179
 Rigidbody:
   m_ObjectHideFlags: 0

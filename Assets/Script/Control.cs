@@ -1,10 +1,17 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class Control : MonoBehaviour
 {
     //Vitesse du joueur
     [SerializeField] private int speed;
+        /*
+        //Si le joueur peux tirer
+        [SerializeField] private bool canShoot = true;
+        //Si le joueur peux tirer
+        [SerializeField] private bool canShootOnce = true;
+        */
     //Projectile
     [SerializeField] private GameObject bulletPrefab;
     //Vitesse du joueur
@@ -19,12 +26,14 @@ public class Control : MonoBehaviour
     //Permet de récupérer la position de la souris
     private Event currentEvent;
     //???
+    private Vector3 look;
     private Vector3 point;
     //Position de la souris
     private Vector2 mousePos;
     //Control
     private Player playerInput;
 
+    private Coroutine isShooting;
     private new Rigidbody rigidbody;
 
     //Activation des controles
@@ -35,6 +44,7 @@ public class Control : MonoBehaviour
         playerInput.Action.Move.performed += Move;
         playerInput.Action.Move.canceled += Stop;
         playerInput.Action.Shoot.performed += Shoot;
+        playerInput.Action.Shoot.canceled += StopShoot;
         playerInput.Action.MouseClick.performed += Click;
         playerInput.Action.MousePosition.performed += MousePosition;
     }
@@ -42,9 +52,30 @@ public class Control : MonoBehaviour
     //tir
     void Shoot(InputAction.CallbackContext obj)
     {
-        //Créer le projectile
-        var createBullet = Instantiate(bulletPrefab, rigidbody.position, Quaternion.identity);
-        createBullet.GetComponent<Bullet>().fixinputValue = point;
+       // if (canShoot == true)
+       // {
+            //Créer le projectile
+            var createBullet = Instantiate(bulletPrefab, rigidbody.position, Quaternion.identity);
+            createBullet.GetComponent<Bullet>().fixinputValue = look;
+            isShooting = StartCoroutine(TirContinu());
+       // }
+    }
+
+    private void StopShoot(InputAction.CallbackContext obj)
+    {
+        StopCoroutine(isShooting);
+    }
+
+    private IEnumerator TirContinu()
+    {
+       // canShoot = false;
+        while (true)
+        {
+            yield return new WaitForSeconds(0.2f);
+            var createBullet = Instantiate(bulletPrefab, rigidbody.position, Quaternion.identity);
+            createBullet.GetComponent<Bullet>().fixinputValue = look;
+       //     canShoot = true;
+        }
     }
 
     //Déplacement
@@ -99,14 +130,12 @@ public class Control : MonoBehaviour
     {
         //Transformation de la position de la souris dans le monde
         point = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, (transform.position - cam.transform.position).magnitude));
-        //Distance entre le joueur et la souris
-        var look = (point - transform.position).normalized;
+        //Distance entre le joueur et la souris et Changement de l'orientation de la balle en fonction de la souris
+        look = (point - transform.position).normalized;
         //Calcul de l'angle a partir de "look"
         var aimAngle = Vector3.SignedAngle(Vector3.forward , look, Vector3.down);
         //Application de l'angle sur la rotation du joueur
         transform.rotation = Quaternion.AngleAxis(aimAngle, Vector3.down);
-        //Changement de l'orientation de la balle en fonction de la souris
-        GetComponent<Bullet>().fixinputValue = look;
     }
 
 // Update is called once per frame
