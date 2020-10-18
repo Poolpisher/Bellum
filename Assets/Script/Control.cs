@@ -6,12 +6,8 @@ public class Control : MonoBehaviour
 {
     //Vitesse du joueur
     [SerializeField] private int speed;
-        /*
-        //Si le joueur peux tirer
-        [SerializeField] private bool canShoot = true;
-        //Si le joueur peux tirer
-        [SerializeField] private bool canShootOnce = true;
-        */
+    //Si le joueur peux tirer
+    [SerializeField] private bool canShoot = true;
     //Projectile
     [SerializeField] private GameObject bulletPrefab;
     //Vitesse du joueur
@@ -52,13 +48,14 @@ public class Control : MonoBehaviour
     //tir
     void Shoot(InputAction.CallbackContext obj)
     {
-       // if (canShoot == true)
-       // {
+        if (canShoot == true)
+        {
+            canShoot = false;
             //Créer le projectile
             var createBullet = Instantiate(bulletPrefab, rigidbody.position, Quaternion.identity);
             createBullet.GetComponent<Bullet>().fixinputValue = look;
-            isShooting = StartCoroutine(TirContinu());
-       // }
+        }
+        isShooting = StartCoroutine(TirContinu());
     }
 
     private void StopShoot(InputAction.CallbackContext obj)
@@ -68,13 +65,12 @@ public class Control : MonoBehaviour
 
     private IEnumerator TirContinu()
     {
-       // canShoot = false;
         while (true)
         {
             yield return new WaitForSeconds(0.2f);
             var createBullet = Instantiate(bulletPrefab, rigidbody.position, Quaternion.identity);
             createBullet.GetComponent<Bullet>().fixinputValue = look;
-       //     canShoot = true;
+            canShoot = true;
         }
     }
 
