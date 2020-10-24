@@ -4,14 +4,22 @@ using System.Collections;
 
 public class Control : MonoBehaviour
 {
+    //Son clique sur les plateformes
+    AudioSource m_MyAudioSource;
+
     //Vitesse du joueur
     [SerializeField] private int speed;
     //Si le joueur peux tirer
-    [SerializeField] private bool canShoot = true;
+    [SerializeField] private bool canShoot;
     //Projectile
     [SerializeField] private GameObject bulletPrefab;
     //Vitesse du joueur
     [SerializeField] private LayerMask layerMask;
+    //Temps entre 2 balles
+    [SerializeField] private float shootTimer;
+    //HUD Plateforme tourelle
+    [SerializeField] private GameObject HUDmenu;
+
     //Orientation du joueur
     private Vector2 inputValue;
     private Vector3 inputValue3D;
@@ -28,8 +36,9 @@ public class Control : MonoBehaviour
     private Vector2 mousePos;
     //Control
     private Player playerInput;
-
-    private Coroutine isShooting;
+    //Temps correspondant au dernier tir
+    private float lastShoot;
+    //Rigidbody
     private new Rigidbody rigidbody;
 
     //Activation des controles
@@ -48,30 +57,12 @@ public class Control : MonoBehaviour
     //tir
     void Shoot(InputAction.CallbackContext obj)
     {
-        if (canShoot == true)
-        {
-            canShoot = false;
-            //Créer le projectile
-            var createBullet = Instantiate(bulletPrefab, rigidbody.position, Quaternion.identity);
-            createBullet.GetComponent<Bullet>().fixinputValue = look;
-        }
-        isShooting = StartCoroutine(TirContinu());
+        canShoot = true;
     }
 
     private void StopShoot(InputAction.CallbackContext obj)
     {
-        StopCoroutine(isShooting);
-    }
-
-    private IEnumerator TirContinu()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(0.2f);
-            var createBullet = Instantiate(bulletPrefab, rigidbody.position, Quaternion.identity);
-            createBullet.GetComponent<Bullet>().fixinputValue = look;
-            canShoot = true;
-        }
+        canShoot = false;
     }
 
     //Déplacement
@@ -93,19 +84,17 @@ public class Control : MonoBehaviour
         if (Physics.Raycast(cam.transform.position, point - cam.transform.position, out hit, Mathf.Infinity, layerMask))
         {
             Debug.DrawRay(cam.transform.position, point - cam.transform.position, Color.yellow);
-            Debug.Log("Did Hit");
-                //Le HUD ne s'affiche pas
             //active canvas HUD
-            HUD.SetActive(true);
+            HUDmenu.SetActive(true);
+            m_MyAudioSource.Play();
         }
         else
         {
+            //Le HUD ne s'affiche pas
             Debug.DrawRay(cam.transform.position, point - cam.transform.position, Color.white);
-            Debug.Log("Did not Hit");
-            //Debug.Break();
 
             //désactive canvas HUD
-            HUD.SetActive(false);
+            HUDmenu.SetActive(false);
         }
     }
 
@@ -117,6 +106,7 @@ public class Control : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        m_MyAudioSource = GetComponent<AudioSource>();
         rigidbody = GetComponent<Rigidbody>();
         cam = Camera.main;
         //Enregistre les éléments du HUD pour les supprimer/réafficher via les variables
@@ -132,6 +122,20 @@ public class Control : MonoBehaviour
         var aimAngle = Vector3.SignedAngle(Vector3.forward , look, Vector3.down);
         //Application de l'angle sur la rotation du joueur
         transform.rotation = Quaternion.AngleAxis(aimAngle, Vector3.down);
+
+        //Shoot
+        Shooting();
+    }
+
+    private void Shooting()
+    {
+        var actualTime = Time.time;
+        if (canShoot && actualTime > lastShoot + shootTimer)
+        {
+            var createBullet = Instantiate(bulletPrefab, rigidbody.position, Quaternion.identity);
+            createBullet.GetComponent<Bullet>().fixinputValue = look;
+            lastShoot = actualTime;
+        }        
     }
 
 // Update is called once per frame
