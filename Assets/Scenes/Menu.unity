@@ -25,7 +25,7 @@ RenderSettings:
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 3
-  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
+  m_SubtractiveShadowColor: {r: 0, g: 0, b: 0, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 84566054cf497ee4295a5d42970bbcb4, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -182,8 +182,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Start
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0e6a5b3b2e3da384c99aef754226e0dd, type: 2}
-  m_sharedMaterial: {fileID: -218776719561456972, guid: 0e6a5b3b2e3da384c99aef754226e0dd, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: cd0d6dde7f8b399409cb90f4879a91eb, type: 2}
+  m_sharedMaterial: {fileID: 7625427247834950227, guid: cd0d6dde7f8b399409cb90f4879a91eb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -210,13 +210,13 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 19.05
+  m_fontSize: 24.65
   m_fontSizeBase: 18.06
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 9
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 1024
   m_textAlignment: 65535
@@ -251,7 +251,7 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 2.2242537, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 136842921}
     characterCount: 5
@@ -335,8 +335,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Bellum
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0e6a5b3b2e3da384c99aef754226e0dd, type: 2}
-  m_sharedMaterial: {fileID: -218776719561456972, guid: 0e6a5b3b2e3da384c99aef754226e0dd, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: cd0d6dde7f8b399409cb90f4879a91eb, type: 2}
+  m_sharedMaterial: {fileID: 7625427247834950227, guid: cd0d6dde7f8b399409cb90f4879a91eb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -363,12 +363,12 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 99
+  m_fontSize: 158.75
   m_fontSizeBase: 99
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 1
-  m_fontSizeMax: 100
+  m_fontSizeMax: 200
   m_fontStyle: 16
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
@@ -383,7 +383,7 @@ MonoBehaviour:
   m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: 0
+  m_firstOverflowCharacterIndex: -1
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_isTextTruncated: 0
@@ -404,7 +404,7 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0.9702549, w: 0}
+  m_margin: {x: 0, y: 0, z: 0.9702549, w: -28.636158}
   m_textInfo:
     textComponent: {fileID: 364455172}
     characterCount: 6
@@ -1045,7 +1045,7 @@ MonoBehaviour:
   m_RenderShadows: 1
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
+  m_CameraType: 1
   m_Cameras: []
   m_RendererIndex: -1
   m_VolumeLayerMask:

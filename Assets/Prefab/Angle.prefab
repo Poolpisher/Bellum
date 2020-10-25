@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 740861782415336199}
   - component: {fileID: 740861782415336198}
   m_Layer: 0
-  m_Name: tile_straight (4)
+  m_Name: Angle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61,9 +61,9 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6ae27d4d048124046baaac31ce31c100, type: 2}
+  - {fileID: 2100000, guid: 35da6ef7afff61249b828afb3cceb175, type: 2}
   - {fileID: 2100000, guid: f424f86bd6c6ae64dbfa2fdb6a16dc40, type: 2}
-  - {fileID: 2100000, guid: 0cf0f3bcea8575843a2cd2665ff6057d, type: 2}
+  - {fileID: 2100000, guid: c84a2bfdcf9a90842af76ec639661565, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
