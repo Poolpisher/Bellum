@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using UnityEngine.Events;
 
 public class Control : MonoBehaviour
 {
@@ -19,6 +20,11 @@ public class Control : MonoBehaviour
     [SerializeField] private float shootTimer;
     //HUD Plateforme tourelle
     [SerializeField] private GameObject HUDmenu;
+    //Affiche/Désaffiche le HUD des tourelles
+    [SerializeField] private UnityEvent onClickPlateform;
+    [SerializeField] private UnityEvent onClickVoid;
+    //Passe la position d'une plateforme au script Sentry_Creation
+    [SerializeField] private Vector3_Event onClickVector3;
 
     //Orientation du joueur
     private Vector2 inputValue;
@@ -84,17 +90,17 @@ public class Control : MonoBehaviour
         if (Physics.Raycast(cam.transform.position, point - cam.transform.position, out hit, Mathf.Infinity, layerMask))
         {
             Debug.DrawRay(cam.transform.position, point - cam.transform.position, Color.yellow);
-            //active canvas HUD
-            HUDmenu.SetActive(true);
-            m_MyAudioSource.Play();
+            //Affiche le HUD des tourelles
+            onClickPlateform.Invoke();
+            //Passe la position pour créer la tourelle
+            onClickVector3.Invoke(hit.transform.position);
         }
         else
         {
             //Le HUD ne s'affiche pas
             Debug.DrawRay(cam.transform.position, point - cam.transform.position, Color.white);
-
-            //désactive canvas HUD
-            HUDmenu.SetActive(false);
+            //Désaffiche le HUD des tourelles
+            onClickVoid.Invoke();
         }
     }
 
