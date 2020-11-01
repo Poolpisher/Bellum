@@ -19,16 +19,10 @@ public class Sentry_Creation : MonoBehaviour
 
     public void Spawn()
     {
-        Instantiate(Sentry, spawnPos, Quaternion.identity);
+        Instantiate(Sentry, spawnPos, transform.rotation * Quaternion.Euler(270f, 0f, 0f));
     }
     public void Destroy()
     {
         Destroy(Sentry);
-    }
-
-    // Start is called before the first frame update
-    private void Start()
-    {
-
     }
 }

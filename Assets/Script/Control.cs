@@ -75,7 +75,7 @@ public class Control : MonoBehaviour
     private void Move(InputAction.CallbackContext obj)
     {
         inputValue = obj.ReadValue<Vector2>();
-        inputValue3D = new Vector3(inputValue.x, 0, inputValue.y);
+        inputValue3D = new Vector3(inputValue.x, inputValue.y, 0);
     }
     //Arret du déplacement
     private void Stop(InputAction.CallbackContext obj)
