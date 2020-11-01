@@ -49,6 +49,14 @@ public class @Player : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""00dbddba-fb82-4566-b309-c8b179856bad"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -139,6 +147,17 @@ public class @Player : IInputActionCollection, IDisposable
                     ""action"": ""MousePosition"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2ff07de1-02de-402b-b504-861effb28a1b"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -151,6 +170,7 @@ public class @Player : IInputActionCollection, IDisposable
         m_Action_Shoot = m_Action.FindAction("Shoot", throwIfNotFound: true);
         m_Action_MouseClick = m_Action.FindAction("MouseClick", throwIfNotFound: true);
         m_Action_MousePosition = m_Action.FindAction("MousePosition", throwIfNotFound: true);
+        m_Action_Reload = m_Action.FindAction("Reload", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -204,6 +224,7 @@ public class @Player : IInputActionCollection, IDisposable
     private readonly InputAction m_Action_Shoot;
     private readonly InputAction m_Action_MouseClick;
     private readonly InputAction m_Action_MousePosition;
+    private readonly InputAction m_Action_Reload;
     public struct ActionActions
     {
         private @Player m_Wrapper;
@@ -212,6 +233,7 @@ public class @Player : IInputActionCollection, IDisposable
         public InputAction @Shoot => m_Wrapper.m_Action_Shoot;
         public InputAction @MouseClick => m_Wrapper.m_Action_MouseClick;
         public InputAction @MousePosition => m_Wrapper.m_Action_MousePosition;
+        public InputAction @Reload => m_Wrapper.m_Action_Reload;
         public InputActionMap Get() { return m_Wrapper.m_Action; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -233,6 +255,9 @@ public class @Player : IInputActionCollection, IDisposable
                 @MousePosition.started -= m_Wrapper.m_ActionActionsCallbackInterface.OnMousePosition;
                 @MousePosition.performed -= m_Wrapper.m_ActionActionsCallbackInterface.OnMousePosition;
                 @MousePosition.canceled -= m_Wrapper.m_ActionActionsCallbackInterface.OnMousePosition;
+                @Reload.started -= m_Wrapper.m_ActionActionsCallbackInterface.OnReload;
+                @Reload.performed -= m_Wrapper.m_ActionActionsCallbackInterface.OnReload;
+                @Reload.canceled -= m_Wrapper.m_ActionActionsCallbackInterface.OnReload;
             }
             m_Wrapper.m_ActionActionsCallbackInterface = instance;
             if (instance != null)
@@ -249,6 +274,9 @@ public class @Player : IInputActionCollection, IDisposable
                 @MousePosition.started += instance.OnMousePosition;
                 @MousePosition.performed += instance.OnMousePosition;
                 @MousePosition.canceled += instance.OnMousePosition;
+                @Reload.started += instance.OnReload;
+                @Reload.performed += instance.OnReload;
+                @Reload.canceled += instance.OnReload;
             }
         }
     }
@@ -259,5 +287,6 @@ public class @Player : IInputActionCollection, IDisposable
         void OnShoot(InputAction.CallbackContext context);
         void OnMouseClick(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
     }
 }

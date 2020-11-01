@@ -14,6 +14,12 @@ public class Control : MonoBehaviour
     [SerializeField] private bool canShoot;
     //Projectile
     [SerializeField] private GameObject bulletPrefab;
+
+    //Nombre de balles restantes
+    private int remainBullet;
+    //Nombre maximum de balles
+    [SerializeField] private int maxBullet;
+
     //Vitesse du joueur
     [SerializeField] private LayerMask layerMask;
     //Temps entre 2 balles
@@ -58,12 +64,13 @@ public class Control : MonoBehaviour
         playerInput.Action.Shoot.canceled += StopShoot;
         playerInput.Action.MouseClick.performed += Click;
         playerInput.Action.MousePosition.performed += MousePosition;
+        playerInput.Action.Reload.performed += Reload;
     }
 
     //tir
     void Shoot(InputAction.CallbackContext obj)
     {
-        canShoot = true;
+            canShoot = true;
     }
 
     private void StopShoot(InputAction.CallbackContext obj)
@@ -112,11 +119,16 @@ public class Control : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //récupération du son de clique
         m_MyAudioSource = GetComponent<AudioSource>();
         rigidbody = GetComponent<Rigidbody>();
+
         cam = Camera.main;
         //Enregistre les éléments du HUD pour les supprimer/réafficher via les variables
         HUD = GameObject.FindGameObjectWithTag("HUD");
+
+        //Nombre de balle disponible = au nombre de balle maximum
+        remainBullet = maxBullet;
     }
     void Update()
     {
@@ -129,23 +141,41 @@ public class Control : MonoBehaviour
         //Application de l'angle sur la rotation du joueur
         transform.rotation = Quaternion.AngleAxis(aimAngle, Vector3.down);
 
-        //Shoot
+        //passage du nombre de balle restante et du nombre de balle max au texte du HUD
+        BulletCountdown.remainBullet = remainBullet;
+        BulletCountdown.maxBullet = maxBullet;
+
+        //Tir
         Shooting();
     }
 
     private void Shooting()
     {
+        //Calcul du temps lors du tir
         var actualTime = Time.time;
-        if (canShoot && actualTime > lastShoot + shootTimer)
+        //Si le joueur peux tier et que le temps actuel est supérieur à celui du dernier tir + le temps minimum requis entre chaque tir
+        if (canShoot && actualTime > lastShoot + shootTimer && remainBullet > 0)
         {
+            //Création de la balle
             var createBullet = Instantiate(bulletPrefab, rigidbody.position, Quaternion.identity);
+            //Orientation de la balle
             createBullet.GetComponent<Bullet>().fixinputValue = look;
+            //Changement de la valeur du dernier tir
             lastShoot = actualTime;
-        }        
+            //décrémentation du nombre de balle restante
+            BulletCountdown.remainBullet = BulletCountdown.remainBullet - 1;
+            remainBullet = remainBullet - 1;
+        }
     }
 
-// Update is called once per frame
-void FixedUpdate()
+    void Reload(InputAction.CallbackContext obj)
+    {
+        //Nombre de balle disponible = au nombre de balle maximum
+        remainBullet = maxBullet;
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
     {
         //Mise a jour de la vitesse
         rigidbody.velocity = inputValue3D * speed;

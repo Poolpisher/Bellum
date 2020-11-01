@@ -16,10 +16,6 @@ public class Bullet : MonoBehaviour
         rigidbody.AddForce(fixinputValue * bulletSpeed, ForceMode.Impulse);
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-    }
     void OnBecameInvisible()
     {
         //détruit la balle une fois hors de portée de la caméra
