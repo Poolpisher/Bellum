@@ -1,15 +1,16 @@
 ﻿using UnityEngine.UI;
+using TMPro;
 using UnityEngine;
 
 public class BulletCountdown : MonoBehaviour
 {
     public static int remainBullet;
     public static int maxBullet;
-    [SerializeField] Text txt;
+    TextMeshProUGUI txt;
 
     public void Start()
     {
-        txt = GetComponent<Text>();
+        txt = GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
