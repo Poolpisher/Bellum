@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4440960880823675854}
   - component: {fileID: 4440960880823675842}
   - component: {fileID: 2902277249925503179}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,6 +111,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fixinputValue: {x: 0, y: 0, z: 0}
   bulletSpeed: 10
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!54 &2902277249925503179
 Rigidbody:
   m_ObjectHideFlags: 0

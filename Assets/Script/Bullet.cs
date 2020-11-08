@@ -8,6 +8,8 @@ public class Bullet : MonoBehaviour
     [SerializeField] private int bulletSpeed;
     private new Rigidbody rigidbody;
 
+    [SerializeField] private LayerMask layerMask;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +17,16 @@ public class Bullet : MonoBehaviour
         //Déplacement de la balle
         rigidbody.AddForce(fixinputValue * bulletSpeed, ForceMode.Impulse);
     }
+
+    /*
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == 8)
+        {
+            Debug.Log("oui:" + collision);
+        }
+}
+*/
 
     void OnBecameInvisible()
     {

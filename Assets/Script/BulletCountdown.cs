@@ -4,18 +4,26 @@ using UnityEngine;
 
 public class BulletCountdown : MonoBehaviour
 {
-    public static int remainBullet;
+    private int remainBullet;
     public static int maxBullet;
     TextMeshProUGUI txt;
 
     public void Start()
     {
         txt = GetComponent<TextMeshProUGUI>();
+        remainBullet = maxBullet;
     }
 
-    // Update is called once per frame
-    public void Update()
+    public void Shoot()
     {
+        //décrémentation du nombre de balle restante
+        remainBullet--;
+        txt.text = remainBullet + "/" + maxBullet;
+    }
+
+    public void Reload()
+    {
+        remainBullet = maxBullet;
         txt.text = remainBullet + "/" + maxBullet;
     }
 }

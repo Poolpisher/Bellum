@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sentry_Creation : MonoBehaviour
+public class Sentry_Management : MonoBehaviour
 {
 
     [SerializeField] private GameObject Sentry;
@@ -17,9 +17,9 @@ public class Sentry_Creation : MonoBehaviour
         spawnPos = newPos;
     }
 
-    public void Spawn()
+    public void Create()
     {
-        Instantiate(Sentry, spawnPos, transform.rotation * Quaternion.Euler(270f, 0f, 0f));
+        Instantiate(Sentry, spawnPos, transform.rotation * Quaternion.Euler(0f, 0f, 0f));
     }
     public void Destroy()
     {

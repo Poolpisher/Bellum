@@ -32,6 +32,9 @@ public class Control : MonoBehaviour
     //Passe la position d'une plateforme au script Sentry_Creation
     [SerializeField] private Vector3_Event onClickVector3;
 
+    [SerializeField] private UnityEvent onShoot;
+    [SerializeField] private UnityEvent onReload;
+
     //Orientation du joueur
     private Vector2 inputValue;
     private Vector3 inputValue3D;
@@ -65,6 +68,9 @@ public class Control : MonoBehaviour
         playerInput.Action.MouseClick.performed += Click;
         playerInput.Action.MousePosition.performed += MousePosition;
         playerInput.Action.Reload.performed += Reload;
+
+        //passage du nombre de balle max au texte du HUD
+        BulletCountdown.maxBullet = maxBullet;
     }
 
     //tir
@@ -82,7 +88,7 @@ public class Control : MonoBehaviour
     private void Move(InputAction.CallbackContext obj)
     {
         inputValue = obj.ReadValue<Vector2>();
-        inputValue3D = new Vector3(inputValue.x, inputValue.y, 0);
+        inputValue3D = new Vector3(inputValue.x, 0, inputValue.y);
     }
     //Arret du déplacement
     private void Stop(InputAction.CallbackContext obj)
@@ -129,6 +135,7 @@ public class Control : MonoBehaviour
 
         //Nombre de balle disponible = au nombre de balle maximum
         remainBullet = maxBullet;
+
     }
     void Update()
     {
@@ -140,11 +147,7 @@ public class Control : MonoBehaviour
         var aimAngle = Vector3.SignedAngle(Vector3.forward , look, Vector3.down);
         //Application de l'angle sur la rotation du joueur
         transform.rotation = Quaternion.AngleAxis(aimAngle, Vector3.down);
-
-        //passage du nombre de balle restante et du nombre de balle max au texte du HUD
-        BulletCountdown.remainBullet = remainBullet;
-        BulletCountdown.maxBullet = maxBullet;
-
+        
         //Tir
         Shooting();
     }
@@ -162,16 +165,20 @@ public class Control : MonoBehaviour
             createBullet.GetComponent<Bullet>().fixinputValue = look;
             //Changement de la valeur du dernier tir
             lastShoot = actualTime;
-            //décrémentation du nombre de balle restante
-            BulletCountdown.remainBullet = BulletCountdown.remainBullet - 1;
+
+            onShoot.Invoke();
             remainBullet = remainBullet - 1;
         }
     }
 
     void Reload(InputAction.CallbackContext obj)
     {
+        canShoot = false;
+        onReload.Invoke();
         //Nombre de balle disponible = au nombre de balle maximum
         remainBullet = maxBullet;
+
+        canShoot = true;
     }
 
     // Update is called once per frame

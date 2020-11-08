@@ -6,6 +6,9 @@ TagManager:
   tags:
   - HUD
   - BulletCountdown
+  - Start
+  - End
+  - Ennemy
   layers:
   - Default
   - TransparentFX
@@ -15,10 +18,10 @@ TagManager:
   - UI
   - 
   - 
+  - Tourelle_Plateforme
   - Tourelle
-  - 
-  - 
-  - 
+  - Ennemy
+  - Bullet
   - 
   - 
   - 
