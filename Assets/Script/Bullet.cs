@@ -23,10 +23,10 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.layer == 8)
         {
-            Debug.Log("oui:" + collision);
+            Debug.Log(collision);
         }
-}
-*/
+    }
+    */
 
     void OnBecameInvisible()
     {

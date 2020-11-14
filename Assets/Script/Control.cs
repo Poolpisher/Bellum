@@ -7,7 +7,7 @@ public class Control : MonoBehaviour
 {
     //Son clique sur les plateformes
     AudioSource m_MyAudioSource;
-
+    
     //Vitesse du joueur
     [SerializeField] private int speed;
     //Si le joueur peux tirer
@@ -20,18 +20,18 @@ public class Control : MonoBehaviour
     //Nombre maximum de balles
     [SerializeField] private int maxBullet;
 
-    //Vitesse du joueur
-    [SerializeField] private LayerMask layerMask;
+    //Layer mask pour ouvrir les différents HUD
+    [SerializeField] private LayerMask HUDtourelles;
+    [SerializeField] private LayerMask HUDshop;
     //Temps entre 2 balles
     [SerializeField] private float shootTimer;
     //HUD Plateforme tourelle
     [SerializeField] private GameObject HUDmenu;
     //Affiche/Désaffiche le HUD des tourelles
-    [SerializeField] private UnityEvent onClickPlateform;
     [SerializeField] private UnityEvent onClickVoid;
     //Passe la position d'une plateforme au script Sentry_Creation
-    [SerializeField] private Vector3_Event onClickVector3;
-
+    [SerializeField] private Vector3_Event onClickPlateform;
+    //Met à jour les munitions dans le HUD
     [SerializeField] private UnityEvent onShoot;
     [SerializeField] private UnityEvent onReload;
 
@@ -100,18 +100,14 @@ public class Control : MonoBehaviour
     {
         RaycastHit hit;
         // Does the ray intersect any objects excluding the player layer
-        if (Physics.Raycast(cam.transform.position, point - cam.transform.position, out hit, Mathf.Infinity, layerMask))
+        if (Physics.Raycast(cam.transform.position, point - cam.transform.position, out hit, Mathf.Infinity, HUDtourelles))
         {
             Debug.DrawRay(cam.transform.position, point - cam.transform.position, Color.yellow);
-            //Affiche le HUD des tourelles
-            onClickPlateform.Invoke();
             //Passe la position pour créer la tourelle
-            onClickVector3.Invoke(hit.transform.position);
+            onClickPlateform.Invoke(hit.transform.position);
         }
         else
         {
-            //Le HUD ne s'affiche pas
-            Debug.DrawRay(cam.transform.position, point - cam.transform.position, Color.white);
             //Désaffiche le HUD des tourelles
             onClickVoid.Invoke();
         }
@@ -151,7 +147,7 @@ public class Control : MonoBehaviour
         //Tir
         Shooting();
     }
-
+    
     private void Shooting()
     {
         //Calcul du temps lors du tir
@@ -177,7 +173,7 @@ public class Control : MonoBehaviour
         onReload.Invoke();
         //Nombre de balle disponible = au nombre de balle maximum
         remainBullet = maxBullet;
-
+        //lancer une animation de recharge
         canShoot = true;
     }
 
