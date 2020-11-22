@@ -11,7 +11,8 @@ public class Control : MonoBehaviour
     //Vitesse du joueur
     [SerializeField] private int speed;
     //Si le joueur peux tirer
-    [SerializeField] private bool canShoot;
+    private bool canShoot;
+    private bool isReloading;
     //Projectile
     [SerializeField] private GameObject bulletPrefab;
 
@@ -153,7 +154,7 @@ public class Control : MonoBehaviour
         //Calcul du temps lors du tir
         var actualTime = Time.time;
         //Si le joueur peux tier et que le temps actuel est supérieur à celui du dernier tir + le temps minimum requis entre chaque tir
-        if (canShoot && actualTime > lastShoot + shootTimer && remainBullet > 0)
+        if (canShoot && actualTime > lastShoot + shootTimer && remainBullet > 0 && !isReloading)
         {
             //Création de la balle
             var createBullet = Instantiate(bulletPrefab, rigidbody.position, Quaternion.identity);
@@ -169,12 +170,18 @@ public class Control : MonoBehaviour
 
     void Reload(InputAction.CallbackContext obj)
     {
-        canShoot = false;
+        StartCoroutine(ReloadAnimation());
+            //lancer une animation de recharge
+    }
+
+    private IEnumerator ReloadAnimation()
+    {
+        isReloading = true;
+        yield return new WaitForSeconds(2);
+        isReloading = false;
         onReload.Invoke();
         //Nombre de balle disponible = au nombre de balle maximum
         remainBullet = maxBullet;
-        //lancer une animation de recharge
-        canShoot = true;
     }
 
     // Update is called once per frame
