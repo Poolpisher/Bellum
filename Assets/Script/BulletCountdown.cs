@@ -25,6 +25,11 @@ public class BulletCountdown : MonoBehaviour
     public void Reload()
     {
         remainBullet = maxBullet;
+        txt.text = "-" + "/" + maxBullet;
+    }
+
+    public void FinishReload()
+    {
         txt.text = remainBullet + "/" + maxBullet;
     }
 }

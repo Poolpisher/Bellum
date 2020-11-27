@@ -18,16 +18,6 @@ public class Bullet : MonoBehaviour
         rigidbody.AddForce(fixinputValue * bulletSpeed, ForceMode.Impulse);
     }
 
-    /*
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.layer == 8)
-        {
-            Debug.Log(collision);
-        }
-    }
-    */
-
     void OnBecameInvisible()
     {
         //détruit la balle une fois hors de portée de la caméra

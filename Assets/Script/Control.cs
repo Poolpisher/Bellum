@@ -32,11 +32,13 @@ public class Control : MonoBehaviour
     [SerializeField] private GameObject HUDmenu;
     //Affiche/Désaffiche le HUD des tourelles
     [SerializeField] private UnityEvent onClickVoid;
+    
     //Passe la position d'une plateforme au script Sentry_Creation
     [SerializeField] private Vector3_Event onClickPlateform;
     //Met à jour les munitions dans le HUD
     [SerializeField] private UnityEvent onShoot;
     [SerializeField] private UnityEvent onReload;
+    [SerializeField] private UnityEvent onFinishReload;
 
     //Orientation du joueur
     private Vector2 inputValue;
@@ -181,11 +183,11 @@ public class Control : MonoBehaviour
     private IEnumerator ReloadAnimation()
     {
         isReloading = true;
-        myAnimator.SetBool("isReloading_Anim", true);
+        myAnimator.SetTrigger("Reload");
+        onReload.Invoke();
         yield return new WaitForSeconds(2);
         isReloading = false;
-        myAnimator.SetBool("isReloading_Anim", true);
-        onReload.Invoke();
+        onFinishReload.Invoke();
         //Nombre de balle disponible = au nombre de balle maximum
         remainBullet = maxBullet;
     }
