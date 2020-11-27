@@ -12,6 +12,7 @@ public class BulletCountdown : MonoBehaviour
     {
         txt = GetComponent<TextMeshProUGUI>();
         remainBullet = maxBullet;
+        txt.text = remainBullet + "/" + maxBullet;
     }
 
     public void Shoot()

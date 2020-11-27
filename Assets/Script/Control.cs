@@ -15,6 +15,8 @@ public class Control : MonoBehaviour
     private bool isReloading;
     //Projectile
     [SerializeField] private GameObject bulletPrefab;
+    //Animator
+    private Animator myAnimator;
 
     //Nombre de balles restantes
     private int remainBullet;
@@ -130,6 +132,8 @@ public class Control : MonoBehaviour
         //Enregistre les éléments du HUD pour les supprimer/réafficher via les variables
         HUD = GameObject.FindGameObjectWithTag("HUD");
 
+        myAnimator = GetComponent<Animator>();
+
         //Nombre de balle disponible = au nombre de balle maximum
         remainBullet = maxBullet;
 
@@ -177,8 +181,10 @@ public class Control : MonoBehaviour
     private IEnumerator ReloadAnimation()
     {
         isReloading = true;
+        myAnimator.SetBool("isReloading_Anim", true);
         yield return new WaitForSeconds(2);
         isReloading = false;
+        myAnimator.SetBool("isReloading_Anim", true);
         onReload.Invoke();
         //Nombre de balle disponible = au nombre de balle maximum
         remainBullet = maxBullet;

@@ -27,10 +27,4 @@ public class ScoreBehaviour : MonoBehaviour
         txt = GetComponent<TextMeshProUGUI>();
         txt.text = Ennemy_Behaviour.gold.ToString();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
