@@ -21,6 +21,7 @@ public class Sentry_Management : MonoBehaviour
     {
         Instantiate(Sentry, spawnPos, transform.rotation * Quaternion.Euler(0f, 0f, 0f));
     }
+
     public void Destroy()
     {
         Destroy(Sentry);

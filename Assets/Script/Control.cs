@@ -32,9 +32,11 @@ public class Control : MonoBehaviour
     [SerializeField] private GameObject HUDmenu;
     //Affiche/Désaffiche le HUD des tourelles
     [SerializeField] private UnityEvent onClickVoid;
-    
+
     //Passe la position d'une plateforme au script Sentry_Creation
     [SerializeField] private Vector3_Event onClickPlateform;
+    //Ouvre le HUD du magasin
+    [SerializeField] private Vector3_Event onClickShop;
     //Met à jour les munitions dans le HUD
     [SerializeField] private UnityEvent onShoot;
     [SerializeField] private UnityEvent onReload;
@@ -107,9 +109,15 @@ public class Control : MonoBehaviour
         // Does the ray intersect any objects excluding the player layer
         if (Physics.Raycast(cam.transform.position, point - cam.transform.position, out hit, Mathf.Infinity, HUDtourelles))
         {
-            Debug.DrawRay(cam.transform.position, point - cam.transform.position, Color.yellow);
+                //Debug.DrawRay(cam.transform.position, point - cam.transform.position, Color.yellow);
             //Passe la position pour créer la tourelle
             onClickPlateform.Invoke(hit.transform.position);
+        }
+        else if (Physics.Raycast(cam.transform.position, point - cam.transform.position, out hit, Mathf.Infinity, HUDshop))
+        {
+                //Debug.DrawRay(cam.transform.position, point - cam.transform.position, Color.yellow);
+            //Passe la position pour créer la tourelle
+            onClickShop.Invoke(hit.transform.position);
         }
         else
         {
@@ -176,8 +184,10 @@ public class Control : MonoBehaviour
 
     void Reload(InputAction.CallbackContext obj)
     {
+        if (remainBullet != maxBullet)
+        {
         StartCoroutine(ReloadAnimation());
-            //lancer une animation de recharge
+        }
     }
 
     private IEnumerator ReloadAnimation()
