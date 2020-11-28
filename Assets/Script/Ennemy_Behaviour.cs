@@ -5,8 +5,8 @@ public class Ennemy_Behaviour : MonoBehaviour
 {
     //Point de vie
     [SerializeField] private int health;
-    //Argent du joueur
-    [SerializeField] public static int gold;
+    //Ressource du joueur
+    [SerializeField] public static int metal;
     //destination de l'ennemi
     [SerializeField] private Transform destination;
     public NavMeshAgent agent;
@@ -23,13 +23,13 @@ public class Ennemy_Behaviour : MonoBehaviour
         {
             Destroy(other.gameObject);
             health = health - 2;
-            gold = gold + 5;
-            ScoreBehaviour.instance.AddScore(gold);
+            metal = metal + 5;
+            ScoreBehaviour.instance.AddScore(metal);
             if(health == 0)
             {
                 Destroy(gameObject);
-                gold = gold + 10;
-                ScoreBehaviour.instance.AddScore(gold);
+                metal = metal + 10;
+                ScoreBehaviour.instance.AddScore(metal);
             }
         }
     }

@@ -25,6 +25,6 @@ public class ScoreBehaviour : MonoBehaviour
     void Start()
     {
         txt = GetComponent<TextMeshProUGUI>();
-        txt.text = Ennemy_Behaviour.gold.ToString();
+        txt.text = Ennemy_Behaviour.metal.ToString();
     }
 }
