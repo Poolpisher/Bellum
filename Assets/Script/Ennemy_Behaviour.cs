@@ -23,13 +23,16 @@ public class Ennemy_Behaviour : MonoBehaviour
         {
             Destroy(other.gameObject);
             health = health - 2;
-            metal = metal + 5;
-            ScoreBehaviour.instance.AddScore(metal);
-            if(health == 0)
+            //metal = metal + 5;
+            if (health > 0)
+            {
+                ScoreBehaviour.instance.AddScore(metal + 5);
+            }
+            else if(health < 1)
             {
                 Destroy(gameObject);
-                metal = metal + 10;
-                ScoreBehaviour.instance.AddScore(metal);
+                //metal = metal + 10;
+                ScoreBehaviour.instance.AddScore(metal+10);
             }
         }
     }
