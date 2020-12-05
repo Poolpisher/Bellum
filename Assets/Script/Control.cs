@@ -34,9 +34,9 @@ public class Control : MonoBehaviour
     [SerializeField] private UnityEvent onClickVoid;
 
     //Passe la position d'une plateforme au script Sentry_Creation
-    [SerializeField] private Vector3_Event onClickPlateform;
+    [SerializeField] private Transform_Event onClickPlateform;
     //Ouvre le HUD du magasin
-    [SerializeField] private Vector3_Event onClickShop;
+    [SerializeField] private Transform_Event onClickShop;
     //Met à jour les munitions dans le HUD
     [SerializeField] private UnityEvent onShoot;
     [SerializeField] private UnityEvent onReload;
@@ -111,13 +111,13 @@ public class Control : MonoBehaviour
         {
                 //Debug.DrawRay(cam.transform.position, point - cam.transform.position, Color.yellow);
             //Passe la position pour créer la tourelle
-            onClickPlateform.Invoke(hit.transform.position);
+            onClickPlateform.Invoke(hit.transform);
         }
         else if (Physics.Raycast(cam.transform.position, point - cam.transform.position, out hit, Mathf.Infinity, HUDshop))
         {
                 //Debug.DrawRay(cam.transform.position, point - cam.transform.position, Color.yellow);
             //Passe la position pour créer la tourelle
-            onClickShop.Invoke(hit.transform.position);
+            onClickShop.Invoke(hit.transform);
         }
         else
         {

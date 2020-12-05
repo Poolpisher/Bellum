@@ -6,7 +6,7 @@ public class Ennemy_Behaviour : MonoBehaviour
     //Point de vie
     [SerializeField] private int health;
     //Ressource du joueur
-    [SerializeField] public static int metal;
+    [SerializeField] private int metal;
     //destination de l'ennemi
     [SerializeField] private Transform destination;
     public NavMeshAgent agent;

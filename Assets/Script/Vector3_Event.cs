@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [System.Serializable]
-public class Vector3_Event: UnityEvent<Vector3>
+public class Transform_Event: UnityEvent<Transform>
 {
 
 }

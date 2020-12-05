@@ -5,6 +5,7 @@ using UnityEngine;
 public class ScoreBehaviour : MonoBehaviour
 {
     public static ScoreBehaviour instance;
+    [SerializeField] private int score;
     TextMeshProUGUI txt;
 
     void OnEnable()
@@ -18,13 +19,14 @@ public class ScoreBehaviour : MonoBehaviour
 
     public void AddScore(int scoreToAdd)
     {
-        txt.text = scoreToAdd.ToString();
+        score += scoreToAdd;
+        txt.text = score.ToString();
     }
 
     // Start is called before the first frame update
     void Start()
     {
         txt = GetComponent<TextMeshProUGUI>();
-        txt.text = Ennemy_Behaviour.metal.ToString();
+        txt.text = score.ToString();
     }
 }

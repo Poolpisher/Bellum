@@ -4,26 +4,32 @@ using UnityEngine;
 
 public class Sentry_Management : MonoBehaviour
 {
-
     [SerializeField] private GameObject Sentry;
-
+    [SerializeField] private int metal;
     //Rigidbody
     private new Rigidbody rigidbody;
 
-    private Vector3 spawnPos;
+    private Transform lastClickedPlateform;
 
-    public void ChangeSpawnPos(Vector3 newPos)
+    public void ChangeLastClickedPlatform(Transform newPlatform)
     {
-        spawnPos = newPos;
+        lastClickedPlateform = newPlatform;
     }
 
     public void Create()
     {
-        Instantiate(Sentry, spawnPos, transform.rotation * Quaternion.Euler(0f, 0f, 0f));
+        Instantiate(Sentry, lastClickedPlateform.position, Quaternion.identity, lastClickedPlateform);
+        ScoreBehaviour.instance.AddScore(-metal);
     }
 
     public void Destroy()
     {
-        Destroy(Sentry);
+        if (lastClickedPlateform.childCount == 0)
+            return;
+        
+        var Index = lastClickedPlateform.childCount - 1;
+        var Sentry = lastClickedPlateform.GetChild(Index);
+        Destroy(Sentry.gameObject);
+        ScoreBehaviour.instance.AddScore(metal);
     }
 }
