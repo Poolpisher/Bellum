@@ -16,14 +16,13 @@ public class Ennemy_Behaviour : MonoBehaviour
     {
         agent.SetDestination(destination.position);
     }
-
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Bullet"))
         {
             Destroy(other.gameObject);
             health = health - 2;
-            //metal = metal + 5;
             if (health > 0)
             {
                 ScoreBehaviour.instance.AddScore(metal + 5);
@@ -31,9 +30,11 @@ public class Ennemy_Behaviour : MonoBehaviour
             else if(health < 1)
             {
                 Destroy(gameObject);
-                //metal = metal + 10;
-                ScoreBehaviour.instance.AddScore(metal+10);
             }
         }
+    }
+    private void OnDestroy()
+    {
+        ScoreBehaviour.instance.AddScore(metal + 10);
     }
 }

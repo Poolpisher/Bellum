@@ -4,14 +4,36 @@ using UnityEngine;
 
 public class List_Ennemy : MonoBehaviour
 {
-    [SerializeField] private int nombreEnnemy;
-    [SerializeField] private GameObject typeEnnemy;
-    public int[] tableauNombreEnnemy;
-    public GameObject[] tableauTypeEnnemy;
+    [SerializeField] private Wave[] waves;
+    private int waveNumber;
+
+    void OnValidate()
+    {
+        foreach(var wave in waves)
+        {
+            if (wave.nombreEnnemy.Length != wave.typeEnnemy.Length)
+            {
+                System.Array.Resize(ref wave.typeEnnemy, wave.nombreEnnemy.Length);
+            }
+        }
+    }
+
+    void LaunchWave()
+    {
+        for (var i=0; i<waves[waveNumber].nombreEnnemy.Length; i++)
+        {
+            for (var j=0; i<waves[waveNumber].nombreEnnemy[i]; j++)
+            {
+                Instantiate(waves[waveNumber].typeEnnemy[i]);
+            }
+        }
+        waveNumber++;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-
+        LaunchWave();
     }
 
     // Update is called once per frame

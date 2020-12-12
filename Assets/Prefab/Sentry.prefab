@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 580025706627631106}
   - component: {fileID: 4585634034665490343}
   - component: {fileID: 1749514942689407853}
+  - component: {fileID: 4490622755233247309}
   m_Layer: 9
-  m_Name: Blaster
+  m_Name: Sentry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83,3 +84,15 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4490622755233247309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 236292616651723448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a7c0c3b65b53a944a9ebc8df81e886b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
