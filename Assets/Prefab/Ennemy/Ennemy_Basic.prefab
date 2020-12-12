@@ -133,6 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 20
-  metal: 0
+  metalOnHit: 5
+  metalOnDeath: 10
   destination: {fileID: 0}
   agent: {fileID: 5744886351240755273}

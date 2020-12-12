@@ -109,13 +109,11 @@ public class Control : MonoBehaviour
         // Does the ray intersect any objects excluding the player layer
         if (Physics.Raycast(cam.transform.position, point - cam.transform.position, out hit, Mathf.Infinity, HUDtourelles))
         {
-                //Debug.DrawRay(cam.transform.position, point - cam.transform.position, Color.yellow);
-            //Passe la position pour créer la tourelle
+            //Passe la position pour créer la tourelle via l'inspecteur (qui passe nottament la position de la plateforme au script Sentry_Management)
             onClickPlateform.Invoke(hit.transform);
         }
         else if (Physics.Raycast(cam.transform.position, point - cam.transform.position, out hit, Mathf.Infinity, HUDshop))
         {
-                //Debug.DrawRay(cam.transform.position, point - cam.transform.position, Color.yellow);
             //Passe la position pour créer la tourelle
             onClickShop.Invoke(hit.transform);
         }
@@ -181,11 +179,12 @@ public class Control : MonoBehaviour
             remainBullet = remainBullet - 1;
         }
     }
-
+    //Recharge
     void Reload(InputAction.CallbackContext obj)
     {
         if (remainBullet != maxBullet)
         {
+        //Lance la coroutine suivante
         StartCoroutine(ReloadAnimation());
         }
     }
@@ -194,9 +193,12 @@ public class Control : MonoBehaviour
     {
         isReloading = true;
         myAnimator.SetTrigger("Reload");
+        //Lance la fonction OnReload de l'inspecteur
         onReload.Invoke();
+        //attends 2 secondes
         yield return new WaitForSeconds(2);
         isReloading = false;
+        //Lance la fonction onFinishReload de l'inspecteur
         onFinishReload.Invoke();
         //Nombre de balle disponible = au nombre de balle maximum
         remainBullet = maxBullet;

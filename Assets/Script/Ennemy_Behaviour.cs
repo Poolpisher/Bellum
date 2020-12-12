@@ -5,8 +5,13 @@ public class Ennemy_Behaviour : MonoBehaviour
 {
     //Point de vie
     [SerializeField] private int health;
-    //Ressource du joueur
-    [SerializeField] private int metal;
+    //Score
+        //Score qui sera additionné aux variables metalOnHit et metalOnDeath
+        private int scoreToAdd;
+        //Ressource récupérer lors d'un coup
+        [SerializeField] private int metalOnHit;
+        //Ressource récupérer lors de la mort d'un ennemie
+        [SerializeField] private int metalOnDeath;
     //destination de l'ennemi
     [SerializeField] private Transform destination;
     public NavMeshAgent agent;
@@ -14,27 +19,35 @@ public class Ennemy_Behaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Donne la position de la destination pour que le NavMesh s'y rende automatiquement
         agent.SetDestination(destination.position);
     }
     
+    //Lorsque l'ennemie est touché
     private void OnTriggerEnter(Collider other)
     {
+        //Si c'est bien un projectile qui touche l'ennemie
         if (other.CompareTag("Bullet"))
         {
+            //Détruit le projectile
             Destroy(other.gameObject);
+            //Baisse la vie de l'ennemie
             health = health - 2;
             if (health > 0)
             {
-                ScoreBehaviour.instance.AddScore(metal + 5);
+                //Rajoute du metal à ScoreBehaviour
+                ScoreBehaviour.instance.AddScore(scoreToAdd + metalOnHit);
             }
             else if(health < 1)
             {
+                //Détruit l'ennemie si sa vie atteind 0 ou moins et lance la fonction OnDestroy
                 Destroy(gameObject);
             }
         }
     }
     private void OnDestroy()
     {
-        ScoreBehaviour.instance.AddScore(metal + 10);
+        //Rajoute du metal à ScoreBehaviour
+        ScoreBehaviour.instance.AddScore(scoreToAdd + metalOnDeath);
     }
 }

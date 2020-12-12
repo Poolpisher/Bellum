@@ -16,7 +16,7 @@ public class ScoreBehaviour : MonoBehaviour
         }
         instance = this;
     }
-
+    //Met le score à jour
     public void AddScore(int scoreToAdd)
     {
         score += scoreToAdd;
@@ -26,6 +26,7 @@ public class ScoreBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Récupere le texte du HUD
         txt = GetComponent<TextMeshProUGUI>();
         txt.text = score.ToString();
     }
