@@ -22,9 +22,9 @@ public class List_Ennemy : MonoBehaviour
     {
         for (var i=0; i<waves[waveNumber].nombreEnnemy.Length; i++)
         {
-            for (var j=0; i<waves[waveNumber].nombreEnnemy[i]; j++)
+            for (var j=0; j<waves[waveNumber].nombreEnnemy[i]; j++)
             {
-                Instantiate(waves[waveNumber].typeEnnemy[i]);
+                Instantiate(waves[waveNumber].typeEnnemy[i], transform.position,Quaternion.identity);
             }
         }
         waveNumber++;
