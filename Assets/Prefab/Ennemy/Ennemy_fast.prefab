@@ -112,8 +112,8 @@ MonoBehaviour:
   health: 5
   metalOnHit: 2
   metalOnDeath: 5
-  destination: {fileID: 0}
-  agent: {fileID: 0}
+  destination: {fileID: 5638757767932067282, guid: 51a27ba5be8249149a8198a690255f39, type: 3}
+  agent: {fileID: 2704044548119528023}
 --- !u!195 &2704044548119528023
 NavMeshAgent:
   m_ObjectHideFlags: 0

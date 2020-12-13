@@ -22,7 +22,7 @@ public class Control : MonoBehaviour
     private int remainBullet;
     //Nombre maximum de balles
     [SerializeField] private int maxBullet;
-
+    
     //Layer mask pour ouvrir les différents HUD
     [SerializeField] private LayerMask HUDtourelles;
     [SerializeField] private LayerMask HUDshop;
@@ -30,6 +30,8 @@ public class Control : MonoBehaviour
     [SerializeField] private float shootTimer;
     //HUD Plateforme tourelle
     [SerializeField] private GameObject HUDmenu;
+    //Lance la phase Antebellum
+    [SerializeField] private UnityEvent launchAntebellum;
     //Affiche/Désaffiche le HUD des tourelles
     [SerializeField] private UnityEvent onClickVoid;
 
@@ -51,7 +53,6 @@ public class Control : MonoBehaviour
     private Camera cam;
     //Permet de récupérer la position de la souris
     private Event currentEvent;
-    //???
     private Vector3 look;
     private Vector3 point;
     //Position de la souris
@@ -75,6 +76,7 @@ public class Control : MonoBehaviour
         playerInput.Action.MouseClick.performed += Click;
         playerInput.Action.MousePosition.performed += MousePosition;
         playerInput.Action.Reload.performed += Reload;
+        playerInput.Action.Antebellum.performed += Antebellum;
 
         //passage du nombre de balle max au texte du HUD
         BulletCountdown.maxBullet = maxBullet;
@@ -102,6 +104,11 @@ public class Control : MonoBehaviour
     {
         inputValue3D = Vector2.zero;
     }
+    //Lance la partie "Antebellum" avant la vague
+    void Antebellum(InputAction.CallbackContext obj)
+    {
+        launchAntebellum.Invoke();
+    }
 
     private void Click(InputAction.CallbackContext obj)
     {
@@ -128,7 +135,7 @@ public class Control : MonoBehaviour
     {
         mousePos = obj.ReadValue<Vector2>();
     }
-
+    
     // Start is called before the first frame update
     void Start()
     {

@@ -1,9 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Events;
 using UnityEngine;
 
 public class List_Ennemy : MonoBehaviour
 {
+    //Timer avant la vague
+    [SerializeField] private float originalTime;
+    [SerializeField] private float time = 1;
+    [SerializeField] private bool canAntebellum;
+    //Animator
+    private Animator myAnimator;
+    //Affiche/Désaffiche le HUD
+    [SerializeField] private UnityEvent hudBellum;
+    [SerializeField] private UnityEvent hudParabellum;
+    [SerializeField] private UnityEvent hudAntebellum;
     //Determine le nombres de vagues
     [SerializeField] private Wave[] waves;
     //Numéro de la vague
@@ -23,6 +34,57 @@ public class List_Ennemy : MonoBehaviour
         }
     }
 
+    // Start is called before the first frame update
+    void Start()
+    {
+
+    }
+    
+    void Parabellum()
+    {
+        //Parabellum
+        //Met le HUD à jour
+        hudParabellum.Invoke();
+    }
+    public void TimerAntebellum()
+    {
+        //Relance le timer
+        time = originalTime;
+        //Permet de ne pas lancer le timer tout le temps
+        canAntebellum = true;
+    }
+    public void Antebellum()
+    {
+        //Met le HUD à jour
+        hudAntebellum.Invoke();
+        //Diminue le timer
+        time -= Time.deltaTime;
+    }
+    void Bellum()
+    {
+        canAntebellum = false;
+        //Met le HUD à jour
+        hudBellum.Invoke();
+        //Lance la vague
+        LaunchWave();
+            //Repasser à Parabellum une fois la vague terminée
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        //Début Timer avant la vague: Antebellum
+        if (time > 0 && canAntebellum)
+        {
+            Antebellum();
+        }
+        //La vague: Bellum
+        else if (time <= 0)
+        {
+            Bellum();
+        }
+    }
+
     void LaunchWave()
     {
         //Boucle for qui détermine le nombre et le type d'ennemie par la taille des tableaux
@@ -37,17 +99,5 @@ public class List_Ennemy : MonoBehaviour
         }
         //Change le numéro de la vague actuelle
         waveNumber++;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        LaunchWave();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

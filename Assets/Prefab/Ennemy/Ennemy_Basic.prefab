@@ -135,5 +135,5 @@ MonoBehaviour:
   health: 20
   metalOnHit: 5
   metalOnDeath: 10
-  destination: {fileID: 0}
+  destination: {fileID: 5638757767932067282, guid: 51a27ba5be8249149a8198a690255f39, type: 3}
   agent: {fileID: 5744886351240755273}
