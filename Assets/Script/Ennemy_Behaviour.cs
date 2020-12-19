@@ -14,7 +14,12 @@ public class Ennemy_Behaviour : MonoBehaviour
         [SerializeField] private int metalOnDeath;
     //destination de l'ennemi
     [SerializeField] private Transform destination;
-    public NavMeshAgent agent;
+    private NavMeshAgent agent;
+
+    private void Start()
+    {
+        agent = GetComponent<NavMeshAgent>();
+    }
 
     // Update is called once per frame
     void Update()

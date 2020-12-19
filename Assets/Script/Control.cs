@@ -76,7 +76,7 @@ public class Control : MonoBehaviour
         playerInput.Action.MouseClick.performed += Click;
         playerInput.Action.MousePosition.performed += MousePosition;
         playerInput.Action.Reload.performed += Reload;
-        playerInput.Action.Antebellum.performed += Antebellum;
+        playerInput.Action.Antebellum.performed += GameManager.Instance.Antebellum;
 
         //passage du nombre de balle max au texte du HUD
         BulletCountdown.maxBullet = maxBullet;
@@ -104,12 +104,7 @@ public class Control : MonoBehaviour
     {
         inputValue3D = Vector2.zero;
     }
-    //Lance la partie "Antebellum" avant la vague
-    void Antebellum(InputAction.CallbackContext obj)
-    {
-        launchAntebellum.Invoke();
-    }
-
+    
     private void Click(InputAction.CallbackContext obj)
     {
         RaycastHit hit;

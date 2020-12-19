@@ -55,10 +55,10 @@ public class List_Ennemy : MonoBehaviour
     }
     public void Antebellum()
     {
-        //Met le HUD à jour
-        hudAntebellum.Invoke();
         //Diminue le timer
         time -= Time.deltaTime;
+        //Met le HUD à jour
+        hudAntebellum.Invoke();
     }
     void Bellum()
     {
@@ -84,7 +84,9 @@ public class List_Ennemy : MonoBehaviour
             Bellum();
         }
     }
-
+    /// <summary>
+    /// test
+    /// </summary>
     void LaunchWave()
     {
         //Boucle for qui détermine le nombre et le type d'ennemie par la taille des tableaux
