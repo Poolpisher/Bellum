@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Shop : MonoBehaviour
-{    public void IncreaseMaxBullet()
+{    
+    public void IncreaseMaxBullet()
     {
        
     }

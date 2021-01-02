@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 using UnityEngine;
 
+//Création des 3 types de phases de jeu dans la classe GameState
 public enum GameState
 {
     Parabellum, Antebellum, Bellum
@@ -10,27 +12,35 @@ public enum GameState
 
 public class GameManager : MonoBehaviour
 {
-    public static GameState ActiveState;
-    [SerializeField] private State_Event OnStateChange;
+    //Durée de la vague antebellum
+    [SerializeField] private int timerAntebellum;
+    //Evenement Unity du script Vector3Event
+    public static GameState activeState;
+    //Evenement qui change le nom de lague dans le HUD et relance l'animation
+    [SerializeField] private State_Event onStateChange;
+    [SerializeField] private UnityEvent onBellum;
+    //
     public static GameManager Instance;
 
-    //Lance la partie "Antebellum" avant la vague
+    /// <summary>
+    /// Lance la partie "Antebellum" avant la vague
+    /// </summary>
     public void Antebellum(InputAction.CallbackContext obj)
     {
-        ActiveState = GameState.Antebellum;
-        OnStateChange.Invoke(GameState.Antebellum);
+        activeState = GameState.Antebellum;
+        onStateChange.Invoke(GameState.Antebellum);
         StartCoroutine(CountdownAntebellum());
     }
-
+    // Lance le timer "Antebellum" avant la partie "Bellum"
     private IEnumerator CountdownAntebellum()
     {
-        yield return new WaitForSeconds(4);
-        OnStateChange.Invoke(GameState.Bellum);
+        yield return new WaitForSeconds(timerAntebellum);
+        onStateChange.Invoke(GameState.Bellum);
+        onBellum.Invoke();
     }
 
     private void Awake()
     {
-        ActiveState = GameState.Parabellum;
         if (Instance != null)
         {
             Destroy(this);
@@ -41,7 +51,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        OnStateChange.Invoke(ActiveState);
+        onStateChange.Invoke(activeState);
     }
 
     // Update is called once per frame
