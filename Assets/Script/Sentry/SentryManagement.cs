@@ -23,9 +23,13 @@ public class SentryManagement : MonoBehaviour
     /// </summary>
     public void Create()
     {
-        Instantiate(Sentry, lastClickedPlateform.position, Quaternion.identity, lastClickedPlateform);
-        //retire le prix de la construction de la tourelle en metal
-        ScoreBehaviour.instance.AddScore(-metal);
+        //Vérifie qu'une tourelle n'est pas déjà placée et que le joueur a assez de metal
+        if (lastClickedPlateform.childCount == 0 && MetalBehaviour.toCompareMetal >= metal)
+        {
+            //retire le prix de la construction de la tourelle en metal
+            MetalBehaviour.instance.AddScore(-metal);
+            Instantiate(Sentry, lastClickedPlateform.position, Quaternion.identity, lastClickedPlateform);
+        }
     }
 
     /// <summary>
@@ -42,6 +46,6 @@ public class SentryManagement : MonoBehaviour
         //Détruit la tourelle
         Destroy(Sentry.gameObject);
         //Récupere le prix original de construction de la tourelle en metal
-        ScoreBehaviour.instance.AddScore(metal);
+        MetalBehaviour.instance.AddScore(metal);
     }
 }

@@ -39,15 +39,9 @@ public class ListEnnemy : MonoBehaviour
             {
                 //Créer les ennemies à la position du générateur d'ennemie
                 Instantiate(waves[waveNumber].typeEnnemy[i], transform.position,Quaternion.identity);
-                StartCoroutine(WaitForNextEnnemy());
             }
         }
         //Change le numéro de la vague actuelle
         waveNumber++;
-    }
-
-    private IEnumerator WaitForNextEnnemy()
-    {
-        yield return new WaitForSeconds(1);
     }
 }

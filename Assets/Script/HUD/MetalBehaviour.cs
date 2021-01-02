@@ -2,12 +2,14 @@
 using TMPro;
 using UnityEngine;
 
-public class ScoreBehaviour : MonoBehaviour
+public class MetalBehaviour : MonoBehaviour
 {
-    //
-    public static ScoreBehaviour instance;
-
+    //Ressource du joueur
     [SerializeField] private int metal;
+    //valeur identique pour vérifier que le joueur a assez de ressources (script SentryManagement)
+    [SerializeField] public static int toCompareMetal;
+    //
+    public static MetalBehaviour instance;
     TextMeshProUGUI txt;
 
     void OnEnable()
@@ -18,6 +20,7 @@ public class ScoreBehaviour : MonoBehaviour
         }
         instance = this;
     }
+
     //Met le score à jour
     public void AddScore(int scoreToAdd)
     {
@@ -31,5 +34,10 @@ public class ScoreBehaviour : MonoBehaviour
         //Récupere le texte du HUD
         txt = GetComponent<TextMeshProUGUI>();
         txt.text = metal.ToString();
+    }
+
+    void Update()
+    {
+        toCompareMetal = metal;
     }
 }

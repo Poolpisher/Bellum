@@ -43,7 +43,7 @@ public class EnnemyBehaviour : MonoBehaviour
             if (health > 0)
             {
                 //Rajoute du metal à ScoreBehaviour
-                ScoreBehaviour.instance.AddScore(scoreToAdd + metalOnHit);
+                MetalBehaviour.instance.AddScore(scoreToAdd + metalOnHit);
             }
             else if(health < 1)
             {
@@ -55,6 +55,6 @@ public class EnnemyBehaviour : MonoBehaviour
     private void OnDestroy()
     {
         //Rajoute du metal à ScoreBehaviour
-        ScoreBehaviour.instance.AddScore(scoreToAdd + metalOnDeath);
+        MetalBehaviour.instance.AddScore(scoreToAdd + metalOnDeath);
     }
 }
