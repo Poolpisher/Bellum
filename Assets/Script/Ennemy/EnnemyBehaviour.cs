@@ -14,18 +14,43 @@ public class EnnemyBehaviour : MonoBehaviour
         [SerializeField] private int metalOnDeath;
     //destination de l'ennemi
     [SerializeField] private Transform destination;
+    //Agent de déplacement des ennemis
     private NavMeshAgent agent;
+    //Ennemi le plus proche de la destination
+    public static NavMeshAgent firstAgent;
 
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        //Par défaut l'agent le plus proche de la destination est le premier à apparaitre
+        if (firstAgent == null)
+        {
+            firstAgent = agent;
+        }
+
+        //Donne la position de la destination pour que le NavMesh s'y rende automatiquement
+        agent.SetDestination(destination.position);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Donne la position de la destination pour que le NavMesh s'y rende automatiquement
-        agent.SetDestination(destination.position);
+        if(firstAgent != null)
+        {
+            //Si la distance parcouru par l'ennemi actuel est plus petite que celle du firstAgent
+            if(agent.remainingDistance < firstAgent.remainingDistance)
+            {
+                Debug.Log(firstAgent);
+                //L'ennemi actuel devient le firstAgent
+                firstAgent = agent;
+            }
+        }
+        else
+        {
+            //L'ennemi actuel devient le firstAgent
+            firstAgent = agent;
+        }
     }
 
     /// <summary>

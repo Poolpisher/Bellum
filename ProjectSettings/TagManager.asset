@@ -11,6 +11,9 @@ TagManager:
   - Ennemy
   - HUDshop
   - Bullet
+  - Button
+  - HUDtourelles
+  - EventSystem
   layers:
   - Default
   - TransparentFX

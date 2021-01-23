@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 9072401810088381020}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -114,7 +114,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
-  canShoot: 0
   bulletPrefab: {fileID: 4440960880823675855, guid: 1274a1d80c25bba49b85e0d443b2ec46, type: 3}
   maxBullet: 20
   HUDtourelles:
@@ -125,6 +124,9 @@ MonoBehaviour:
     m_Bits: 4096
   shootTimer: 0.2
   HUDmenu: {fileID: 0}
+  launchAntebellum:
+    m_PersistentCalls:
+      m_Calls: []
   onClickVoid:
     m_PersistentCalls:
       m_Calls:
@@ -179,6 +181,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onClickShop:
+    m_PersistentCalls:
+      m_Calls: []
   onShoot:
     m_PersistentCalls:
       m_Calls:
@@ -209,6 +214,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onFinishReload:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!135 &9072401810088381016
 SphereCollider:
   m_ObjectHideFlags: 0
