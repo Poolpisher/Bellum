@@ -1,49 +1,53 @@
-﻿using UnityEngine;
-using UnityEngine.AI;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class EnnemyBehaviour : MonoBehaviour
 {
     //Point de vie
     [SerializeField] private int health;
     //Score
-        //Score qui sera additionné aux variables metalOnHit et metalOnDeath
-        private int scoreToAdd;
-        //Ressource récupérer lors d'un coup
-        [SerializeField] private int metalOnHit;
-        //Ressource récupérer lors de la mort d'un ennemie
-        [SerializeField] private int metalOnDeath;
+    //Score qui sera additionné aux variables metalOnHit et metalOnDeath
+    private int scoreToAdd;
+    //Ressource récupérer lors d'un coup
+    [SerializeField] private int metalOnHit;
+    //Ressource récupérer lors de la mort d'un ennemie
+    [SerializeField] private int metalOnDeath;
     //destination de l'ennemi
     [SerializeField] private Transform destination;
     //Agent de déplacement des ennemis
-    private NavMeshAgent agent;
+    private UnityEngine.AI.NavMeshAgent agent;
     //Ennemi le plus proche de la destination
-    public static NavMeshAgent firstAgent;
+    public static UnityEngine.AI.NavMeshAgent firstAgent;
 
     private void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
+        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         //Par défaut l'agent le plus proche de la destination est le premier à apparaitre
         if (firstAgent == null)
         {
             firstAgent = agent;
         }
-
         //Donne la position de la destination pour que le NavMesh s'y rende automatiquement
         agent.SetDestination(destination.position);
-
     }
-
+ 
     // Update is called once per frame
     void Update()
     {
-        if(firstAgent != null)
+        if (firstAgent != null)
         {
             //Si la distance parcouru par l'ennemi actuel est plus petite que celle du firstAgent
-            if(agent.remainingDistance < firstAgent.remainingDistance)
+            if (agent.GetPathRemainingDistance() < firstAgent.GetPathRemainingDistance())
             {
                 Debug.Log(firstAgent);
                 //L'ennemi actuel devient le firstAgent
                 firstAgent = agent;
+            }
+            else
+            {
+                Debug.Log(transform.position);
+                Debug.Log(agent.GetPathRemainingDistance());
             }
         }
         else
@@ -70,7 +74,7 @@ public class EnnemyBehaviour : MonoBehaviour
                 //Rajoute du metal à ScoreBehaviour
                 MetalBehaviour.instance.AddScore(scoreToAdd + metalOnHit);
             }
-            else if(health < 1)
+            else if (health < 1)
             {
                 //Détruit l'ennemie si sa vie atteind 0 ou moins et lance la fonction OnDestroy
                 Destroy(gameObject);
