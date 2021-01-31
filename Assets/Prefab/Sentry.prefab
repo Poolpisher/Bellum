@@ -98,7 +98,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 4440960880823675855, guid: 1274a1d80c25bba49b85e0d443b2ec46, type: 3}
-  shootTimer: 4
+  shootTimer: 2
+  rangeShoot: 10
 --- !u!1 &8494984502937845329
 GameObject:
   m_ObjectHideFlags: 0

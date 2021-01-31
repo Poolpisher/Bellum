@@ -40,13 +40,11 @@ public class EnnemyBehaviour : MonoBehaviour
             //Si la distance parcouru par l'ennemi actuel est plus petite que celle du firstAgent
             if (agent.GetPathRemainingDistance() < firstAgent.GetPathRemainingDistance())
             {
-                Debug.Log(firstAgent);
                 //L'ennemi actuel devient le firstAgent
                 firstAgent = agent;
             }
             else
             {
-                Debug.Log(transform.position);
                 Debug.Log(agent.GetPathRemainingDistance());
             }
         }
