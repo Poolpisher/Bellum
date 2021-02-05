@@ -24,6 +24,7 @@ public class SentryBehaviour : MonoBehaviour
     void Start()
     {
         canonTransform = transform.GetChild(0);
+        lastShoot = 0;
     }
 
     // Update is called once per frame
@@ -54,6 +55,10 @@ public class SentryBehaviour : MonoBehaviour
                     //Changement de la valeur du dernier tir
                     lastShoot = actualTime;
                 }
+            }
+            else
+            {
+            Debug.Log("Coucou");
             }
         }
         

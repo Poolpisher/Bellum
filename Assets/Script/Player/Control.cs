@@ -30,7 +30,7 @@ public class Control : MonoBehaviour
     [SerializeField] private LayerMask HUDtourelles;
     [SerializeField] private LayerMask HUDshop;
     //Récupération des component des boutons du HUD pour éviter de tirer en cliquant dessus (voir Shoot())
-    GraphicRaycaster raycasterHUDtourelles;
+    [SerializeField] GraphicRaycaster raycasterHUDtourelles;
     EventSystem eventSystemHUDtourelles;
     //Position de la souris dans le HUD
     PointerEventData pointerEventDataHUDtourelles;

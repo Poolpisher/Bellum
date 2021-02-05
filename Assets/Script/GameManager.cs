@@ -16,10 +16,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int timerAntebellum;
     //Evenement Unity du script Vector3Event
     public static GameState activeState;
-    //Evenement qui change le nom de lague dans le HUD et relance l'animation
+    //Evenement qui change le nom de vague dans le HUD et relance l'animation
     [SerializeField] private State_Event onStateChange;
     [SerializeField] private UnityEvent onBellum;
-    //
     public static GameManager Instance;
 
     /// <summary>
@@ -27,14 +26,18 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void Antebellum(InputAction.CallbackContext obj)
     {
+        //Passe en Antebellum
         activeState = GameState.Antebellum;
         onStateChange.Invoke(GameState.Antebellum);
+        //Compte à rebours avant la partie Bellum
         StartCoroutine(CountdownAntebellum());
     }
     // Lance le timer "Antebellum" avant la partie "Bellum"
     private IEnumerator CountdownAntebellum()
     {
+        //Compte à rebours
         yield return new WaitForSeconds(timerAntebellum);
+        //Passe en Bellum
         onStateChange.Invoke(GameState.Bellum);
         onBellum.Invoke();
     }
