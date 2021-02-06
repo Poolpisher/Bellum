@@ -43,10 +43,6 @@ public class EnnemyBehaviour : MonoBehaviour
                 //L'ennemi actuel devient le firstAgent
                 firstAgent = agent;
             }
-            else
-            {
-                Debug.Log(agent.GetPathRemainingDistance());
-            }
         }
         else
         {
@@ -83,5 +79,6 @@ public class EnnemyBehaviour : MonoBehaviour
     {
         //Rajoute du metal à ScoreBehaviour
         MetalBehaviour.instance.AddScore(scoreToAdd + metalOnDeath);
+        firstAgent = null;
     }
 }

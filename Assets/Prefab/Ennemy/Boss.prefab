@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 680350094517280169}
   - component: {fileID: 680350094517280167}
   - component: {fileID: 680350094517280168}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Boss
-  m_TagString: Untagged
+  m_TagString: Ennemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -114,7 +114,6 @@ MonoBehaviour:
   metalOnHit: 5
   metalOnDeath: 50
   destination: {fileID: 5638757767932067282, guid: 51a27ba5be8249149a8198a690255f39, type: 3}
-  agent: {fileID: 680350094517280168}
 --- !u!195 &680350094517280168
 NavMeshAgent:
   m_ObjectHideFlags: 0
