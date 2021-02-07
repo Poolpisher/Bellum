@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Events;
 using UnityEngine;
 
-//Création des 3 types de phases de jeu dans la classe GameState
+//CrÃ©ation des 3 types de phases de jeu dans la classe GameState
 public enum GameState
 {
     Parabellum, Antebellum, Bellum
@@ -12,7 +12,9 @@ public enum GameState
 
 public class GameManager : MonoBehaviour
 {
-    //Durée de la vague antebellum
+    //Si le joueur peux lancer la vague Antebellum
+    public static bool canAntebellum = true;
+    //DurÃ©e de la vague antebellum
     [SerializeField] private int timerAntebellum;
     //Evenement Unity du script Vector3Event
     public static GameState activeState;
@@ -24,18 +26,28 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Lance la partie "Antebellum" avant la vague
     /// </summary>
+    public void Parabellum(InputAction.CallbackContext obj)
+    {
+        //Passe en Parabellum
+        activeState = GameState.Parabellum;
+        onStateChange.Invoke(GameState.Parabellum);
+    }
     public void Antebellum(InputAction.CallbackContext obj)
     {
+        if(canAntebellum)
+        {
+        canAntebellum = false;
         //Passe en Antebellum
         activeState = GameState.Antebellum;
         onStateChange.Invoke(GameState.Antebellum);
-        //Compte à rebours avant la partie Bellum
+        //Compte Ã  rebours avant la partie Bellum
         StartCoroutine(CountdownAntebellum());
+        }
     }
     // Lance le timer "Antebellum" avant la partie "Bellum"
     private IEnumerator CountdownAntebellum()
     {
-        //Compte à rebours
+        //Compte Ã  rebours
         yield return new WaitForSeconds(timerAntebellum);
         //Passe en Bellum
         onStateChange.Invoke(GameState.Bellum);
