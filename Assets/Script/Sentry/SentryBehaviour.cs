@@ -20,33 +20,41 @@ public class SentryBehaviour : MonoBehaviour
     [SerializeField] private float rangeShoot;
     //Distance entre le firstAgent et les canons de la tourelle dans la fonction tir
     private Vector3 look;
-
+    //Layer des ennemies pour pouvoir trier ce qui est dans la range des tourelles
     [SerializeField] private LayerMask ennemyLayer;
 
     // Start is called before the first frame update
     void Start()
     {
+        //Récupération du canon de la tourelle
         canonTransform = transform.GetChild(0);
     }
 
     // Update is called once per frame
     void Update()
     {
+        //Remet le firstAgent a null pour éviter les erreurs une fois un firstAgent détruit
         NavMeshAgent firstAgent = null;
+        //Récupère les ennemis qui entre en collision avec la range de la tourelle (2e enfant de la tourelle)
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, (transform.localScale.x * transform.GetChild(1).localScale.x)/2, ennemyLayer);
+        //Pour chaque ennemi récupéré
         foreach (var hitCollider in hitColliders)
         {
+            //Récupère le NavMeshAgent pour connaitre sa progression
             var agent = hitCollider.GetComponent<NavMeshAgent>();
+            //Si aucun ennemi n'est désigné comme firstAgent, définit le premier ennemi comme FirstAgent
             if(firstAgent == null)
             {
                 firstAgent = agent;
             }
+            //Récupère le firstAgent le plus avancé
             else if(agent.GetPathRemainingDistance() < firstAgent.GetPathRemainingDistance())
             {
                 //L'ennemi actuel devient le firstAgent
                 firstAgent = agent;
             }
         }
+        //Tire sur le FirstAgent
         Shoot(firstAgent);
     }
 

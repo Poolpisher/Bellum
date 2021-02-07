@@ -11,8 +11,11 @@ public class SentryManagement : MonoBehaviour
     private new Rigidbody rigidbody;
     //Stock la plateforme selectionné en dernier
     private Transform lastClickedPlateform;
-    //Reselectionne la derniere plateforme cliquer dans ce script via la fonction Click du script Control (onClickPlateform.Invoke())
+    //Bouton du HUD tourelle
+    [SerializeField] private GameObject createButton;
+    [SerializeField] private GameObject destroyButton;
 
+    //Reselectionne la derniere plateforme cliquer dans ce script via la fonction Click du script Control (onClickPlateform.Invoke())
     public void ChangeLastClickedPlatform(Transform newPlatform)
     {
         lastClickedPlateform = newPlatform;
@@ -28,7 +31,11 @@ public class SentryManagement : MonoBehaviour
         {
             //retire le prix de la construction de la tourelle en metal
             MetalBehaviour.instance.AddScore(-metal);
+            Control.getRange = Sentry.transform.GetChild(1).gameObject;
             Instantiate(Sentry, lastClickedPlateform.position, Quaternion.identity, lastClickedPlateform);
+            //Affiche le bouton destroy et désaffiche le bouton create du HUD des tourelles
+            createButton.SetActive(false);
+            destroyButton.SetActive(true);
         }
     }
 
@@ -47,5 +54,8 @@ public class SentryManagement : MonoBehaviour
         Destroy(Sentry.gameObject);
         //Récupere le prix original de construction de la tourelle en metal
         MetalBehaviour.instance.AddScore(metal);
+        //Affiche le bouton create et désaffiche le bouton destroy du HUD des tourelles
+        createButton.SetActive(true);
+        destroyButton.SetActive(false);
     }
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2801379906248593465}
   - component: {fileID: -2439267224100203266}
   m_Layer: 0
-  m_Name: New sentry
+  m_Name: Sentry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -178,11 +178,11 @@ GameObject:
   - component: {fileID: 2747500550577339799}
   m_Layer: 0
   m_Name: Range
-  m_TagString: Untagged
+  m_TagString: RangeSentry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &431153289593966626
 Transform:
   m_ObjectHideFlags: 0

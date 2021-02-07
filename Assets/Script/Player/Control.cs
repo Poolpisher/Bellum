@@ -31,6 +31,8 @@ public class Control : MonoBehaviour
     [SerializeField] private LayerMask HUDshop;
     //Récupération des component des boutons du HUD pour éviter de tirer en cliquant dessus (voir Shoot())
     [SerializeField] GraphicRaycaster raycasterHUDtourelles;
+    //Range de la tourelle
+    public static GameObject getRange;
     EventSystem eventSystemHUDtourelles;
     //Position de la souris dans le HUD
     PointerEventData pointerEventDataHUDtourelles;
@@ -38,17 +40,22 @@ public class Control : MonoBehaviour
     [SerializeField] private float shootTimer;
     //HUD Plateforme tourelle
     [SerializeField] private GameObject HUDmenu;
-    //Affiche/Désaffiche le HUD des tourelles
-    [SerializeField] private UnityEvent onClickVoid;
+        //UnityEvent
+        //Affiche/Désaffiche le HUD des tourelles
+        [SerializeField] private UnityEvent onClickVoid;
+        //Affiche le bouton create et désaffiche le bouton destroy du HUD des tourelles
+        [SerializeField] private UnityEvent canCreateSentryHUD;
+        //Affiche le bouton destroy et désaffiche le bouton create du HUD des tourelles
+        [SerializeField] private UnityEvent canDestroySentryHUD;
 
-    //Passe la position d'une plateforme au script Sentry_Creation
-    [SerializeField] private Transform_Event onClickPlateform;
-    //Ouvre le HUD du magasin
-    [SerializeField] private Transform_Event onClickShop;
-    //Met à jour les munitions dans le HUD
-    [SerializeField] private UnityEvent onShoot;
-    [SerializeField] private UnityEvent onReload;
-    [SerializeField] private UnityEvent onFinishReload;
+        //Passe la position d'une plateforme au script Sentry_Creation
+        [SerializeField] private Transform_Event onClickPlateform;
+        //Ouvre le HUD du magasin
+        [SerializeField] private Transform_Event onClickShop;
+        //Met à jour les munitions dans le HUD
+        [SerializeField] private UnityEvent onShoot;
+        [SerializeField] private UnityEvent onReload;
+        [SerializeField] private UnityEvent onFinishReload;
 
     //Orientation du joueur
     private Vector2 inputValue;
@@ -143,9 +150,35 @@ public class Control : MonoBehaviour
         // Does the ray intersect any objects excluding the player layer
         if (Physics.Raycast(cam.transform.position, point - cam.transform.position, out hit, Mathf.Infinity, HUDtourelles))
         {
+            //Désaffiche la range de la tourelle précedemment seliectionné
+            if(getRange != null)
+            {
+            getRange.SetActive(false);
+            }
             //Passe la position pour créer la tourelle via l'inspecteur (qui passe nottament la position de la plateforme au script Sentry_Management)
             onClickPlateform.Invoke(hit.transform);
-
+            //Si une tourelle est présente sur la plateforme sélectionné
+            if(hit.transform.childCount > 0)
+            {
+            //Récupère la range
+            getRange = hit.transform.GetChild(0).Find("Range").gameObject;
+            //Affiche le bouton destroy et désaffiche le bouton create du HUD des tourelles
+            canDestroySentryHUD.Invoke();
+            //Affiche la range de la tourelle
+            getRange.SetActive(true);
+            }
+            //Si une tourelle n'est pas présente sur la plateforme sélectionné
+            else
+            {
+            //Désaffiche la range de la tourelle précedemment seliectionné
+            if(getRange != null)
+            {
+            getRange.SetActive(false);
+            }
+            //Affiche le bouton create et désaffiche le bouton destroy du HUD des tourelles
+            canCreateSentryHUD.Invoke();
+            }
+            
             //Récupere le component GraphicRaycaster pour repérer les boutons du HUD
             if (raycasterHUDtourelles == null)
             {
@@ -161,6 +194,11 @@ public class Control : MonoBehaviour
         {
             //Désaffiche le HUD des tourelles
             onClickVoid.Invoke();
+            //Désaffiche la range
+            if(getRange != null)
+            {
+            getRange.SetActive(false);
+            }
         }
     }
 
