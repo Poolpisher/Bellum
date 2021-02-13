@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3290812472712039043}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 35.216232, y: 1.3376274, z: 34.788826}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5730835870567654865}
@@ -48,7 +48,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 4440960880823675855, guid: 1274a1d80c25bba49b85e0d443b2ec46, type: 3}
   shootTimer: 2
-  rangeShoot: 10
   ennemyLayer:
     serializedVersion: 2
     m_Bits: 1024
@@ -182,7 +181,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &431153289593966626
 Transform:
   m_ObjectHideFlags: 0
