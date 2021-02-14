@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  metalOnHit: 5
+  metalOnHit: 2
   metalOnDeath: 50
   destination: {fileID: 5638757767932067282, guid: 51a27ba5be8249149a8198a690255f39, type: 3}
 --- !u!195 &680350094517280168

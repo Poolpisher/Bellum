@@ -13,8 +13,10 @@ GameObject:
   - component: {fileID: 3259314522813036151}
   - component: {fileID: 8418786887414401562}
   - component: {fileID: 4506444512219065216}
+  - component: {fileID: 1869036306040513527}
   - component: {fileID: 9072401810088381016}
   - component: {fileID: 9072401810088381020}
+  - component: {fileID: 5112116808763071960}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -122,11 +124,8 @@ MonoBehaviour:
   HUDshop:
     serializedVersion: 2
     m_Bits: 4096
+  raycasterHUDtourelles: {fileID: 0}
   shootTimer: 0.2
-  HUDmenu: {fileID: 0}
-  launchAntebellum:
-    m_PersistentCalls:
-      m_Calls: []
   onClickVoid:
     m_PersistentCalls:
       m_Calls:
@@ -142,6 +141,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  canCreateSentryHUD:
+    m_PersistentCalls:
+      m_Calls: []
+  canDestroySentryHUD:
+    m_PersistentCalls:
+      m_Calls: []
   onClickPlateform:
     m_PersistentCalls:
       m_Calls:
@@ -199,6 +204,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: BulletCountdown, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onReload:
     m_PersistentCalls:
       m_Calls:
@@ -214,9 +231,121 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: BulletCountdown, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onFinishReload:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1869036306040513527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9072401810088381013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2400eaf26409cf4418ef83f63b011193, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 0}
+  maxBullet: 0
+  HUDtourelles:
+    serializedVersion: 2
+    m_Bits: 0
+  raycasterHUDtourelles: {fileID: 0}
+  shootTimer: 0
+  onShoot:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onReload:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onFinishReload:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!135 &9072401810088381016
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -326,3 +455,37 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5112116808763071960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9072401810088381013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4529f13af03d81f428f6b0bb0544329e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HUDtourelles:
+    serializedVersion: 2
+    m_Bits: 0
+  HUDshop:
+    serializedVersion: 2
+    m_Bits: 0
+  raycasterHUDtourelles: {fileID: 0}
+  onClickVoid:
+    m_PersistentCalls:
+      m_Calls: []
+  canCreateSentryHUD:
+    m_PersistentCalls:
+      m_Calls: []
+  canDestroySentryHUD:
+    m_PersistentCalls:
+      m_Calls: []
+  onClickPlateform:
+    m_PersistentCalls:
+      m_Calls: []
+  onClickShop:
+    m_PersistentCalls:
+      m_Calls: []

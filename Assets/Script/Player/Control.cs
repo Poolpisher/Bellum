@@ -38,8 +38,6 @@ public class Control : MonoBehaviour
     PointerEventData pointerEventDataHUDtourelles;
     //Temps entre 2 balles
     [SerializeField] private float shootTimer;
-    //HUD Plateforme tourelle
-    [SerializeField] private GameObject HUDmenu;
         //UnityEvent
         //Affiche/Désaffiche le HUD des tourelles
         [SerializeField] private UnityEvent onClickVoid;
@@ -123,12 +121,12 @@ public class Control : MonoBehaviour
         //Permet de tirer si le joueur ne clique pas sur un bouton
         canShoot = !raycastResult;
     }
-
+    
     private void StopShoot(InputAction.CallbackContext obj)
     {
         canShoot = false;
     }
-
+    
     //Déplacement
     private void Move(InputAction.CallbackContext obj)
     {
@@ -201,7 +199,7 @@ public class Control : MonoBehaviour
             }
         }
     }
-
+    
     private void MousePosition(InputAction.CallbackContext obj)
     {
         mousePos = obj.ReadValue<Vector2>();
@@ -248,7 +246,7 @@ public class Control : MonoBehaviour
     {
         //Calcul du temps lors du tir
         var actualTime = Time.time;
-        //Si le joueur peux tier et que le temps actuel est supérieur à celui du dernier tir + le temps minimum requis entre chaque tir
+        //Si le joueur peux tirer et que le temps actuel est supérieur à celui du dernier tir + le temps minimum requis entre chaque tir
         if (canShoot && actualTime > lastShoot + shootTimer && remainBullet > 0 && !isReloading)
         {
             //Création de la balle

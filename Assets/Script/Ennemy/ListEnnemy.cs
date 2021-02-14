@@ -12,7 +12,6 @@ public class ListEnnemy : MonoBehaviour
     private int waveNumber;
     //Events pour repasser en mode Parabellum
     [SerializeField] private State_Event onStateChange;
-    [SerializeField] private UnityEvent endBellum;
 
     /// <summary>
     /// Vérifie que les cases nombreEnnemy et typeEnnemy du tableau sont de même taille
@@ -57,7 +56,8 @@ public class ListEnnemy : MonoBehaviour
         waveNumber++;
         //Repasse le jeu en Parabellum
         onStateChange.Invoke(GameState.Parabellum);
-        endBellum.Invoke();
+        GameManager.music.Stop();
+        //Permet au joueur de lancer la prochaine vague
         GameManager.canAntebellum = true;
     }
 }

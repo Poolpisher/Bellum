@@ -133,6 +133,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 20
-  metalOnHit: 5
-  metalOnDeath: 10
+  metalOnHit: 2
+  metalOnDeath: 5
   destination: {fileID: 5638757767932067282, guid: 51a27ba5be8249149a8198a690255f39, type: 3}

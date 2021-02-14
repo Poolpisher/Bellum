@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int timerAntebellum;
     //Evenement Unity du script Vector3Event
     public static GameState activeState;
+    //Musique avec Antebellum
+    public static AudioSource music;
     //Evenement qui change le nom de vague dans le HUD et relance l'animation
     [SerializeField] private State_Event onStateChange;
     [SerializeField] private UnityEvent onBellum;
@@ -47,6 +49,7 @@ public class GameManager : MonoBehaviour
     // Lance le timer "Antebellum" avant la partie "Bellum"
     private IEnumerator CountdownAntebellum()
     {
+        music.Play();
         //Compte à rebours
         yield return new WaitForSeconds(timerAntebellum);
         //Passe en Bellum
@@ -67,6 +70,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         onStateChange.Invoke(activeState);
+        music = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame

@@ -5,7 +5,6 @@ public class HUDState : MonoBehaviour
 {
     TextMeshProUGUI txt;
 
-    // Start is called before the first frame update
     void Awake()
     {
         txt = GetComponent<TextMeshProUGUI>();
