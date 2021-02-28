@@ -65,6 +65,14 @@ public class @Player : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Exit"",
+                    ""type"": ""Button"",
+                    ""id"": ""bfe98c11-e485-4706-b00c-3837ea94edac"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -331,6 +339,17 @@ public class @Player : IInputActionCollection, IDisposable
                     ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""db35a37e-1ba2-4cfb-8414-49fc6d1ba66b"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Exit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -345,6 +364,7 @@ public class @Player : IInputActionCollection, IDisposable
         m_Action_MousePosition = m_Action.FindAction("MousePosition", throwIfNotFound: true);
         m_Action_Reload = m_Action.FindAction("Reload", throwIfNotFound: true);
         m_Action_Antebellum = m_Action.FindAction("Antebellum", throwIfNotFound: true);
+        m_Action_Exit = m_Action.FindAction("Exit", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -400,6 +420,7 @@ public class @Player : IInputActionCollection, IDisposable
     private readonly InputAction m_Action_MousePosition;
     private readonly InputAction m_Action_Reload;
     private readonly InputAction m_Action_Antebellum;
+    private readonly InputAction m_Action_Exit;
     public struct ActionActions
     {
         private @Player m_Wrapper;
@@ -410,6 +431,7 @@ public class @Player : IInputActionCollection, IDisposable
         public InputAction @MousePosition => m_Wrapper.m_Action_MousePosition;
         public InputAction @Reload => m_Wrapper.m_Action_Reload;
         public InputAction @Antebellum => m_Wrapper.m_Action_Antebellum;
+        public InputAction @Exit => m_Wrapper.m_Action_Exit;
         public InputActionMap Get() { return m_Wrapper.m_Action; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -437,6 +459,9 @@ public class @Player : IInputActionCollection, IDisposable
                 @Antebellum.started -= m_Wrapper.m_ActionActionsCallbackInterface.OnAntebellum;
                 @Antebellum.performed -= m_Wrapper.m_ActionActionsCallbackInterface.OnAntebellum;
                 @Antebellum.canceled -= m_Wrapper.m_ActionActionsCallbackInterface.OnAntebellum;
+                @Exit.started -= m_Wrapper.m_ActionActionsCallbackInterface.OnExit;
+                @Exit.performed -= m_Wrapper.m_ActionActionsCallbackInterface.OnExit;
+                @Exit.canceled -= m_Wrapper.m_ActionActionsCallbackInterface.OnExit;
             }
             m_Wrapper.m_ActionActionsCallbackInterface = instance;
             if (instance != null)
@@ -459,6 +484,9 @@ public class @Player : IInputActionCollection, IDisposable
                 @Antebellum.started += instance.OnAntebellum;
                 @Antebellum.performed += instance.OnAntebellum;
                 @Antebellum.canceled += instance.OnAntebellum;
+                @Exit.started += instance.OnExit;
+                @Exit.performed += instance.OnExit;
+                @Exit.canceled += instance.OnExit;
             }
         }
     }
@@ -471,5 +499,6 @@ public class @Player : IInputActionCollection, IDisposable
         void OnMousePosition(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnAntebellum(InputAction.CallbackContext context);
+        void OnExit(InputAction.CallbackContext context);
     }
 }
