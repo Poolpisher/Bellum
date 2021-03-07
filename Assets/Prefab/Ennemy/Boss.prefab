@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 680350094517280169}
   - component: {fileID: 680350094517280167}
   - component: {fileID: 680350094517280168}
+  - component: {fileID: 51482774642798165}
   m_Layer: 10
   m_Name: Boss
   m_TagString: Ennemy
@@ -113,7 +114,6 @@ MonoBehaviour:
   health: 100
   metalOnHit: 2
   metalOnDeath: 50
-  destination: {fileID: 5638757767932067282, guid: 51a27ba5be8249149a8198a690255f39, type: 3}
 --- !u!195 &680350094517280168
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -136,3 +136,19 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!54 &51482774642798165
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 680350094517280166}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 4
+  m_CollisionDetection: 0
