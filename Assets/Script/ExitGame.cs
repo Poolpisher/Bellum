@@ -14,7 +14,7 @@ public class ExitGame : MonoBehaviour
         playerInput.Enable();
         playerInput.Action.Exit.performed += doExitGame;
     }
-
+    //Quitte le jeu
     public void doExitGame(InputAction.CallbackContext obj) 
     {
         Application.Quit();

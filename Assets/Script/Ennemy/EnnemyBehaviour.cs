@@ -14,7 +14,7 @@ public class EnnemyBehaviour : MonoBehaviour
     //Ressource récupérer lors de la mort d'un ennemie
     [SerializeField] private int metalOnDeath;
     //destination de l'ennemi
-    [SerializeField] private Transform destination;
+    private Transform destination;
     //Agent de déplacement des ennemis
     private UnityEngine.AI.NavMeshAgent agent;
     //Ennemi le plus proche de la destination
@@ -22,6 +22,7 @@ public class EnnemyBehaviour : MonoBehaviour
 
     private void Start()
     {
+        destination = GameObject.FindGameObjectWithTag("Destination").transform;
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         //Par défaut l'agent le plus proche de la destination est le premier à apparaitre
         if (firstAgent == null)
@@ -70,6 +71,8 @@ public class EnnemyBehaviour : MonoBehaviour
             }
             else if (health < 1)
             {
+                //Retire un ennemi du collider destination pour enlever le compte à rebours de game over(faire en sorte de vérifier qu'il est bien sur le collider)
+                DestinationBehaviour.instance.OnTriggerExit(GetComponent<Collider>());
                 //Détruit l'ennemie si sa vie atteind 0 ou moins et lance la fonction OnDestroy
                 Destroy(gameObject);
             }
@@ -80,5 +83,7 @@ public class EnnemyBehaviour : MonoBehaviour
         //Rajoute du metal à ScoreBehaviour
         MetalBehaviour.instance.AddScore(scoreToAdd + metalOnDeath);
         firstAgent = null;
+        //retire l'ennemie du total de ceux à éliminer lors d'une vague
+        ListEnnemy.instance.removeFromList(gameObject);
     }
 }

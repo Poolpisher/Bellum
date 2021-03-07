@@ -10,8 +10,14 @@ public class ListEnnemy : MonoBehaviour
     [SerializeField] private Wave[] waves;
     //Numéro de la vague
     private int waveNumber;
+    //Liste des ennemies restant sur une vague
+    private List<GameObject> remainingEnnemies;
+    //Vérifie si tous les ennemies d'une vague sont apparues
+    private bool hasFinishedSpawning = false;
     //Events pour repasser en mode Parabellum
     [SerializeField] private State_Event onStateChange;
+    //Singleton
+    public static ListEnnemy instance;
 
     /// <summary>
     /// Vérifie que les cases nombreEnnemy et typeEnnemy du tableau sont de même taille
@@ -27,6 +33,38 @@ public class ListEnnemy : MonoBehaviour
                 System.Array.Resize(ref wave.typeEnnemy, wave.nombreEnnemy.Length);
             }
         }
+    }
+
+    //Retire l'ennemie qui vient d'être détruit de la liste
+    public void removeFromList(GameObject toRemove)
+    {
+        //Retire l'ennemie de la liste
+        remainingEnnemies.Remove(toRemove);
+        //Si c'est le dernier ennemi qui a été détruit
+        if(hasFinishedSpawning && remainingEnnemies.Count == 0)
+        {
+            //Change le numéro de la vague actuelle
+            waveNumber++;
+            //Repasse le jeu en Parabellum
+            onStateChange.Invoke(GameState.Parabellum);
+            GameManager.music.Stop();
+            //Permet au joueur de lancer la prochaine vague
+            GameManager.canAntebellum = true;
+            hasFinishedSpawning = false;
+        }
+    }
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(this);
+        }
+        instance = this;
+    }
+
+    void Start()
+    {
+        remainingEnnemies = new List<GameObject>();
     }
     
     /// <summary>
@@ -47,17 +85,13 @@ public class ListEnnemy : MonoBehaviour
             for (var j=0; j<waves[waveNumber].nombreEnnemy[i]; j++)
             {
                 //Créer les ennemies à la position du générateur d'ennemie
-                Instantiate(waves[waveNumber].typeEnnemy[i], transform.position,Quaternion.identity);
+                var createEnnemies = Instantiate(waves[waveNumber].typeEnnemy[i], transform.position,Quaternion.identity);
+                remainingEnnemies.Add(createEnnemies);
                 //attends 1 secondes
                 yield return new WaitForSeconds(1);
             }
         }
-        //Change le numéro de la vague actuelle
-        waveNumber++;
-        //Repasse le jeu en Parabellum
-        onStateChange.Invoke(GameState.Parabellum);
-        GameManager.music.Stop();
-        //Permet au joueur de lancer la prochaine vague
-        GameManager.canAntebellum = true;
+        //Tout les ennemies de la vague sont apparues
+        hasFinishedSpawning = true;
     }
 }

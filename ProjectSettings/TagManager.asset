@@ -15,6 +15,7 @@ TagManager:
   - HUDtourelles
   - EventSystem
   - RangeSentry
+  - Destination
   layers:
   - Default
   - TransparentFX

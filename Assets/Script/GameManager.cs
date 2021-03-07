@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     //Evenement qui change le nom de vague dans le HUD et relance l'animation
     [SerializeField] private State_Event onStateChange;
     [SerializeField] private UnityEvent onBellum;
+    //Singleton
     public static GameManager Instance;
 
     /// <summary>

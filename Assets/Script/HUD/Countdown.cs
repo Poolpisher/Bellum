@@ -13,31 +13,31 @@ public class Countdown : MonoBehaviour
     //Peux lancer le compte à rebours
     public static bool canLaunchCountdown;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         animator = GetComponent<Animator>();
         txt = GetComponent<TextMeshProUGUI>();
         //Animation + premier chiffre
-        animator.Rebind();
         txt.text = "" + count;
     }
 
-    // Update is called once per frame
-    void Update()
+    //Sur apparition du compte à rebours
+    void OnEnable()
     {
-        if(canLaunchCountdown)
-        {
-        //StartCoroutine(Countdown());
-        }
+        //Reset le compte à rebours
+        count = 5;
+        txt.text = "" + count;
+        //Lance le compte à rebours
+        StartCoroutine(changeCountdown());
     }
-    /*
-    public IEnumerator Countdown()
+    //Compte à rebours
+    public IEnumerator changeCountdown()
     {
+        while(count > 0)
+        {
         yield return new WaitForSeconds(1);
         count--;
-        animator.Rebind();
         txt.text = "" + count;
+        }
     }
-    */
 }
