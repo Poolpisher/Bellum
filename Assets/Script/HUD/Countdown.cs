@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Events;
 using TMPro;
 using UnityEngine;
 
@@ -12,6 +13,8 @@ public class Countdown : MonoBehaviour
     [SerializeField]private int count = 5;
     //Peux lancer le compte à rebours
     public static bool canLaunchCountdown;
+    //Event unity du compte à rebours
+    [SerializeField] private UnityEvent onCountdownEnding;
 
     void Awake()
     {
@@ -39,5 +42,6 @@ public class Countdown : MonoBehaviour
         count--;
         txt.text = "" + count;
         }
+        onCountdownEnding.Invoke();
     }
 }

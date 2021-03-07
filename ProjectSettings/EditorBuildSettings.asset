@@ -14,5 +14,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/2nd screen.unity
     guid: 0f5ccb26c5046e548b6f0119f22559a6
+  - enabled: 1
+    path: Assets/Scenes/Failure.unity
+    guid: 677297b2837ccff48a35a04c7106e269
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: dee7a1db1aa202f45a3823630d35f01a, type: 2}
