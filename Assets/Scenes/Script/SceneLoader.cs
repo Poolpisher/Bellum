@@ -45,7 +45,6 @@ public class SceneLoader : MonoBehaviour
                 loadingAnimator.SetTrigger("Disapear");
                 // Make the new scene visible
                 loading.allowSceneActivation = true;
-                Time.timeScale = 1f;
             }
             // Wait for the end of the appearing animation before switching scenes
             yield return new WaitForSecondsRealtime(currentAnimTime);

@@ -61,12 +61,12 @@ public class Gun : MonoBehaviour
         playerInput.Action.Shoot.performed += Shoot;
         playerInput.Action.Shoot.canceled += StopShoot;
         playerInput.Action.Reload.performed += Reload;
+        playerInput.Action.MousePosition.performed += MousePosition;
 
         //passage du nombre de balle max au texte du HUD
         BulletCountdown.maxBullet = maxBullet;
     }
 
-    
     //tir
     void Shoot(InputAction.CallbackContext obj)
     {
@@ -165,14 +165,21 @@ public class Gun : MonoBehaviour
     {
         isReloading = true;
         myAnimator.SetTrigger("Reload");
+        //Récupération de la durée de l'animation
+        var waitForReloading = myAnimator.GetCurrentAnimatorStateInfo(0).length;
         //Lance la fonction OnReload de l'inspecteur
         onReload.Invoke();
-        //attends 2 secondes
-        yield return new WaitForSeconds(2);
+        //attends d'avoir recharger
+        yield return new WaitForSeconds(waitForReloading);
         isReloading = false;
         //Lance la fonction onFinishReload de l'inspecteur
         onFinishReload.Invoke();
         //Nombre de balle disponible = au nombre de balle maximum
         remainBullet = maxBullet;
+    }
+    
+    private void MousePosition(InputAction.CallbackContext obj)
+    {
+        mousePos = obj.ReadValue<Vector2>();
     }
 }

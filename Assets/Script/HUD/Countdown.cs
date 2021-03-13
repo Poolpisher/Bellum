@@ -42,6 +42,7 @@ public class Countdown : MonoBehaviour
         count--;
         txt.text = "" + count;
         }
+        //Lance l'écran failure
         onCountdownEnding.Invoke();
     }
 }

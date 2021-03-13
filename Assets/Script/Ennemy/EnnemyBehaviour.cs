@@ -78,12 +78,13 @@ public class EnnemyBehaviour : MonoBehaviour
             }
         }
     }
+    
     private void OnDestroy()
     {
         //Rajoute du metal à ScoreBehaviour
         MetalBehaviour.instance.AddScore(scoreToAdd + metalOnDeath);
         firstAgent = null;
         //retire l'ennemie du total de ceux à éliminer lors d'une vague
-        ListEnnemy.instance.removeFromList(gameObject);
+        EnnemyGenerator.instance.removeFromList(gameObject);
     }
 }

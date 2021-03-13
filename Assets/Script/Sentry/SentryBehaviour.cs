@@ -35,7 +35,7 @@ public class SentryBehaviour : MonoBehaviour
         NavMeshAgent firstAgent = null;
         //Récupère les ennemis qui entre en collision avec la range de la tourelle (2e enfant de la tourelle)
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, (transform.localScale.x * transform.GetChild(1).localScale.x)/2, ennemyLayer);
-        Debug.Log(hitColliders.Length);
+            //Debug.Log(hitColliders.Length);
         //Pour chaque ennemi récupéré
         foreach (var hitCollider in hitColliders)
         {
@@ -53,7 +53,7 @@ public class SentryBehaviour : MonoBehaviour
                 firstAgent = agent;
             }
         }
-        Debug.Log(firstAgent);
+            //Debug.Log(firstAgent);
         //Tire sur le FirstAgent
         Shoot(firstAgent);
     }

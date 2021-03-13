@@ -81,18 +81,18 @@ public class Control : MonoBehaviour
         playerInput = new Player();
         playerInput.Enable();
         playerInput.Action.Move.performed += Move;
-        playerInput.Action.Move.canceled += Stop;
+        playerInput.Action.Move.canceled += Stop;/*
         playerInput.Action.Shoot.performed += Shoot;
         playerInput.Action.Shoot.canceled += StopShoot;
         playerInput.Action.MouseClick.performed += Click;
         playerInput.Action.MousePosition.performed += MousePosition;
-        playerInput.Action.Reload.performed += Reload;
+        playerInput.Action.Reload.performed += Reload;*/
         playerInput.Action.Antebellum.performed += GameManager.Instance.Antebellum;
 
         //passage du nombre de balle max au texte du HUD
         BulletCountdown.maxBullet = maxBullet;
     }
-    
+    /*
     //tir
     void Shoot(InputAction.CallbackContext obj)
     {
@@ -126,7 +126,7 @@ public class Control : MonoBehaviour
     {
         canShoot = false;
     }
-    
+    */
     //Déplacement
     private void Move(InputAction.CallbackContext obj)
     {
@@ -138,7 +138,7 @@ public class Control : MonoBehaviour
     {
         inputValue3D = Vector2.zero;
     }
-
+/*
     /// <summary>
     /// Vérifie ou la souris est placée dans la fenetre du jeu lors d'un clique
     /// </summary>
@@ -204,7 +204,7 @@ public class Control : MonoBehaviour
     {
         mousePos = obj.ReadValue<Vector2>();
     }
-    
+    */
     // Start is called before the first frame update
     void Start()
     {
@@ -238,9 +238,9 @@ public class Control : MonoBehaviour
         transform.rotation = Quaternion.AngleAxis(aimAngle, Vector3.down);
         
         //Tir
-        Shooting();
+        //Shooting();
     }
-
+/*
     // Fonction de tir
     private void Shooting()
     {
@@ -274,17 +274,19 @@ public class Control : MonoBehaviour
     {
         isReloading = true;
         myAnimator.SetTrigger("Reload");
+        //Récupération de la durée de l'animation
+        var waitForReloading = myAnimator.GetCurrentAnimatorStateInfo(0).length;
         //Lance la fonction OnReload de l'inspecteur
         onReload.Invoke();
-        //attends 2 secondes
-        yield return new WaitForSeconds(2);
+        //attends d'avoir recharger
+        yield return new WaitForSeconds(waitForReloading);
         isReloading = false;
         //Lance la fonction onFinishReload de l'inspecteur
         onFinishReload.Invoke();
         //Nombre de balle disponible = au nombre de balle maximum
         remainBullet = maxBullet;
     }
-
+*/
     // Update is called once per frame
     void FixedUpdate()
     {

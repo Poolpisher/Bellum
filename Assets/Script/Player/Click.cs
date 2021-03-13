@@ -52,13 +52,12 @@ public class Click : MonoBehaviour
     //Rigidbody
     private new Rigidbody rigidbody;
 
-
     private void OnEnable()
     {
         //Activation des controles
         playerInput = new Player();
         playerInput.Enable();
-        //playerInput.Action.MouseClick.performed += Click;
+        playerInput.Action.MouseClick.performed += Clique;
         playerInput.Action.MousePosition.performed += MousePosition;
     }
 
@@ -93,8 +92,7 @@ public class Click : MonoBehaviour
     /// <summary>
     /// Vérifie ou la souris est placée dans la fenetre du jeu lors d'un clique
     /// </summary>
-    /*
-    private void Click(InputAction.CallbackContext obj)
+    private void Clique(InputAction.CallbackContext obj)
     {
         RaycastHit hit;
         // Does the ray intersect any objects excluding the player layer
@@ -151,10 +149,9 @@ public class Click : MonoBehaviour
             }
         }
     }
-*/
+
     private void MousePosition(InputAction.CallbackContext obj)
     {
         mousePos = obj.ReadValue<Vector2>();
     }
-    
 }
