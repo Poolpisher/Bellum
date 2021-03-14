@@ -18,6 +18,8 @@ public class EnnemyGenerator : MonoBehaviour
     [SerializeField] private State_Event onStateChange;
     //Singleton
     public static EnnemyGenerator instance;
+    //Event unity en cas de réussite
+    [SerializeField] private UnityEvent onFinishingAllWaves;
 
     /// <summary>
     /// Vérifie que les cases nombreEnnemy et typeEnnemy du tableau sont de même taille
@@ -48,6 +50,14 @@ public class EnnemyGenerator : MonoBehaviour
             //Repasse le jeu en Parabellum
             onStateChange.Invoke(GameState.Parabellum);
             GameManager.music.Stop();
+
+            //Si le joueur à terminer toutes les vagues
+            if(waveNumber == waves.Length)
+            {
+                //Lance l'écran de victoire
+                onFinishingAllWaves.Invoke();
+            }
+
             //Permet au joueur de lancer la prochaine vague
             GameManager.canAntebellum = true;
             hasFinishedSpawning = false;

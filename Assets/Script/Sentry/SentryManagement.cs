@@ -32,7 +32,7 @@ public class SentryManagement : MonoBehaviour
             //retire le prix de la construction de la tourelle en metal
             MetalBehaviour.instance.AddScore(-metal);
             var createSentry = Instantiate(Sentry, lastClickedPlateform.position, Quaternion.identity, lastClickedPlateform);
-            Control.getRange = createSentry.transform.GetChild(1).gameObject;
+            Click.getRange = createSentry.transform.GetChild(1).gameObject;
             //Affiche le bouton destroy et désaffiche le bouton create du HUD des tourelles
             createButton.SetActive(false);
             destroyButton.SetActive(true);

@@ -1,18 +1,13 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using System.Collections.Generic;
 using UnityEngine.Events;
 
 public class Click : MonoBehaviour
 {
     //Son clique sur les plateformes
     AudioSource m_MyAudioSource;
-    
-    //Animator
-    private Animator myAnimator;
     
     //Layer mask pour ouvrir les différents HUD
     [SerializeField] private LayerMask HUDtourelles;
@@ -22,8 +17,7 @@ public class Click : MonoBehaviour
     //Range de la tourelle
     public static GameObject getRange;
     EventSystem eventSystemHUDtourelles;
-    //Position de la souris dans le HUD
-    PointerEventData pointerEventDataHUDtourelles;
+    
         //UnityEvent
         //Affiche/Désaffiche le HUD des tourelles
         [SerializeField] private UnityEvent onClickVoid;
@@ -36,9 +30,7 @@ public class Click : MonoBehaviour
         [SerializeField] private Transform_Event onClickPlateform;
         //Ouvre le HUD du magasin
         [SerializeField] private Transform_Event onClickShop;
-
-    //Orientation du joueur
-    private Vector2 inputValue;
+        
     //HUD
     private GameObject HUD;
     //Caméra
@@ -49,8 +41,6 @@ public class Click : MonoBehaviour
     private Vector2 mousePos;
     //Control
     private Player playerInput;
-    //Rigidbody
-    private new Rigidbody rigidbody;
 
     private void OnEnable()
     {
@@ -66,13 +56,11 @@ public class Click : MonoBehaviour
     {
         //récupération du son de clique
         m_MyAudioSource = GetComponent<AudioSource>();
-        rigidbody = GetComponent<Rigidbody>();
 
         cam = Camera.main;
         //Enregistre les éléments du HUD pour les supprimer/réafficher via les variables
         HUD = GameObject.FindGameObjectWithTag("HUD");
 
-        myAnimator = GetComponent<Animator>();
         eventSystemHUDtourelles = GameObject.FindWithTag("EventSystem").GetComponent<EventSystem>();        
     }
 

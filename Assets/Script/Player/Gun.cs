@@ -167,10 +167,11 @@ public class Gun : MonoBehaviour
         myAnimator.SetTrigger("Reload");
         //Récupération de la durée de l'animation
         var waitForReloading = myAnimator.GetCurrentAnimatorStateInfo(0).length;
+        Debug.Log(waitForReloading);
         //Lance la fonction OnReload de l'inspecteur
         onReload.Invoke();
         //attends d'avoir recharger
-        yield return new WaitForSeconds(waitForReloading);
+        yield return new WaitForSeconds(waitForReloading * 2);
         isReloading = false;
         //Lance la fonction onFinishReload de l'inspecteur
         onFinishReload.Invoke();

@@ -1,8 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 
+//Créer des évenements pour les autres scripts
+
+//État de la vague (Para/Ante/Bellum)
 [System.Serializable]
 public class State_Event : UnityEvent<GameState>
 {
