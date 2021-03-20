@@ -12,19 +12,15 @@ public class Control : MonoBehaviour
     private Vector3 inputValue3D;
     //Caméra
     private Camera cam;
-    //Contrôle
-    private Player playerInput;
     //Rigidbody
     private new Rigidbody rigidbody;
 
     private void OnEnable()
     {
         //Activation des controles
-        playerInput = new Player();
-        playerInput.Enable();
-        playerInput.Action.Move.performed += Move;
-        playerInput.Action.Move.canceled += Stop;
-        playerInput.Action.Antebellum.performed += GameManager.Instance.Antebellum;
+        InputManager.instance.playerInput.Action.Move.performed += Move;
+        InputManager.instance.playerInput.Action.Move.canceled += Stop;
+        InputManager.instance.playerInput.Action.Antebellum.performed += GameManager.Instance.Antebellum;
     }
     //Déplacement
     private void Move(InputAction.CallbackContext obj)

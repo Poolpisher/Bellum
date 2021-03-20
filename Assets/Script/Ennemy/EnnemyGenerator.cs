@@ -14,8 +14,6 @@ public class EnnemyGenerator : MonoBehaviour
     private List<GameObject> remainingEnnemies;
     //Vérifie si tous les ennemies d'une vague sont apparues
     private bool hasFinishedSpawning = false;
-    //Events pour repasser en mode Parabellum
-    [SerializeField] private State_Event onStateChange;
     //Singleton
     public static EnnemyGenerator instance;
     //Event unity en cas de réussite
@@ -48,7 +46,7 @@ public class EnnemyGenerator : MonoBehaviour
             //Change le numéro de la vague actuelle
             waveNumber++;
             //Repasse le jeu en Parabellum
-            onStateChange.Invoke(GameState.Parabellum);
+            GameManager.Instance.onStateChange.Invoke(GameState.Parabellum);
             GameManager.music.Stop();
 
             //Si le joueur à terminer toutes les vagues

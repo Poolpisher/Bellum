@@ -21,8 +21,7 @@ public class GameManager : MonoBehaviour
     //Musique avec Antebellum
     public static AudioSource music;
     //Evenement qui change le nom de vague dans le HUD et relance l'animation
-    [SerializeField] private State_Event onStateChange;
-    [SerializeField] private UnityEvent onBellum;
+    public State_Event onStateChange;
     //Singleton
     public static GameManager Instance;
 
@@ -55,7 +54,8 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(timerAntebellum);
         //Passe en Bellum
         onStateChange.Invoke(GameState.Bellum);
-        onBellum.Invoke();
+        //Lance la vague
+        EnnemyGenerator.instance.LaunchWave();
     }
 
     private void Awake()
@@ -72,11 +72,5 @@ public class GameManager : MonoBehaviour
     {
         onStateChange.Invoke(activeState);
         music = GetComponent<AudioSource>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

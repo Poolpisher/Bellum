@@ -35,20 +35,11 @@ public class Click : MonoBehaviour
     private GameObject HUD;
     //Caméra
     private Camera cam;
-    private Vector3 look;
-    private Vector3 point;
-    //Position de la souris
-    private Vector2 mousePos;
-    //Control
-    private Player playerInput;
 
     private void OnEnable()
     {
         //Activation des controles
-        playerInput = new Player();
-        playerInput.Enable();
-        playerInput.Action.MouseClick.performed += Clique;
-        playerInput.Action.MousePosition.performed += MousePosition;
+        InputManager.instance.playerInput.Action.MouseClick.performed += Clique;
     }
 
     // Start is called before the first frame update
@@ -64,19 +55,6 @@ public class Click : MonoBehaviour
         eventSystemHUDtourelles = GameObject.FindWithTag("EventSystem").GetComponent<EventSystem>();        
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        //Transformation de la position de la souris dans le monde
-        point = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, (transform.position - cam.transform.position).magnitude));
-        //Distance entre le joueur et la souris et Changement de l'orientation de la balle en fonction de la souris
-        look = (point - transform.position).normalized;
-        //Calcul de l'angle a partir de "look"
-        var aimAngle = Vector3.SignedAngle(Vector3.forward , look, Vector3.down);
-        //Application de l'angle sur la rotation du joueur
-        transform.rotation = Quaternion.AngleAxis(aimAngle, Vector3.down);        
-    }
-
     /// <summary>
     /// Vérifie ou la souris est placée dans la fenetre du jeu lors d'un clique
     /// </summary>
@@ -84,7 +62,7 @@ public class Click : MonoBehaviour
     {
         RaycastHit hit;
         // Does the ray intersect any objects excluding the player layer
-        if (Physics.Raycast(cam.transform.position, point - cam.transform.position, out hit, Mathf.Infinity, HUDtourelles))
+        if (Physics.Raycast(cam.transform.position, InputManager.instance.worldMousePos - cam.transform.position, out hit, Mathf.Infinity, HUDtourelles))
         {
             //Désaffiche la range de la tourelle précedemment seliectionné
             if(getRange != null)
@@ -121,7 +99,7 @@ public class Click : MonoBehaviour
                 raycasterHUDtourelles = GameObject.FindWithTag("HUDtourelles").GetComponent<GraphicRaycaster>();
             }
         }
-        else if (Physics.Raycast(cam.transform.position, point - cam.transform.position, out hit, Mathf.Infinity, HUDshop))
+        else if (Physics.Raycast(cam.transform.position, InputManager.instance.worldMousePos - cam.transform.position, out hit, Mathf.Infinity, HUDshop))
         {
             //Passe la position pour créer la tourelle
             onClickShop.Invoke(hit.transform);
@@ -136,10 +114,5 @@ public class Click : MonoBehaviour
             getRange.SetActive(false);
             }
         }
-    }
-
-    private void MousePosition(InputAction.CallbackContext obj)
-    {
-        mousePos = obj.ReadValue<Vector2>();
     }
 }

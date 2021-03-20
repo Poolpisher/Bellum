@@ -39,6 +39,24 @@ public class Shop : MonoBehaviour
             shorterReloadToChange = shorterReloadToChange + 1;
         }
     }
+    
+    //Prix de l'améliorations de la cadence de tir des tourelles
+    [SerializeField] private int increaseSentryCooldownPrice;
+    //Améliorations de la cadence de tir des tourelles
+    [SerializeField] private int increaseSentryCooldown;
+    //Prix de l'améliorations de la jauge d'usure des tourelles
+    [SerializeField] private int increaseSentryLifePrice;
+    //Améliorations de la jauge d'usure des tourelles
+    [SerializeField] private int increaseSentryLife;
+
+    void SentryCooldown()
+    {
+        
+    }
+    void SentryLife()
+    {
+        
+    }
 
     // Start is called before the first frame update
     void Start()

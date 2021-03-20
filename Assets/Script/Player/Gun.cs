@@ -41,14 +41,6 @@ public class Gun : MonoBehaviour
     private Vector2 inputValue;
     //HUD
     private GameObject HUD;
-    //Caméra
-    private Camera cam;
-    private Vector3 look;
-    private Vector3 point;
-    //Position de la souris
-    private Vector2 mousePos;
-    //Control
-    private Player playerInput;
     //Temps correspondant au dernier tir
     private float lastShoot;
     //Rigidbody
@@ -56,12 +48,9 @@ public class Gun : MonoBehaviour
     private void OnEnable()
     {
         //Activation des controles
-        playerInput = new Player();
-        playerInput.Enable();
-        playerInput.Action.Shoot.performed += Shoot;
-        playerInput.Action.Shoot.canceled += StopShoot;
-        playerInput.Action.Reload.performed += Reload;
-        playerInput.Action.MousePosition.performed += MousePosition;
+        InputManager.instance.playerInput.Action.Shoot.performed += Shoot;
+        InputManager.instance.playerInput.Action.Shoot.canceled += StopShoot;
+        InputManager.instance.playerInput.Action.Reload.performed += Reload;
 
         //passage du nombre de balle max au texte du HUD
         BulletCountdown.maxBullet = maxBullet;
@@ -76,7 +65,7 @@ public class Gun : MonoBehaviour
         //Set up the new Pointer Event
         pointerEventDataHUDtourelles = new PointerEventData(eventSystemHUDtourelles);
         //Set the Pointer Event Position to that of the mouse position
-        pointerEventDataHUDtourelles.position = mousePos;
+        pointerEventDataHUDtourelles.position = InputManager.instance.mousePos;
         //Create a list of Raycast Results
         List<RaycastResult> results = new List<RaycastResult>();
         //Raycast using the Graphics Raycaster and mouse click position
@@ -106,7 +95,6 @@ public class Gun : MonoBehaviour
     {
         rigidbody = GetComponent<Rigidbody>();
 
-        cam = Camera.main;
         //Enregistre les éléments du HUD pour les supprimer/réafficher via les variables
         HUD = GameObject.FindGameObjectWithTag("HUD");
 
@@ -119,15 +107,6 @@ public class Gun : MonoBehaviour
 
     void Update()
     {
-        //Transformation de la position de la souris dans le monde
-        point = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, (transform.position - cam.transform.position).magnitude));
-        //Distance entre le joueur et la souris et Changement de l'orientation de la balle en fonction de la souris
-        look = (point - transform.position).normalized;
-        //Calcul de l'angle a partir de "look"
-        var aimAngle = Vector3.SignedAngle(Vector3.forward , look, Vector3.down);
-        //Application de l'angle sur la rotation du joueur
-        transform.rotation = Quaternion.AngleAxis(aimAngle, Vector3.down);
-        
         //Tir
         Shooting();
     }
@@ -143,7 +122,7 @@ public class Gun : MonoBehaviour
             //Création de la balle
             var createBullet = Instantiate(bulletPrefab, rigidbody.position, Quaternion.identity);
             //Orientation de la balle
-            createBullet.GetComponent<Bullet>().fixinputValue = look;
+            createBullet.GetComponent<Bullet>().fixinputValue = InputManager.instance.look;
             //Changement de la valeur du dernier tir
             lastShoot = actualTime;
 
@@ -167,7 +146,6 @@ public class Gun : MonoBehaviour
         myAnimator.SetTrigger("Reload");
         //Récupération de la durée de l'animation
         var waitForReloading = myAnimator.GetCurrentAnimatorStateInfo(0).length;
-        Debug.Log(waitForReloading);
         //Lance la fonction OnReload de l'inspecteur
         onReload.Invoke();
         //attends d'avoir recharger
@@ -177,10 +155,5 @@ public class Gun : MonoBehaviour
         onFinishReload.Invoke();
         //Nombre de balle disponible = au nombre de balle maximum
         remainBullet = maxBullet;
-    }
-    
-    private void MousePosition(InputAction.CallbackContext obj)
-    {
-        mousePos = obj.ReadValue<Vector2>();
     }
 }

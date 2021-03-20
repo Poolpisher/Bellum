@@ -73,6 +73,14 @@ public class @Player : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""HUD shortcut"",
+                    ""type"": ""Value"",
+                    ""id"": ""9ed914d1-ad75-4037-b97d-45a486546655"",
+                    ""expectedControlType"": ""Dpad"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -262,6 +270,50 @@ public class @Player : IInputActionCollection, IDisposable
                     ""action"": ""Exit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4d29c98f-af07-413e-b3e8-050404b18878"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Xbox Controller"",
+                    ""action"": ""Exit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3566820a-db89-48e5-8284-f2fb74adf9a6"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard + mouse"",
+                    ""action"": ""HUD shortcut"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7fec4f57-8a6e-4b21-ae14-23b43f52575c"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard + mouse"",
+                    ""action"": ""HUD shortcut"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5c03cc33-a126-45b0-9681-f431d1bfbb21"",
+                    ""path"": ""<XInputController>/dpad"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Xbox Controller"",
+                    ""action"": ""HUD shortcut"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -305,6 +357,7 @@ public class @Player : IInputActionCollection, IDisposable
         m_Action_Reload = m_Action.FindAction("Reload", throwIfNotFound: true);
         m_Action_Antebellum = m_Action.FindAction("Antebellum", throwIfNotFound: true);
         m_Action_Exit = m_Action.FindAction("Exit", throwIfNotFound: true);
+        m_Action_HUDshortcut = m_Action.FindAction("HUD shortcut", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -361,6 +414,7 @@ public class @Player : IInputActionCollection, IDisposable
     private readonly InputAction m_Action_Reload;
     private readonly InputAction m_Action_Antebellum;
     private readonly InputAction m_Action_Exit;
+    private readonly InputAction m_Action_HUDshortcut;
     public struct ActionActions
     {
         private @Player m_Wrapper;
@@ -372,6 +426,7 @@ public class @Player : IInputActionCollection, IDisposable
         public InputAction @Reload => m_Wrapper.m_Action_Reload;
         public InputAction @Antebellum => m_Wrapper.m_Action_Antebellum;
         public InputAction @Exit => m_Wrapper.m_Action_Exit;
+        public InputAction @HUDshortcut => m_Wrapper.m_Action_HUDshortcut;
         public InputActionMap Get() { return m_Wrapper.m_Action; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -402,6 +457,9 @@ public class @Player : IInputActionCollection, IDisposable
                 @Exit.started -= m_Wrapper.m_ActionActionsCallbackInterface.OnExit;
                 @Exit.performed -= m_Wrapper.m_ActionActionsCallbackInterface.OnExit;
                 @Exit.canceled -= m_Wrapper.m_ActionActionsCallbackInterface.OnExit;
+                @HUDshortcut.started -= m_Wrapper.m_ActionActionsCallbackInterface.OnHUDshortcut;
+                @HUDshortcut.performed -= m_Wrapper.m_ActionActionsCallbackInterface.OnHUDshortcut;
+                @HUDshortcut.canceled -= m_Wrapper.m_ActionActionsCallbackInterface.OnHUDshortcut;
             }
             m_Wrapper.m_ActionActionsCallbackInterface = instance;
             if (instance != null)
@@ -427,6 +485,9 @@ public class @Player : IInputActionCollection, IDisposable
                 @Exit.started += instance.OnExit;
                 @Exit.performed += instance.OnExit;
                 @Exit.canceled += instance.OnExit;
+                @HUDshortcut.started += instance.OnHUDshortcut;
+                @HUDshortcut.performed += instance.OnHUDshortcut;
+                @HUDshortcut.canceled += instance.OnHUDshortcut;
             }
         }
     }
@@ -458,5 +519,6 @@ public class @Player : IInputActionCollection, IDisposable
         void OnReload(InputAction.CallbackContext context);
         void OnAntebellum(InputAction.CallbackContext context);
         void OnExit(InputAction.CallbackContext context);
+        void OnHUDshortcut(InputAction.CallbackContext context);
     }
 }
