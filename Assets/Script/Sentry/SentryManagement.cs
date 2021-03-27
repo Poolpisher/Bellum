@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 using UnityEngine;
 
 public class SentryManagement : MonoBehaviour
@@ -20,11 +21,18 @@ public class SentryManagement : MonoBehaviour
     {
         lastClickedPlateform = newPlatform;
     }
+    
+    private void OnEnable()
+    {
+        //Activation des controles
+        InputManager.instance.playerInput.Action.HUDshortcut.performed += Create;
+        InputManager.instance.playerInput.Action.HUDshortcut.performed += Destroy;
+    }
 
     /// <summary>
     /// Bouton Create du HUD pour placer une tourelle
     /// </summary>
-    public void Create()
+    public void Create(InputAction.CallbackContext obj)
     {
         //Vérifie qu'une tourelle n'est pas déjà placée et que le joueur a assez de metal
         if (lastClickedPlateform.childCount == 0 && MetalBehaviour.toCompareMetal >= metal)
@@ -42,7 +50,7 @@ public class SentryManagement : MonoBehaviour
     /// <summary>
     /// Bouton Destroy du HUD pour retirer une tourelle
     /// </summary>
-    public void Destroy()
+    public void Destroy(InputAction.CallbackContext obj)
     {
         //Si la plateforme selectionné n'a qu'un enfant
         if (lastClickedPlateform.childCount == 0)

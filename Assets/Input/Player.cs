@@ -75,7 +75,7 @@ public class @Player : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""HUD shortcut"",
+                    ""name"": ""HUDshortcut"",
                     ""type"": ""Value"",
                     ""id"": ""9ed914d1-ad75-4037-b97d-45a486546655"",
                     ""expectedControlType"": ""Dpad"",
@@ -196,17 +196,6 @@ public class @Player : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""5c10dbe4-9232-4981-8691-59ea0f97f32f"",
-                    ""path"": ""<Gamepad>/rightStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Xbox Controller"",
-                    ""action"": ""MousePosition"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""2ff07de1-02de-402b-b504-861effb28a1b"",
                     ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",
@@ -289,7 +278,7 @@ public class @Player : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard + mouse"",
-                    ""action"": ""HUD shortcut"",
+                    ""action"": ""HUDshortcut"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -300,7 +289,7 @@ public class @Player : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard + mouse"",
-                    ""action"": ""HUD shortcut"",
+                    ""action"": ""HUDshortcut"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -311,9 +300,42 @@ public class @Player : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Xbox Controller"",
-                    ""action"": ""HUD shortcut"",
+                    ""action"": ""HUDshortcut"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""RightStick"",
+                    ""id"": ""0ca74e80-4bbc-4f99-b4bb-f41de2937dbe"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Xbox Controller"",
+                    ""action"": ""MousePosition"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""8c7d5879-6b54-4526-924d-4067804ca790"",
+                    ""path"": ""<Gamepad>/rightStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Xbox Controller"",
+                    ""action"": ""MousePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""874d40a3-a9c8-4e8a-9c67-3623c541e05b"",
+                    ""path"": ""<Gamepad>/rightStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Xbox Controller"",
+                    ""action"": ""MousePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -357,7 +379,7 @@ public class @Player : IInputActionCollection, IDisposable
         m_Action_Reload = m_Action.FindAction("Reload", throwIfNotFound: true);
         m_Action_Antebellum = m_Action.FindAction("Antebellum", throwIfNotFound: true);
         m_Action_Exit = m_Action.FindAction("Exit", throwIfNotFound: true);
-        m_Action_HUDshortcut = m_Action.FindAction("HUD shortcut", throwIfNotFound: true);
+        m_Action_HUDshortcut = m_Action.FindAction("HUDshortcut", throwIfNotFound: true);
     }
 
     public void Dispose()

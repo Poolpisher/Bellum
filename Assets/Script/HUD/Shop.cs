@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 using UnityEngine;
 
 public class Shop : MonoBehaviour
@@ -13,8 +14,17 @@ public class Shop : MonoBehaviour
     //Vitesse de recharge à améliorer dans ShorterReload
     [SerializeField] private int shorterReloadToChange;
 
+    private void OnEnable()
+    {
+        //Activation des controles
+        InputManager.instance.playerInput.Action.HUDshortcut.performed += IncreaseMaxBullet;
+        InputManager.instance.playerInput.Action.HUDshortcut.performed += ShorterReload;
+        InputManager.instance.playerInput.Action.HUDshortcut.performed += SentryCooldown;
+        InputManager.instance.playerInput.Action.HUDshortcut.performed += SentryLife;
+    }
+
     //Améliorations du nombres de balles dans le chargeur
-    void IncreaseMaxBullet()
+    void IncreaseMaxBullet(InputAction.CallbackContext obj)
     {
         if(GoldBehaviour.toCompareGold >= increaseMaxBulletPrice)
         {
@@ -25,7 +35,7 @@ public class Shop : MonoBehaviour
     }
     
     //Améliorations de la vitesse de rechargement
-    void ShorterReload()
+    void ShorterReload(InputAction.CallbackContext obj)
     {
         if(GoldBehaviour.toCompareGold >= shorterReloadPrice)
         {
@@ -49,11 +59,11 @@ public class Shop : MonoBehaviour
     //Améliorations de la jauge d'usure des tourelles
     [SerializeField] private int increaseSentryLife;
 
-    void SentryCooldown()
+    void SentryCooldown(InputAction.CallbackContext obj)
     {
         
     }
-    void SentryLife()
+    void SentryLife(InputAction.CallbackContext obj)
     {
         
     }
