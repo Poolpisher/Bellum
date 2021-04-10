@@ -19,6 +19,10 @@ public class EnnemyGenerator : MonoBehaviour
     //Event unity en cas de réussite
     [SerializeField] private UnityEvent onFinishingAllWaves;
 
+    //Musique avec Antebellum de la dernière vague
+    [SerializeField] public AudioSource musicLastWave;
+
+
     /// <summary>
     /// Vérifie que les cases nombreEnnemy et typeEnnemy du tableau sont de même taille
     /// </summary>
@@ -48,6 +52,13 @@ public class EnnemyGenerator : MonoBehaviour
             //Repasse le jeu en Parabellum
             GameManager.Instance.onStateChange.Invoke(GameState.Parabellum);
             GameManager.music.Stop();
+            
+            //Si le joueur à terminer toutes les vagues
+            if(waveNumber == waves.Length - 1)
+            {
+                //Lance l'écran de victoire
+                GameManager.music = musicLastWave;
+            }
 
             //Si le joueur à terminer toutes les vagues
             if(waveNumber == waves.Length)

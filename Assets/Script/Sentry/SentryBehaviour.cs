@@ -8,6 +8,7 @@ using UnityEngine.Events;
 
 public class SentryBehaviour : MonoBehaviour
 {
+    public static SentryBehaviour instance;
     //Projectile
     [SerializeField] private GameObject bulletPrefab;
     //Position de départ de la balle (les canons)
@@ -20,6 +21,27 @@ public class SentryBehaviour : MonoBehaviour
     private Vector3 look;
     //Layer des ennemies pour pouvoir trier ce qui est dans la range des tourelles
     [SerializeField] private LayerMask ennemyLayer;
+
+    //Usure de la tourelle
+        //UnityEvent
+        //Si la tourelle est usée
+        [SerializeField] private UnityEvent onBrokenSentry;
+        //Si la tourelle est réparée
+        [SerializeField] private UnityEvent onRepairedSentry;
+        //Si la tourelle est cassée
+        [SerializeField] private bool isBroken;
+        //Usure de la tourelle
+        [SerializeField] private int sentryHealth = 0;
+        [SerializeField] private int maxSentryHealth;
+
+    void OnEnable()
+    {
+        if (instance != null)
+        {
+            Destroy(this);
+        }
+        instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -60,29 +82,57 @@ public class SentryBehaviour : MonoBehaviour
 
     void Shoot(NavMeshAgent firstAgent)
     {
-    //Fonction de tir de la tourelle
-        //Si un firstAgent est bien présent
-        if (firstAgent == null)
+        if(!isBroken)
         {
-            return;
-        }
-        //Calcul du temps lors du tir
-        var actualTime = Time.time;
+        //Fonction de tir de la tourelle
+            //Si un firstAgent est bien présent
+            if (firstAgent == null)
+            {
+                return;
+            }
+            //Calcul du temps lors du tir
+            var actualTime = Time.time;
 
-        //Faire en sorte que les tourelles regardent l'ennemie le plus avancé de la carte (le firstAgent de EnnemyBehaviour)
-        transform.LookAt(firstAgent.transform.position);
+            //Faire en sorte que les tourelles regardent l'ennemie le plus avancé de la carte (le firstAgent de EnnemyBehaviour)
+            transform.LookAt(firstAgent.transform.position);
 
-        //Permet d'instaurer le cooldown entre 2 tir
-        if (actualTime > lastShoot + shootTimer)
-        {
-            //Création de la balle
-            var createBullet = Instantiate(bulletPrefab, canonTransform.position, Quaternion.identity);
-            //Distance entre le firstAgent et les canons de la tourelle
-            var look = (firstAgent.transform.position - canonTransform.position).normalized;
-            //Orientation de la balle
-            createBullet.GetComponent<Bullet>().fixinputValue = look;
-            //Changement de la valeur du dernier tir
-            lastShoot = actualTime;
+            //Permet d'instaurer le cooldown entre 2 tir
+            if (actualTime > lastShoot + shootTimer)
+            {
+                //Création de la balle
+                var createBullet = Instantiate(bulletPrefab, canonTransform.position, Quaternion.identity);
+                //Distance entre le firstAgent et les canons de la tourelle
+                var look = (firstAgent.transform.position - canonTransform.position).normalized;
+                //Orientation de la balle
+                createBullet.GetComponent<Bullet>().fixinputValue = look;
+                //Changement de la valeur du dernier tir
+                lastShoot = actualTime;
+                //Augmentation de l'usure de la tourelle
+                sentryHealth++;
+                //retire le prix de la construction de la tourelle en metal
+                SentryHealthBehaviour.instance.AddScore(1);
+                    //Vérifie si l'usure max de la tourelle est atteinte
+                    if(sentryHealth == maxSentryHealth)
+                    {
+                        Broken();
+                    }
+            }
         }
+    }
+
+    //La tourelle s'arrête
+    void Broken()
+    {
+        isBroken = true;
+        onBrokenSentry.Invoke();
+    }
+
+    //Répare la tourelle
+    public void Repaired()
+    {
+        isBroken = false;
+        onRepairedSentry.Invoke();
+        sentryHealth = 0;
+        SentryHealthBehaviour.instance.AddScore(-sentryHealth);
     }
 }

@@ -8,7 +8,6 @@ public class MetalBehaviour : MonoBehaviour
     [SerializeField] private int metal;
     //valeur identique pour vérifier que le joueur a assez de ressources (script SentryManagement)
     [SerializeField] public static int toCompareMetal;
-    //
     public static MetalBehaviour instance;
     TextMeshProUGUI txt;
 
