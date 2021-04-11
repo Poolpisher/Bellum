@@ -45,6 +45,7 @@ public class Gun : MonoBehaviour
     private float lastShoot;
     //Rigidbody
     private new Rigidbody rigidbody;
+
     private void OnEnable()
     {
         //Activation des controles
