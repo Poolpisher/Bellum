@@ -8,7 +8,6 @@ using UnityEngine.Events;
 
 public class SentryBehaviour : MonoBehaviour
 {
-    public static SentryBehaviour instance;
     //Projectile
     [SerializeField] private GameObject bulletPrefab;
     //Position de départ de la balle (les canons)
@@ -21,6 +20,8 @@ public class SentryBehaviour : MonoBehaviour
     private Vector3 look;
     //Layer des ennemies pour pouvoir trier ce qui est dans la range des tourelles
     [SerializeField] private LayerMask ennemyLayer;
+    //Si une tourelle est selectionné via un clique
+    public bool isSelected;
 
     //Usure de la tourelle
         //UnityEvent
@@ -33,15 +34,6 @@ public class SentryBehaviour : MonoBehaviour
         //Usure de la tourelle
         [SerializeField] private int sentryHealth = 0;
         [SerializeField] private int maxSentryHealth;
-
-    void OnEnable()
-    {
-        if (instance != null)
-        {
-            Destroy(this);
-        }
-        instance = this;
-    }
 
     // Start is called before the first frame update
     void Start()

@@ -80,7 +80,7 @@ public class SentryManagement : MonoBehaviour
         //retire le prix de la construction de la tourelle en metal
         MetalBehaviour.instance.AddScore(-metalToRepair);
         //Lance la fonction de réparation de la tourelle
-        SentryBehaviour.instance.Repaired();
+        lastClickedPlateform.GetComponentInChildren<SentryBehaviour>().Repaired();
         }
     }
 }

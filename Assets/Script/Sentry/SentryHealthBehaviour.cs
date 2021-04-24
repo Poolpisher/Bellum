@@ -19,11 +19,10 @@ public class SentryHealthBehaviour : MonoBehaviour
         instance = this;
     }
 
-    //Met le score à jour
-    public void AddScore(int health)
+    //Met les HP à jour
+    public void DisplayScore(int health)
     {
-        sentryHealth += health;
-        txt.text = sentryHealth.ToString() + "/10";
+        txt.text = health.ToString() + "/10";
     }
 
     // Start is called before the first frame update
