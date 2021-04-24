@@ -16,6 +16,8 @@ public class Click : MonoBehaviour
     [SerializeField] GraphicRaycaster raycasterHUDtourelles;
     //Range de la tourelle
     public static GameObject getRange;
+    //Derniere plateforme selectionné par le raycast (pour le HUD des tourelles)
+    private SentryBehaviour lastHitSelected;
     EventSystem eventSystemHUDtourelles;
     
         //UnityEvent
@@ -78,12 +80,22 @@ public class Click : MonoBehaviour
             getRange = hit.transform.GetChild(0).Find("Range").gameObject;
             //Affiche le bouton destroy et désaffiche le bouton create du HUD des tourelles
             canDestroySentryHUD.Invoke();
+            //Sauvegarde la derniere tourelle selectionné
+            lastHitSelected = hit.transform.GetComponentInChildren<SentryBehaviour>();
+            //Change le booléen qui confirme si une tourelle est selectionné
+            lastHitSelected.isSelected = true;
+            //Affiche les HP actuels de la tourelle
+            SentryHealthBehaviour.instance.DisplayScore(lastHitSelected.sentryHealth);
             //Affiche la range de la tourelle
             getRange.SetActive(true);
             }
             //Si une tourelle n'est pas présente sur la plateforme sélectionné
             else
             {
+                if(lastHitSelected != null)
+                {
+                    lastHitSelected.isSelected = false;
+                }
             //Désaffiche la range de la tourelle précedemment seliectionné
             if(getRange != null)
             {

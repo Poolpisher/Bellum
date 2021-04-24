@@ -32,7 +32,7 @@ public class SentryBehaviour : MonoBehaviour
         //Si la tourelle est cassée
         [SerializeField] private bool isBroken;
         //Usure de la tourelle
-        [SerializeField] private int sentryHealth = 0;
+        public int sentryHealth = 0;
         [SerializeField] private int maxSentryHealth;
 
     // Start is called before the first frame update
@@ -101,8 +101,10 @@ public class SentryBehaviour : MonoBehaviour
                 lastShoot = actualTime;
                 //Augmentation de l'usure de la tourelle
                 sentryHealth++;
-                //retire le prix de la construction de la tourelle en metal
-                SentryHealthBehaviour.instance.AddScore(1);
+                if(isSelected)
+                {
+                    SentryHealthBehaviour.instance.DisplayScore(sentryHealth);  
+                }
                     //Vérifie si l'usure max de la tourelle est atteinte
                     if(sentryHealth == maxSentryHealth)
                     {
@@ -125,6 +127,6 @@ public class SentryBehaviour : MonoBehaviour
         isBroken = false;
         onRepairedSentry.Invoke();
         sentryHealth = 0;
-        SentryHealthBehaviour.instance.AddScore(-sentryHealth);
+        SentryHealthBehaviour.instance.DisplayScore(sentryHealth);
     }
 }
