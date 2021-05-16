@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class SentryHealthBehaviour : MonoBehaviour
 {
-    //Ressource de la tourelle
-    private int sentryHealth;
-    private int maxSentryHealth;
     public static SentryHealthBehaviour instance;
     TextMeshProUGUI txt;
 
@@ -26,15 +23,9 @@ public class SentryHealthBehaviour : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         //Récupere le texte du HUD
         txt = GetComponent<TextMeshProUGUI>();
-        txt.text = sentryHealth.ToString();
-    }
-
-    void Update()
-    {
-        //sentryHealth = SentryBehaviour.sentryHealth;
     }
 }

@@ -46,19 +46,23 @@ public class Gun : MonoBehaviour
     //Rigidbody
     private new Rigidbody rigidbody;
 
+    private MousePosition mousePosition;
+    private Shoot shoot;
+
+    void Awake()
+    {
+        mousePosition = GetComponent<MousePosition>();
+        shoot = GetComponent<Shoot>();
+    }
+
     private void OnEnable()
     {
-        //Activation des controles
-        InputManager.instance.playerInput.Action.Shoot.performed += Shoot;
-        InputManager.instance.playerInput.Action.Shoot.canceled += StopShoot;
-        InputManager.instance.playerInput.Action.Reload.performed += Reload;
-
         //passage du nombre de balle max au texte du HUD
         BulletCountdown.maxBullet = maxBullet;
     }
 
     //tir
-    void Shoot(InputAction.CallbackContext obj)
+    public void Shoot(InputAction.CallbackContext obj)
     {
         //Vérifie si le clique collisione avec un bouton du HUD
         bool raycastResult = false;
@@ -66,7 +70,7 @@ public class Gun : MonoBehaviour
         //Set up the new Pointer Event
         pointerEventDataHUDtourelles = new PointerEventData(eventSystemHUDtourelles);
         //Set the Pointer Event Position to that of the mouse position
-        pointerEventDataHUDtourelles.position = InputManager.instance.mousePos;
+        pointerEventDataHUDtourelles.position = mousePosition.mousePos;
         //Create a list of Raycast Results
         List<RaycastResult> results = new List<RaycastResult>();
         //Raycast using the Graphics Raycaster and mouse click position
@@ -116,23 +120,18 @@ public class Gun : MonoBehaviour
     private void Shooting()
     {
         //Calcul du temps lors du tir
-        var actualTime = Time.time;
+        shoot.actualTime = Time.time;
         //Si le joueur peux tier et que le temps actuel est supérieur à celui du dernier tir + le temps minimum requis entre chaque tir
-        if (canShoot && actualTime > lastShoot + shootTimer && remainBullet > 0 && !isReloading)
+        if (canShoot && shoot.actualTime > lastShoot + shootTimer && remainBullet > 0 && !isReloading)
         {
-            //Création de la balle
-            var createBullet = Instantiate(bulletPrefab, rigidbody.position, Quaternion.identity);
-            //Orientation de la balle
-            createBullet.GetComponent<Bullet>().fixinputValue = InputManager.instance.look;
-            //Changement de la valeur du dernier tir
-            lastShoot = actualTime;
+            shoot.Shooting();
 
             onShoot.Invoke();
             remainBullet = remainBullet - 1;
         }
     }
     //Recharge
-    void Reload(InputAction.CallbackContext obj)
+    public void Reload(InputAction.CallbackContext obj)
     {
         if (remainBullet != maxBullet)
         {

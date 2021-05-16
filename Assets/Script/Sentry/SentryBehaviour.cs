@@ -40,6 +40,10 @@ public class SentryBehaviour : MonoBehaviour
     {
         //Récupération du canon de la tourelle
         canonTransform = transform.GetChild(0);
+        isSelected = true;
+        sentryHealth = 0;
+        //Affiche l'état d'usure de la tourelle dans le HUD
+        SentryHealthBehaviour.instance.DisplayScore(sentryHealth);
     }
 
     // Update is called once per frame
@@ -67,7 +71,6 @@ public class SentryBehaviour : MonoBehaviour
                 firstAgent = agent;
             }
         }
-            //Debug.Log(firstAgent);
         //Tire sur le FirstAgent
         Shoot(firstAgent);
     }
@@ -103,7 +106,8 @@ public class SentryBehaviour : MonoBehaviour
                 sentryHealth++;
                 if(isSelected)
                 {
-                    SentryHealthBehaviour.instance.DisplayScore(sentryHealth);  
+                    //Affiche l'état d'usure de la tourelle dans le HUD
+                    SentryHealthBehaviour.instance.DisplayScore(sentryHealth);
                 }
                     //Vérifie si l'usure max de la tourelle est atteinte
                     if(sentryHealth == maxSentryHealth)
@@ -127,6 +131,7 @@ public class SentryBehaviour : MonoBehaviour
         isBroken = false;
         onRepairedSentry.Invoke();
         sentryHealth = 0;
+        //Affiche l'état d'usure de la tourelle dans le HUD
         SentryHealthBehaviour.instance.DisplayScore(sentryHealth);
     }
 }

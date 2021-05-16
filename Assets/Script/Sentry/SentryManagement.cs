@@ -15,6 +15,8 @@ public class SentryManagement : MonoBehaviour
     private new Rigidbody rigidbody;
     //Stock la plateforme selectionné en dernier
     private Transform lastClickedPlateform;
+
+    [SerializeField] private UnityEvent healthBarActive;
     //Bouton du HUD tourelle
     [SerializeField] private GameObject createButton;
     [SerializeField] private GameObject destroyButton;
@@ -25,7 +27,7 @@ public class SentryManagement : MonoBehaviour
     {
         lastClickedPlateform = newPlatform;
     }
-    
+
     private void OnEnable()
     {
         //Activation des controles
@@ -45,11 +47,13 @@ public class SentryManagement : MonoBehaviour
         {
             //retire le prix de la construction de la tourelle en metal
             MetalBehaviour.instance.AddScore(-metalToCreate);
+            //Créer la tourelle
             var createSentry = Instantiate(Sentry, lastClickedPlateform.position, Quaternion.identity, lastClickedPlateform);
+            healthBarActive.Invoke();
+            //Récupère la range de la tourelle
             Click.getRange = createSentry.transform.GetChild(1).gameObject;
-            //Affiche le bouton destroy et désaffiche le bouton create du HUD des tourelles
-            createButton.SetActive(false);
-            destroyButton.SetActive(true);
+            //Affiche la range de la tourelle
+            Click.getRange.SetActive(true);
         }
     }
 
@@ -77,10 +81,10 @@ public class SentryManagement : MonoBehaviour
     {
         if (MetalBehaviour.toCompareMetal >= metalToRepair)
         {
-        //retire le prix de la construction de la tourelle en metal
-        MetalBehaviour.instance.AddScore(-metalToRepair);
-        //Lance la fonction de réparation de la tourelle
-        lastClickedPlateform.GetComponentInChildren<SentryBehaviour>().Repaired();
+            //retire le prix de la construction de la tourelle en metal
+            MetalBehaviour.instance.AddScore(-metalToRepair);
+            //Lance la fonction de réparation de la tourelle
+            lastClickedPlateform.GetComponentInChildren<SentryBehaviour>().Repaired();
         }
     }
 }

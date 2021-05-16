@@ -14,15 +14,6 @@ public class Shop : MonoBehaviour
     //Vitesse de recharge à améliorer dans ShorterReload
     [SerializeField] private int shorterReloadToChange;
 
-    private void OnEnable()
-    {
-        //Activation des controles
-        InputManager.instance.playerInput.Action.HUDshortcut.performed += IncreaseMaxBullet;
-        InputManager.instance.playerInput.Action.HUDshortcut.performed += ShorterReload;
-        InputManager.instance.playerInput.Action.HUDshortcut.performed += SentryCooldown;
-        InputManager.instance.playerInput.Action.HUDshortcut.performed += SentryLife;
-    }
-
     //Améliorations du nombres de balles dans le chargeur
     void IncreaseMaxBullet(InputAction.CallbackContext obj)
     {

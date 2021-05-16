@@ -15,15 +15,8 @@ public class Control : MonoBehaviour
     //Rigidbody
     private new Rigidbody rigidbody;
 
-    private void OnEnable()
-    {
-        //Activation des controles
-        InputManager.instance.playerInput.Action.Move.performed += Move;
-        InputManager.instance.playerInput.Action.Move.canceled += Stop;
-        InputManager.instance.playerInput.Action.Antebellum.performed += GameManager.Instance.Antebellum;
-    }
     //Déplacement
-    private void Move(InputAction.CallbackContext obj)
+    public void Move(InputAction.CallbackContext obj)
     {
         inputValue = obj.ReadValue<Vector2>();
         inputValue3D = new Vector3(inputValue.x, 0, inputValue.y);
