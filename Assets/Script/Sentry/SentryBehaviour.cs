@@ -8,12 +8,10 @@ using UnityEngine.Events;
 
 public class SentryBehaviour : MonoBehaviour
 {
-    //Projectile
-    [SerializeField] private GameObject bulletPrefab;
+    //Référence de l'arme du joueur
+    private SentryGunSO sentryGunSO;
     //Position de départ de la balle (les canons)
     private Transform canonTransform;
-    //Temps entre 2 balles
-    [SerializeField] private float shootTimer;
     //Temps correspondant au dernier tir
     private float lastShoot;
     //Distance entre le firstAgent et les canons de la tourelle dans la fonction tir
@@ -92,10 +90,10 @@ public class SentryBehaviour : MonoBehaviour
             transform.LookAt(firstAgent.transform.position);
 
             //Permet d'instaurer le cooldown entre 2 tir
-            if (actualTime > lastShoot + shootTimer)
+            if (actualTime > lastShoot + sentryGunSO.shootTimer)
             {
                 //Création de la balle
-                var createBullet = Instantiate(bulletPrefab, canonTransform.position, Quaternion.identity);
+                var createBullet = Instantiate(sentryGunSO.bullet, canonTransform.position, Quaternion.identity);
                 //Distance entre le firstAgent et les canons de la tourelle
                 var look = (firstAgent.transform.position - canonTransform.position).normalized;
                 //Orientation de la balle

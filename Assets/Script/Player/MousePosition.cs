@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 using UnityEngine;
 
 public class MousePosition : MonoBehaviour
@@ -13,8 +14,9 @@ public class MousePosition : MonoBehaviour
     //
     public float aimAngle{get; private set;}
     
-    void CalculateMousePos()
+    public void CalculateMousePos(InputAction.CallbackContext obj)
     {
+        mousePos = obj.ReadValue<Vector2>();
         //Transformation de la position de la souris dans le monde
         worldMousePos = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, (transform.position - cam.transform.position).magnitude));
         //Distance entre le joueur et la souris et Changement de l'orientation de la balle en fonction de la souris

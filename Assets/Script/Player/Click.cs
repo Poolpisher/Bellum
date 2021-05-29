@@ -127,7 +127,6 @@ public class Click : MonoBehaviour
 
     private void EmptyPlatformSelected()
     {
-        Debug.Log(lastHitSelected);
         if (lastHitSelected != null)
         {
             //Change le booléen qui confirme si une tourelle est selectionné

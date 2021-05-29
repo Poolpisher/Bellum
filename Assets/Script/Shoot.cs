@@ -21,6 +21,7 @@ public class Shoot : MonoBehaviour
         }
         instance = this;
     }
+
     private MousePosition mousePosition;
     void Awake()
     {
@@ -41,6 +42,9 @@ public class Shoot : MonoBehaviour
 
     public void Shooting()
     {
+        //Calcul du temps lors du tir
+        actualTime = Time.time;
+        //Si le joueur peux tier et que le temps actuel est supérieur à celui du dernier tir + le temps minimum requis entre chaque tir
         //Création de la balle
         var createBullet = Instantiate(bulletPrefab, rigidbody.position, Quaternion.identity);
         //Orientation de la balle

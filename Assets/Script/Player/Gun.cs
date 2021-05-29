@@ -8,18 +8,16 @@ using UnityEngine.Events;
 
 public class Gun : MonoBehaviour
 {
+    //Référence de l'arme du joueur
+    [SerializeField] private PlayerGunSO playerGunSO;
     //Si le joueur peux tirer
     private bool canShoot;
     private bool isReloading;
-    //Projectile
-    [SerializeField] private GameObject bulletPrefab;
     //Animator
     private Animator myAnimator;
 
     //Nombre de balles restantes
     private int remainBullet;
-    //Nombre maximum de balles
-    [SerializeField] private int maxBullet;
     
     //Layer mask pour ouvrir les différents HUD
     [SerializeField] private LayerMask HUDtourelles;
@@ -28,8 +26,6 @@ public class Gun : MonoBehaviour
     EventSystem eventSystemHUDtourelles;
     //Position de la souris dans le HUD
     PointerEventData pointerEventDataHUDtourelles;
-    //Temps entre 2 balles
-    [SerializeField] private float shootTimer;
     
         //UnityEvent
         //Met à jour les munitions dans le HUD
@@ -39,8 +35,6 @@ public class Gun : MonoBehaviour
 
     //Orientation du joueur
     private Vector2 inputValue;
-    //HUD
-    private GameObject HUD;
     //Temps correspondant au dernier tir
     private float lastShoot;
     //Rigidbody
@@ -58,36 +52,14 @@ public class Gun : MonoBehaviour
     private void OnEnable()
     {
         //passage du nombre de balle max au texte du HUD
-        BulletCountdown.maxBullet = maxBullet;
+        BulletCountdown.maxBullet = playerGunSO.maxBullet;
     }
 
     //tir
     public void Shoot(InputAction.CallbackContext obj)
     {
-        //Vérifie si le clique collisione avec un bouton du HUD
-        bool raycastResult = false;
-
-        //Set up the new Pointer Event
-        pointerEventDataHUDtourelles = new PointerEventData(eventSystemHUDtourelles);
-        //Set the Pointer Event Position to that of the mouse position
-        pointerEventDataHUDtourelles.position = mousePosition.mousePos;
-        //Create a list of Raycast Results
-        List<RaycastResult> results = new List<RaycastResult>();
-        //Raycast using the Graphics Raycaster and mouse click position
-        raycasterHUDtourelles.Raycast(pointerEventDataHUDtourelles, results);
-        //For every result returned, output the name of the GameObject on the Canvas hit by the Ray
-        foreach (RaycastResult result in results)
-        {
-            //Vérifie si le clique collisione avec un objet ayant le tag "Button"
-            raycastResult = result.gameObject.CompareTag("Button");
-            //Permet d'arrêter la verification si un bouton a été trouvé
-            if (raycastResult)
-            {
-                break;
-            }
-        }
-        //Permet de tirer si le joueur ne clique pas sur un bouton
-        canShoot = !raycastResult;
+        if (!playerGunSO.isClickingHUD(eventSystemHUDtourelles, mousePosition.mousePos, raycasterHUDtourelles))
+        Debug.Log("tir");
     }
 
     private void StopShoot(InputAction.CallbackContext obj)
@@ -100,14 +72,11 @@ public class Gun : MonoBehaviour
     {
         rigidbody = GetComponent<Rigidbody>();
 
-        //Enregistre les éléments du HUD pour les supprimer/réafficher via les variables
-        HUD = GameObject.FindGameObjectWithTag("HUD");
-
         myAnimator = GetComponent<Animator>();
         eventSystemHUDtourelles = GameObject.FindWithTag("EventSystem").GetComponent<EventSystem>();
 
         //Nombre de balle disponible = au nombre de balle maximum
-        remainBullet = maxBullet;        
+        remainBullet = playerGunSO.maxBullet;        
     }
 
     void Update()
@@ -119,21 +88,18 @@ public class Gun : MonoBehaviour
     // Fonction de tir
     private void Shooting()
     {
-        //Calcul du temps lors du tir
-        shoot.actualTime = Time.time;
-        //Si le joueur peux tier et que le temps actuel est supérieur à celui du dernier tir + le temps minimum requis entre chaque tir
-        if (canShoot && shoot.actualTime > lastShoot + shootTimer && remainBullet > 0 && !isReloading)
+        if(canShoot && shoot.actualTime > lastShoot + playerGunSO.shootTimer && remainBullet > 0 && !isReloading)
         {
-            shoot.Shooting();
+        shoot.Shooting();
 
-            onShoot.Invoke();
-            remainBullet = remainBullet - 1;
+        onShoot.Invoke();
+        remainBullet = remainBullet - 1;
         }
     }
     //Recharge
     public void Reload(InputAction.CallbackContext obj)
     {
-        if (remainBullet != maxBullet)
+        if (remainBullet != playerGunSO.maxBullet)
         {
         //Lance la coroutine suivante
         StartCoroutine(ReloadAnimation());
@@ -154,6 +120,6 @@ public class Gun : MonoBehaviour
         //Lance la fonction onFinishReload de l'inspecteur
         onFinishReload.Invoke();
         //Nombre de balle disponible = au nombre de balle maximum
-        remainBullet = maxBullet;
+        remainBullet = playerGunSO.maxBullet;
     }
 }
