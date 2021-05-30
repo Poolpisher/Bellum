@@ -6,4 +6,9 @@ public class GunSO : ScriptableObject
 {
     public GameObject bullet;
     public float shootTimer;
+
+    public void Shoot()
+    {
+        
+    }
 }

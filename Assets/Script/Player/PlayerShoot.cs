@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using System.Collections.Generic;
 using UnityEngine.Events;
 
-public class Gun : MonoBehaviour
+public class PlayerShoot : Shoot
 {
     //Référence de l'arme du joueur
     [SerializeField] private PlayerGunSO playerGunSO;
@@ -19,35 +19,15 @@ public class Gun : MonoBehaviour
     //Nombre de balles restantes
     private int remainBullet;
     
-    //Layer mask pour ouvrir les différents HUD
-    [SerializeField] private LayerMask HUDtourelles;
     //Récupération des component des boutons du HUD pour éviter de tirer en cliquant dessus (voir Shoot())
     [SerializeField] GraphicRaycaster raycasterHUDtourelles;
     EventSystem eventSystemHUDtourelles;
-    //Position de la souris dans le HUD
-    PointerEventData pointerEventDataHUDtourelles;
     
-        //UnityEvent
-        //Met à jour les munitions dans le HUD
-        [SerializeField] private UnityEvent onShoot;
-        [SerializeField] private UnityEvent onReload;
-        [SerializeField] private UnityEvent onFinishReload;
-
-    //Orientation du joueur
-    private Vector2 inputValue;
-    //Temps correspondant au dernier tir
-    private float lastShoot;
-    //Rigidbody
-    private new Rigidbody rigidbody;
-
-    private MousePosition mousePosition;
-    private Shoot shoot;
-
-    void Awake()
-    {
-        mousePosition = GetComponent<MousePosition>();
-        shoot = GetComponent<Shoot>();
-    }
+    //UnityEvent
+    //Met à jour les munitions dans le HUD
+    [SerializeField] private UnityEvent onShoot;
+    [SerializeField] private UnityEvent onReload;
+    [SerializeField] private UnityEvent onFinishReload;
 
     private void OnEnable()
     {
@@ -56,22 +36,37 @@ public class Gun : MonoBehaviour
     }
 
     //tir
-    public void Shoot(InputAction.CallbackContext obj)
+    public void OnShoot(InputAction.CallbackContext obj)
     {
-        if (!playerGunSO.isClickingHUD(eventSystemHUDtourelles, mousePosition.mousePos, raycasterHUDtourelles))
-        Debug.Log("tir");
+        //Si le clique est maintenu
+        if(obj.phase == InputActionPhase.Performed)
+        {
+            OnShootPerformed(obj);
+        }
+        //Si le clique est relaché
+        else if(obj.phase == InputActionPhase.Canceled)
+        {
+            OnShootCanceled(obj);
+        }
     }
 
-    private void StopShoot(InputAction.CallbackContext obj)
+        private void OnShootPerformed(InputAction.CallbackContext obj)
+    {
+        //Si le joueur n'a pas cliqué sur un élément de HUD
+        if (!playerGunSO.isClickingHUD(eventSystemHUDtourelles, mousePosition.mousePos, raycasterHUDtourelles))
+            canShoot = true;
+    }
+
+    private void OnShootCanceled(InputAction.CallbackContext obj)
     {
         canShoot = false;
     }
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
-
+        //Relance les éléments du start de Shoot.cs (qui dérive ce script)
+        base.Start();
         myAnimator = GetComponent<Animator>();
         eventSystemHUDtourelles = GameObject.FindWithTag("EventSystem").GetComponent<EventSystem>();
 
@@ -86,11 +81,13 @@ public class Gun : MonoBehaviour
     }
 
     // Fonction de tir
-    private void Shooting()
+    public override void Shooting()
     {
-        if(canShoot && shoot.actualTime > lastShoot + playerGunSO.shootTimer && remainBullet > 0 && !isReloading)
+        //Vérifie si le joueur peux tirer
+        if(canShoot && Time.time > lastShoot + playerGunSO.shootTimer && remainBullet > 0 && !isReloading)
         {
-        shoot.Shooting();
+        //Relance les éléments du Shooting de Shoot.cs (qui dérive ce script)
+        base.Shooting();
 
         onShoot.Invoke();
         remainBullet = remainBullet - 1;
