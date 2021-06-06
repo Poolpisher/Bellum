@@ -77,7 +77,7 @@ public class SentryManagement : MonoBehaviour
         destroyButton.SetActive(false);
     }
 
-    public void Repair()
+    public void Repair(/*InputAction.CallbackContext obj*/)
     {
         if (MetalBehaviour.toCompareMetal >= metalToRepair)
         {

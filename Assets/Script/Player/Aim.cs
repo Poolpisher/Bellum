@@ -6,7 +6,7 @@ using UnityEngine;
 public class Aim : MonoBehaviour
 {
     public static Aim instance;
-    private MousePosition mousePosition;
+    private IMousePositionProvider mousePosition;
 
     private void Awake()
     {
@@ -15,7 +15,7 @@ public class Aim : MonoBehaviour
             Destroy(this);
         }
         instance = this;
-        mousePosition = GetComponent<MousePosition>();
+        mousePosition = GetComponent<IMousePositionProvider>();
     }
 
     // Start is called before the first frame update

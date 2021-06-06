@@ -33,16 +33,23 @@ public class Click : MonoBehaviour
     //Ouvre le HUD du magasin
     [SerializeField] private Transform_Event onClickShop;
 
+    //Material une fois une plateforme selectionnée
+    [SerializeField] private Material materialOnSelectedPlatform;
+    //Material une fois une plateforme déselectionnée
+    [SerializeField] private Material materialOnDeselectedPlatform;
+
+    private GameObject lastPlatformSelected;
+
     //HUD
     private GameObject HUD;
     //Caméra
     private Camera cam;
     
-    private MousePosition mousePosition;
+    private IMousePositionProvider mousePosition;
 
     void Awake()
     {
-        mousePosition = GetComponent<MousePosition>();
+        mousePosition = GetComponent<IMousePositionProvider>();
     }
 
     // Start is called before the first frame update
@@ -74,6 +81,16 @@ public class Click : MonoBehaviour
             }
             //Passe la position pour créer la tourelle via l'inspecteur (qui passe nottament la position de la plateforme au script Sentry_Management)
             onClickPlateform.Invoke(hit.transform);
+            
+            if (lastPlatformSelected !=null)
+            {
+                //Change le material de la derniere plateforme selectionnée
+                lastPlatformSelected.GetComponent<MeshRenderer>().material = materialOnDeselectedPlatform;
+            }
+            lastPlatformSelected = hit.transform.gameObject;
+            //Change le material de la plateforme selectionnée
+            hit.transform.gameObject.GetComponent<MeshRenderer>().material = materialOnSelectedPlatform;
+
             //Si une tourelle est présente sur la plateforme sélectionné
             if (hit.transform.childCount > 0)
             {
@@ -93,11 +110,16 @@ public class Click : MonoBehaviour
         }
         else if (Physics.Raycast(cam.transform.position, mousePosition.worldMousePos - cam.transform.position, out hit, Mathf.Infinity, HUDshop))
         {
-            //Passe la position pour créer la tourelle
+            //Passe la position du magasin
             onClickShop.Invoke(hit.transform);
         }
         else
         {
+            if (lastPlatformSelected !=null)
+            {
+                //Change le material de la plateforme deselectionnée
+                lastPlatformSelected.GetComponent<MeshRenderer>().material = materialOnDeselectedPlatform;
+            }
             //Désaffiche le HUD des tourelles
             onClickVoid.Invoke();
             //Désaffiche la range
@@ -116,7 +138,6 @@ public class Click : MonoBehaviour
         canDestroySentryHUD.Invoke();
         //Sauvegarde la derniere tourelle selectionné
         lastHitSelected = hit.transform.GetComponentInChildren<SentryBehaviour>();
-            //Debug.Log(lastHitSelected.isSelected);
         //Change le booléen qui confirme si une tourelle est selectionné
         lastHitSelected.isSelected = true;
         //Affiche les HP actuels de la tourelle
