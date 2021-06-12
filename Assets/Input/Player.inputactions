@@ -30,7 +30,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "MousePosition",
+                    "name": "PlayerRotation",
                     "type": "Value",
                     "id": "7375ae87-9513-4580-8008-e68feef239dc",
                     "expectedControlType": "Vector2",
@@ -177,7 +177,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard + mouse",
-                    "action": "MousePosition",
+                    "action": "PlayerRotation",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -292,37 +292,15 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "RightStick",
-                    "id": "0ca74e80-4bbc-4f99-b4bb-f41de2937dbe",
-                    "path": "1DAxis",
+                    "name": "",
+                    "id": "feb4a09e-e62d-48e6-b4c6-a7e9ff51c2be",
+                    "path": "<Gamepad>/rightStick",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "NormalizeVector2,StickDeadzone(min=0.2)",
                     "groups": "Xbox Controller",
-                    "action": "MousePosition",
-                    "isComposite": true,
+                    "action": "PlayerRotation",
+                    "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "8c7d5879-6b54-4526-924d-4067804ca790",
-                    "path": "<Gamepad>/rightStick/left",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Xbox Controller",
-                    "action": "MousePosition",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "874d40a3-a9c8-4e8a-9c67-3623c541e05b",
-                    "path": "<Gamepad>/rightStick/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Xbox Controller",
-                    "action": "MousePosition",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 }
             ]
         }

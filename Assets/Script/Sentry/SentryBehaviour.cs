@@ -9,7 +9,7 @@ using UnityEngine.Events;
 public class SentryBehaviour : MonoBehaviour
 {
     //Référence de l'arme du joueur
-    private SentryGunSO sentryGunSO;
+    [SerializeField] private SentryGunSO sentryGunSO;
     //Position de départ de la balle (les canons)
     private Transform canonTransform;
     //Temps correspondant au dernier tir

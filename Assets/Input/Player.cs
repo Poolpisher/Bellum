@@ -43,7 +43,7 @@ public class @Player : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""MousePosition"",
+                    ""name"": ""PlayerRotation"",
                     ""type"": ""Value"",
                     ""id"": ""7375ae87-9513-4580-8008-e68feef239dc"",
                     ""expectedControlType"": ""Vector2"",
@@ -190,7 +190,7 @@ public class @Player : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard + mouse"",
-                    ""action"": ""MousePosition"",
+                    ""action"": ""PlayerRotation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -305,37 +305,15 @@ public class @Player : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""RightStick"",
-                    ""id"": ""0ca74e80-4bbc-4f99-b4bb-f41de2937dbe"",
-                    ""path"": ""1DAxis"",
+                    ""name"": """",
+                    ""id"": ""feb4a09e-e62d-48e6-b4c6-a7e9ff51c2be"",
+                    ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""NormalizeVector2,StickDeadzone(min=0.2)"",
                     ""groups"": ""Xbox Controller"",
-                    ""action"": ""MousePosition"",
-                    ""isComposite"": true,
+                    ""action"": ""PlayerRotation"",
+                    ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""8c7d5879-6b54-4526-924d-4067804ca790"",
-                    ""path"": ""<Gamepad>/rightStick/left"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Xbox Controller"",
-                    ""action"": ""MousePosition"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""874d40a3-a9c8-4e8a-9c67-3623c541e05b"",
-                    ""path"": ""<Gamepad>/rightStick/right"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Xbox Controller"",
-                    ""action"": ""MousePosition"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -375,7 +353,7 @@ public class @Player : IInputActionCollection, IDisposable
         m_Action_Move = m_Action.FindAction("Move", throwIfNotFound: true);
         m_Action_Shoot = m_Action.FindAction("Shoot", throwIfNotFound: true);
         m_Action_MouseClick = m_Action.FindAction("MouseClick", throwIfNotFound: true);
-        m_Action_MousePosition = m_Action.FindAction("MousePosition", throwIfNotFound: true);
+        m_Action_PlayerRotation = m_Action.FindAction("PlayerRotation", throwIfNotFound: true);
         m_Action_Reload = m_Action.FindAction("Reload", throwIfNotFound: true);
         m_Action_Antebellum = m_Action.FindAction("Antebellum", throwIfNotFound: true);
         m_Action_Exit = m_Action.FindAction("Exit", throwIfNotFound: true);
@@ -432,7 +410,7 @@ public class @Player : IInputActionCollection, IDisposable
     private readonly InputAction m_Action_Move;
     private readonly InputAction m_Action_Shoot;
     private readonly InputAction m_Action_MouseClick;
-    private readonly InputAction m_Action_MousePosition;
+    private readonly InputAction m_Action_PlayerRotation;
     private readonly InputAction m_Action_Reload;
     private readonly InputAction m_Action_Antebellum;
     private readonly InputAction m_Action_Exit;
@@ -444,7 +422,7 @@ public class @Player : IInputActionCollection, IDisposable
         public InputAction @Move => m_Wrapper.m_Action_Move;
         public InputAction @Shoot => m_Wrapper.m_Action_Shoot;
         public InputAction @MouseClick => m_Wrapper.m_Action_MouseClick;
-        public InputAction @MousePosition => m_Wrapper.m_Action_MousePosition;
+        public InputAction @PlayerRotation => m_Wrapper.m_Action_PlayerRotation;
         public InputAction @Reload => m_Wrapper.m_Action_Reload;
         public InputAction @Antebellum => m_Wrapper.m_Action_Antebellum;
         public InputAction @Exit => m_Wrapper.m_Action_Exit;
@@ -467,9 +445,9 @@ public class @Player : IInputActionCollection, IDisposable
                 @MouseClick.started -= m_Wrapper.m_ActionActionsCallbackInterface.OnMouseClick;
                 @MouseClick.performed -= m_Wrapper.m_ActionActionsCallbackInterface.OnMouseClick;
                 @MouseClick.canceled -= m_Wrapper.m_ActionActionsCallbackInterface.OnMouseClick;
-                @MousePosition.started -= m_Wrapper.m_ActionActionsCallbackInterface.OnMousePosition;
-                @MousePosition.performed -= m_Wrapper.m_ActionActionsCallbackInterface.OnMousePosition;
-                @MousePosition.canceled -= m_Wrapper.m_ActionActionsCallbackInterface.OnMousePosition;
+                @PlayerRotation.started -= m_Wrapper.m_ActionActionsCallbackInterface.OnPlayerRotation;
+                @PlayerRotation.performed -= m_Wrapper.m_ActionActionsCallbackInterface.OnPlayerRotation;
+                @PlayerRotation.canceled -= m_Wrapper.m_ActionActionsCallbackInterface.OnPlayerRotation;
                 @Reload.started -= m_Wrapper.m_ActionActionsCallbackInterface.OnReload;
                 @Reload.performed -= m_Wrapper.m_ActionActionsCallbackInterface.OnReload;
                 @Reload.canceled -= m_Wrapper.m_ActionActionsCallbackInterface.OnReload;
@@ -495,9 +473,9 @@ public class @Player : IInputActionCollection, IDisposable
                 @MouseClick.started += instance.OnMouseClick;
                 @MouseClick.performed += instance.OnMouseClick;
                 @MouseClick.canceled += instance.OnMouseClick;
-                @MousePosition.started += instance.OnMousePosition;
-                @MousePosition.performed += instance.OnMousePosition;
-                @MousePosition.canceled += instance.OnMousePosition;
+                @PlayerRotation.started += instance.OnPlayerRotation;
+                @PlayerRotation.performed += instance.OnPlayerRotation;
+                @PlayerRotation.canceled += instance.OnPlayerRotation;
                 @Reload.started += instance.OnReload;
                 @Reload.performed += instance.OnReload;
                 @Reload.canceled += instance.OnReload;
@@ -537,7 +515,7 @@ public class @Player : IInputActionCollection, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnMouseClick(InputAction.CallbackContext context);
-        void OnMousePosition(InputAction.CallbackContext context);
+        void OnPlayerRotation(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnAntebellum(InputAction.CallbackContext context);
         void OnExit(InputAction.CallbackContext context);
