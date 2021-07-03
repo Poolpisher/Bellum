@@ -13,7 +13,7 @@ public class MousePosition : MonoBehaviour, IMousePositionProvider
     public Vector2 mousePos{get; private set;}
     public float aimAngle{get; private set;}
     
-    public void OnMouseMovePerformed(InputAction.CallbackContext obj)
+    public void OnPlayerRotation(InputAction.CallbackContext obj)
     {
         CalculateMousePos(obj.ReadValue<Vector2>());
     }

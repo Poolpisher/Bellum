@@ -18,6 +18,11 @@ public class AimPlayerTarget : MonoBehaviour
         
     }
 
+    public void OnChangeController(PlayerInput playerInput)
+    {
+        
+    }
+
     public void OnPlayerRotation(InputAction.CallbackContext obj)
     {
         //Vérifie si l'input est actif
