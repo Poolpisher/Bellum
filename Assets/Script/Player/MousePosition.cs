@@ -34,10 +34,4 @@ public class MousePosition : MonoBehaviour, IMousePositionProvider
     {
         cam = Camera.main;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
