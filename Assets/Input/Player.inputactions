@@ -62,9 +62,17 @@
                     "interactions": ""
                 },
                 {
-                    "name": "HUDshortcut",
+                    "name": "HUDshortcutLeft",
                     "type": "Value",
                     "id": "9ed914d1-ad75-4037-b97d-45a486546655",
+                    "expectedControlType": "Dpad",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "HUDshortcutRight",
+                    "type": "Value",
+                    "id": "205d8f36-f369-4d74-b0dd-72ae1ebd2ed7",
                     "expectedControlType": "Dpad",
                     "processors": "",
                     "interactions": ""
@@ -265,29 +273,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard + mouse",
-                    "action": "HUDshortcut",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "7fec4f57-8a6e-4b21-ae14-23b43f52575c",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard + mouse",
-                    "action": "HUDshortcut",
+                    "action": "HUDshortcutLeft",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "5c03cc33-a126-45b0-9681-f431d1bfbb21",
-                    "path": "<XInputController>/dpad",
+                    "path": "<Gamepad>/dpad",
                     "interactions": "",
                     "processors": "",
                     "groups": "Xbox Controller",
-                    "action": "HUDshortcut",
+                    "action": "HUDshortcutLeft",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -299,6 +296,17 @@
                     "processors": "NormalizeVector2,StickDeadzone(min=0.2)",
                     "groups": "Xbox Controller",
                     "action": "PlayerRotation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7fec4f57-8a6e-4b21-ae14-23b43f52575c",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard + mouse",
+                    "action": "HUDshortcutRight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
