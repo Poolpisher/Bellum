@@ -25,9 +25,6 @@ public class GameManager : MonoBehaviour
     //Singleton
     public static GameManager Instance;
 
-    /// <summary>
-    /// Lance la partie "Antebellum" avant la vague
-    /// </summary>
     public void Parabellum(InputAction.CallbackContext obj)
     {
         //Passe en Parabellum

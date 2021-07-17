@@ -921,7 +921,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadingScreen: {fileID: 2387463838284959638, guid: 9ff6c74e9731f014599a38b8bba07d1e, type: 3}
-  sceneToLoadName: Level
+  sceneToLoadName: 2nd screen
 --- !u!4 &1680498005
 Transform:
   m_ObjectHideFlags: 0

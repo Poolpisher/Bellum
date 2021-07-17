@@ -4,31 +4,21 @@ using UnityEngine;
 
 public class Shoot : MonoBehaviour
 {
-    //Projectile
-    [SerializeField] private GameObject bulletPrefab;
+    //Référence de l'arme du joueur
+    [SerializeField] private GunSO gunSO;
     //Temps correspondant au dernier tir
-    private float lastShoot;
+    protected float lastShoot;
     //Rigidbody
-    private new Rigidbody rigidbody;
-    public float actualTime;
+    protected new Rigidbody rigidbody;
 
-    public static Shoot instance;
-    void OnEnable()
-    {
-        if (instance != null)
-        {
-            Destroy(this);
-        }
-        instance = this;
-    }
-    private MousePosition mousePosition;
+    protected IMousePositionProvider mousePosition;
     void Awake()
     {
-        mousePosition = GetComponent<MousePosition>();
+        mousePosition = GetComponent<IMousePositionProvider>();
     }
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
     }
@@ -39,13 +29,13 @@ public class Shoot : MonoBehaviour
         
     }
 
-    public void Shooting()
+    public virtual void Shooting()
     {
         //Création de la balle
-        var createBullet = Instantiate(bulletPrefab, rigidbody.position, Quaternion.identity);
+        var createBullet = Instantiate(gunSO.bullet, rigidbody.position, Quaternion.identity);
         //Orientation de la balle
         createBullet.GetComponent<Bullet>().fixinputValue = mousePosition.look;
         //Changement de la valeur du dernier tir
-        lastShoot = actualTime;
+        lastShoot = Time.time;
     }
 }

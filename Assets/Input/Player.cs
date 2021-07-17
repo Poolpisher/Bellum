@@ -43,7 +43,7 @@ public class @Player : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""MousePosition"",
+                    ""name"": ""PlayerRotation"",
                     ""type"": ""Value"",
                     ""id"": ""7375ae87-9513-4580-8008-e68feef239dc"",
                     ""expectedControlType"": ""Vector2"",
@@ -75,10 +75,18 @@ public class @Player : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""HUDshortcut"",
-                    ""type"": ""Value"",
+                    ""name"": ""HUDshortcutLeft"",
+                    ""type"": ""Button"",
                     ""id"": ""9ed914d1-ad75-4037-b97d-45a486546655"",
-                    ""expectedControlType"": ""Dpad"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""HUDshortcutRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""205d8f36-f369-4d74-b0dd-72ae1ebd2ed7"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
                 }
@@ -190,7 +198,7 @@ public class @Player : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard + mouse"",
-                    ""action"": ""MousePosition"",
+                    ""action"": ""PlayerRotation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -278,7 +286,29 @@ public class @Player : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard + mouse"",
-                    ""action"": ""HUDshortcut"",
+                    ""action"": ""HUDshortcutLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5c03cc33-a126-45b0-9681-f431d1bfbb21"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Xbox Controller"",
+                    ""action"": ""HUDshortcutLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""feb4a09e-e62d-48e6-b4c6-a7e9ff51c2be"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": ""NormalizeVector2,StickDeadzone(min=0.125,max=0.925)"",
+                    ""groups"": ""Xbox Controller"",
+                    ""action"": ""PlayerRotation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -289,53 +319,20 @@ public class @Player : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard + mouse"",
-                    ""action"": ""HUDshortcut"",
+                    ""action"": ""HUDshortcutRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""5c03cc33-a126-45b0-9681-f431d1bfbb21"",
-                    ""path"": ""<XInputController>/dpad"",
+                    ""id"": ""28295a2e-4526-4a14-a0c2-7afbb1c0376e"",
+                    ""path"": ""<Gamepad>/dpad/right"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Xbox Controller"",
-                    ""action"": ""HUDshortcut"",
+                    ""action"": ""HUDshortcutRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""RightStick"",
-                    ""id"": ""0ca74e80-4bbc-4f99-b4bb-f41de2937dbe"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Xbox Controller"",
-                    ""action"": ""MousePosition"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""8c7d5879-6b54-4526-924d-4067804ca790"",
-                    ""path"": ""<Gamepad>/rightStick/left"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Xbox Controller"",
-                    ""action"": ""MousePosition"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""874d40a3-a9c8-4e8a-9c67-3623c541e05b"",
-                    ""path"": ""<Gamepad>/rightStick/right"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Xbox Controller"",
-                    ""action"": ""MousePosition"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -375,11 +372,12 @@ public class @Player : IInputActionCollection, IDisposable
         m_Action_Move = m_Action.FindAction("Move", throwIfNotFound: true);
         m_Action_Shoot = m_Action.FindAction("Shoot", throwIfNotFound: true);
         m_Action_MouseClick = m_Action.FindAction("MouseClick", throwIfNotFound: true);
-        m_Action_MousePosition = m_Action.FindAction("MousePosition", throwIfNotFound: true);
+        m_Action_PlayerRotation = m_Action.FindAction("PlayerRotation", throwIfNotFound: true);
         m_Action_Reload = m_Action.FindAction("Reload", throwIfNotFound: true);
         m_Action_Antebellum = m_Action.FindAction("Antebellum", throwIfNotFound: true);
         m_Action_Exit = m_Action.FindAction("Exit", throwIfNotFound: true);
-        m_Action_HUDshortcut = m_Action.FindAction("HUDshortcut", throwIfNotFound: true);
+        m_Action_HUDshortcutLeft = m_Action.FindAction("HUDshortcutLeft", throwIfNotFound: true);
+        m_Action_HUDshortcutRight = m_Action.FindAction("HUDshortcutRight", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -432,11 +430,12 @@ public class @Player : IInputActionCollection, IDisposable
     private readonly InputAction m_Action_Move;
     private readonly InputAction m_Action_Shoot;
     private readonly InputAction m_Action_MouseClick;
-    private readonly InputAction m_Action_MousePosition;
+    private readonly InputAction m_Action_PlayerRotation;
     private readonly InputAction m_Action_Reload;
     private readonly InputAction m_Action_Antebellum;
     private readonly InputAction m_Action_Exit;
-    private readonly InputAction m_Action_HUDshortcut;
+    private readonly InputAction m_Action_HUDshortcutLeft;
+    private readonly InputAction m_Action_HUDshortcutRight;
     public struct ActionActions
     {
         private @Player m_Wrapper;
@@ -444,11 +443,12 @@ public class @Player : IInputActionCollection, IDisposable
         public InputAction @Move => m_Wrapper.m_Action_Move;
         public InputAction @Shoot => m_Wrapper.m_Action_Shoot;
         public InputAction @MouseClick => m_Wrapper.m_Action_MouseClick;
-        public InputAction @MousePosition => m_Wrapper.m_Action_MousePosition;
+        public InputAction @PlayerRotation => m_Wrapper.m_Action_PlayerRotation;
         public InputAction @Reload => m_Wrapper.m_Action_Reload;
         public InputAction @Antebellum => m_Wrapper.m_Action_Antebellum;
         public InputAction @Exit => m_Wrapper.m_Action_Exit;
-        public InputAction @HUDshortcut => m_Wrapper.m_Action_HUDshortcut;
+        public InputAction @HUDshortcutLeft => m_Wrapper.m_Action_HUDshortcutLeft;
+        public InputAction @HUDshortcutRight => m_Wrapper.m_Action_HUDshortcutRight;
         public InputActionMap Get() { return m_Wrapper.m_Action; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -467,9 +467,9 @@ public class @Player : IInputActionCollection, IDisposable
                 @MouseClick.started -= m_Wrapper.m_ActionActionsCallbackInterface.OnMouseClick;
                 @MouseClick.performed -= m_Wrapper.m_ActionActionsCallbackInterface.OnMouseClick;
                 @MouseClick.canceled -= m_Wrapper.m_ActionActionsCallbackInterface.OnMouseClick;
-                @MousePosition.started -= m_Wrapper.m_ActionActionsCallbackInterface.OnMousePosition;
-                @MousePosition.performed -= m_Wrapper.m_ActionActionsCallbackInterface.OnMousePosition;
-                @MousePosition.canceled -= m_Wrapper.m_ActionActionsCallbackInterface.OnMousePosition;
+                @PlayerRotation.started -= m_Wrapper.m_ActionActionsCallbackInterface.OnPlayerRotation;
+                @PlayerRotation.performed -= m_Wrapper.m_ActionActionsCallbackInterface.OnPlayerRotation;
+                @PlayerRotation.canceled -= m_Wrapper.m_ActionActionsCallbackInterface.OnPlayerRotation;
                 @Reload.started -= m_Wrapper.m_ActionActionsCallbackInterface.OnReload;
                 @Reload.performed -= m_Wrapper.m_ActionActionsCallbackInterface.OnReload;
                 @Reload.canceled -= m_Wrapper.m_ActionActionsCallbackInterface.OnReload;
@@ -479,9 +479,12 @@ public class @Player : IInputActionCollection, IDisposable
                 @Exit.started -= m_Wrapper.m_ActionActionsCallbackInterface.OnExit;
                 @Exit.performed -= m_Wrapper.m_ActionActionsCallbackInterface.OnExit;
                 @Exit.canceled -= m_Wrapper.m_ActionActionsCallbackInterface.OnExit;
-                @HUDshortcut.started -= m_Wrapper.m_ActionActionsCallbackInterface.OnHUDshortcut;
-                @HUDshortcut.performed -= m_Wrapper.m_ActionActionsCallbackInterface.OnHUDshortcut;
-                @HUDshortcut.canceled -= m_Wrapper.m_ActionActionsCallbackInterface.OnHUDshortcut;
+                @HUDshortcutLeft.started -= m_Wrapper.m_ActionActionsCallbackInterface.OnHUDshortcutLeft;
+                @HUDshortcutLeft.performed -= m_Wrapper.m_ActionActionsCallbackInterface.OnHUDshortcutLeft;
+                @HUDshortcutLeft.canceled -= m_Wrapper.m_ActionActionsCallbackInterface.OnHUDshortcutLeft;
+                @HUDshortcutRight.started -= m_Wrapper.m_ActionActionsCallbackInterface.OnHUDshortcutRight;
+                @HUDshortcutRight.performed -= m_Wrapper.m_ActionActionsCallbackInterface.OnHUDshortcutRight;
+                @HUDshortcutRight.canceled -= m_Wrapper.m_ActionActionsCallbackInterface.OnHUDshortcutRight;
             }
             m_Wrapper.m_ActionActionsCallbackInterface = instance;
             if (instance != null)
@@ -495,9 +498,9 @@ public class @Player : IInputActionCollection, IDisposable
                 @MouseClick.started += instance.OnMouseClick;
                 @MouseClick.performed += instance.OnMouseClick;
                 @MouseClick.canceled += instance.OnMouseClick;
-                @MousePosition.started += instance.OnMousePosition;
-                @MousePosition.performed += instance.OnMousePosition;
-                @MousePosition.canceled += instance.OnMousePosition;
+                @PlayerRotation.started += instance.OnPlayerRotation;
+                @PlayerRotation.performed += instance.OnPlayerRotation;
+                @PlayerRotation.canceled += instance.OnPlayerRotation;
                 @Reload.started += instance.OnReload;
                 @Reload.performed += instance.OnReload;
                 @Reload.canceled += instance.OnReload;
@@ -507,9 +510,12 @@ public class @Player : IInputActionCollection, IDisposable
                 @Exit.started += instance.OnExit;
                 @Exit.performed += instance.OnExit;
                 @Exit.canceled += instance.OnExit;
-                @HUDshortcut.started += instance.OnHUDshortcut;
-                @HUDshortcut.performed += instance.OnHUDshortcut;
-                @HUDshortcut.canceled += instance.OnHUDshortcut;
+                @HUDshortcutLeft.started += instance.OnHUDshortcutLeft;
+                @HUDshortcutLeft.performed += instance.OnHUDshortcutLeft;
+                @HUDshortcutLeft.canceled += instance.OnHUDshortcutLeft;
+                @HUDshortcutRight.started += instance.OnHUDshortcutRight;
+                @HUDshortcutRight.performed += instance.OnHUDshortcutRight;
+                @HUDshortcutRight.canceled += instance.OnHUDshortcutRight;
             }
         }
     }
@@ -537,10 +543,11 @@ public class @Player : IInputActionCollection, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnMouseClick(InputAction.CallbackContext context);
-        void OnMousePosition(InputAction.CallbackContext context);
+        void OnPlayerRotation(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnAntebellum(InputAction.CallbackContext context);
         void OnExit(InputAction.CallbackContext context);
-        void OnHUDshortcut(InputAction.CallbackContext context);
+        void OnHUDshortcutLeft(InputAction.CallbackContext context);
+        void OnHUDshortcutRight(InputAction.CallbackContext context);
     }
 }

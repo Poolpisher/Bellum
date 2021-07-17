@@ -5,19 +5,7 @@ using UnityEngine;
 
 public class Aim : MonoBehaviour
 {
-    public static Aim instance;
-    private MousePosition mousePosition;
-
-    private void Awake()
-    {
-        if (instance != null)
-        {
-            Destroy(this);
-        }
-        instance = this;
-        mousePosition = GetComponent<MousePosition>();
-    }
-
+    public Transform target;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +16,7 @@ public class Aim : MonoBehaviour
     void Update()
     {
         //Application de l'angle sur la rotation du joueur
-        transform.rotation = Quaternion.AngleAxis(mousePosition.aimAngle, Vector3.down);
+        //transform.rotation = Quaternion.AngleAxis(mousePosition.aimAngle, Vector3.down);
+        transform.LookAt(target);
     }
 }

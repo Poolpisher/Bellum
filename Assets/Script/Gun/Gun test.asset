@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98e28539d628660498810ed8f54e27f1, type: 3}
+  m_Name: Gun test
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 4440960880823675855, guid: 1274a1d80c25bba49b85e0d443b2ec46, type: 3}
+  shootTimer: 0.2
