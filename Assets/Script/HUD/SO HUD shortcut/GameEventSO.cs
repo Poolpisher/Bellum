@@ -13,7 +13,7 @@ public class GameEventSO : ScriptableObject
     {
         foreach(var listener in listeners)
         {
-            listener.OnScriptableObjectEvent(obj);
+            listener.OnScriptableObjectEvent();
         }
     }
 

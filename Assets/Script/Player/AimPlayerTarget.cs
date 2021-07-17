@@ -7,6 +7,7 @@ public class AimPlayerTarget : MonoBehaviour
 {
     [SerializeField] Transform player;
     // Start is called before the first frame update
+    private Vector2 rawInput;
     void Start()
     {
         
@@ -15,7 +16,17 @@ public class AimPlayerTarget : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //Si l'input est inférieur ou égal à 1
+        if(rawInput.sqrMagnitude <= 1)
+        {
+            //Choisis la visée à la manette
+            RightJoystickMove(rawInput);
+        }
+        //Sinon choisis la visée à la souris
+        else
+        {
+            MouseMove(rawInput);
+        }
     }
 
     public void OnChangeController(PlayerInput playerInput)
@@ -29,18 +40,7 @@ public class AimPlayerTarget : MonoBehaviour
         if(obj.phase != InputActionPhase.Performed)
         return;
         //Sauvegarde la valeur de l'input brut
-        var rawInput = obj.ReadValue<Vector2>();
-        //Si l'input est inférieur ou égal à 1
-        if(rawInput.sqrMagnitude <= 1)
-        {
-            //Choisis la visée à la manette
-            RightJoystickMove(rawInput);
-        }
-        //Sinon choisis la visée à la souris
-        else
-        {
-            MouseMove(rawInput);
-        }
+        rawInput = obj.ReadValue<Vector2>();
     }
 
     void RightJoystickMove(Vector2 stickPosition)

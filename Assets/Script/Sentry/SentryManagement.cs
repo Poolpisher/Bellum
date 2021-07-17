@@ -16,7 +16,8 @@ public class SentryManagement : MonoBehaviour
     //Stock la plateforme selectionné en dernier
     private Transform lastClickedPlateform;
 
-    [SerializeField] private UnityEvent healthBarActive;
+    [SerializeField] private UnityEvent hudCanDestroy;
+    [SerializeField] private UnityEvent hudCanCreate;
     //Bouton du HUD tourelle
     [SerializeField] private GameObject createButton;
     [SerializeField] private GameObject destroyButton;
@@ -28,19 +29,29 @@ public class SentryManagement : MonoBehaviour
         lastClickedPlateform = newPlatform;
     }
 
-    private void OnEnable()
+    public void LeftButton()
     {
-        //Activation des controles
-        /*
-        InputManager.instance.playerInput.Action.HUDshortcut.performed += Create;
-        InputManager.instance.playerInput.Action.HUDshortcut.performed += Destroy;
-        */
+        if(lastClickedPlateform.childCount == 0)
+        {
+            Create();
+        }
+        else
+        {
+            Destroy();
+        }
+    }
+    public void RightButton()
+    {
+        if(lastClickedPlateform.childCount != 0)
+        {
+            Repair();
+        }
     }
 
     /// <summary>
     /// Bouton Create du HUD pour placer une tourelle
     /// </summary>
-    public void Create(/*InputAction.CallbackContext obj*/)
+    public void Create()
     {
         //Vérifie qu'une tourelle n'est pas déjà placée et que le joueur a assez de metal
         if (lastClickedPlateform.childCount == 0 && MetalBehaviour.toCompareMetal >= metalToCreate)
@@ -49,7 +60,7 @@ public class SentryManagement : MonoBehaviour
             MetalBehaviour.instance.AddScore(-metalToCreate);
             //Créer la tourelle
             var createSentry = Instantiate(Sentry, lastClickedPlateform.position, Quaternion.identity, lastClickedPlateform);
-            healthBarActive.Invoke();
+            hudCanDestroy.Invoke();
             //Récupère la range de la tourelle
             Click.getRange = createSentry.transform.GetChild(1).gameObject;
             //Affiche la range de la tourelle
@@ -60,7 +71,7 @@ public class SentryManagement : MonoBehaviour
     /// <summary>
     /// Bouton Destroy du HUD pour retirer une tourelle
     /// </summary>
-    public void Destroy(/*InputAction.CallbackContext obj*/)
+    public void Destroy()
     {
         //Si la plateforme selectionné n'a qu'un enfant
         if (lastClickedPlateform.childCount == 0)
@@ -70,6 +81,7 @@ public class SentryManagement : MonoBehaviour
         var Sentry = lastClickedPlateform.GetChild(Index);
         //Détruit la tourelle
         Destroy(Sentry.gameObject);
+        hudCanCreate.Invoke();
         //Récupere le prix original de construction de la tourelle en metal
         MetalBehaviour.instance.AddScore(metalToCreate);
         //Affiche le bouton create et désaffiche le bouton destroy du HUD des tourelles
@@ -77,7 +89,7 @@ public class SentryManagement : MonoBehaviour
         destroyButton.SetActive(false);
     }
 
-    public void Repair(/*InputAction.CallbackContext obj*/)
+    public void Repair()
     {
         if (MetalBehaviour.toCompareMetal >= metalToRepair)
         {

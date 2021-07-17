@@ -20,7 +20,7 @@ public class GameEventListener : MonoBehaviour
     }
 
     //Lance l'evenement Unity lié au script
-    public void OnScriptableObjectEvent(InputAction.CallbackContext obj)
+    public void OnScriptableObjectEvent()
     {
         response.Invoke();
     }

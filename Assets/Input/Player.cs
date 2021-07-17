@@ -76,17 +76,17 @@ public class @Player : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": ""HUDshortcutLeft"",
-                    ""type"": ""Value"",
+                    ""type"": ""Button"",
                     ""id"": ""9ed914d1-ad75-4037-b97d-45a486546655"",
-                    ""expectedControlType"": ""Dpad"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
                 },
                 {
                     ""name"": ""HUDshortcutRight"",
-                    ""type"": ""Value"",
+                    ""type"": ""Button"",
                     ""id"": ""205d8f36-f369-4d74-b0dd-72ae1ebd2ed7"",
-                    ""expectedControlType"": ""Dpad"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
                 }
@@ -293,7 +293,7 @@ public class @Player : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""5c03cc33-a126-45b0-9681-f431d1bfbb21"",
-                    ""path"": ""<Gamepad>/dpad"",
+                    ""path"": ""<Gamepad>/dpad/left"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Xbox Controller"",
@@ -306,7 +306,7 @@ public class @Player : IInputActionCollection, IDisposable
                     ""id"": ""feb4a09e-e62d-48e6-b4c6-a7e9ff51c2be"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
-                    ""processors"": ""NormalizeVector2,StickDeadzone(min=0.2)"",
+                    ""processors"": ""NormalizeVector2,StickDeadzone(min=0.125,max=0.925)"",
                     ""groups"": ""Xbox Controller"",
                     ""action"": ""PlayerRotation"",
                     ""isComposite"": false,
@@ -319,6 +319,17 @@ public class @Player : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard + mouse"",
+                    ""action"": ""HUDshortcutRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""28295a2e-4526-4a14-a0c2-7afbb1c0376e"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Xbox Controller"",
                     ""action"": ""HUDshortcutRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
