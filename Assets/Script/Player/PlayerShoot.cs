@@ -18,9 +18,12 @@ public class PlayerShoot : Shoot
 
     //Nombre de balles restantes
     private int remainBullet;
+
+    public static PlayerShoot instance;
     
     //Récupération des component des boutons du HUD pour éviter de tirer en cliquant dessus (voir Shoot())
     [SerializeField] GraphicRaycaster raycasterHUDtourelles;
+    [SerializeField] GraphicRaycaster raycasterHUDshop;
     EventSystem eventSystemHUDtourelles;
     
     //UnityEvent
@@ -33,6 +36,11 @@ public class PlayerShoot : Shoot
     {
         //passage du nombre de balle max au texte du HUD
         BulletCountdown.maxBullet = playerGunSO.maxBullet;
+        if (instance != null)
+        {
+            Destroy(this);
+        }
+        instance = this;
     }
 
     //tir
@@ -53,7 +61,7 @@ public class PlayerShoot : Shoot
         private void OnShootPerformed(InputAction.CallbackContext obj)
     {
         //Si le joueur n'a pas cliqué sur un élément de HUD
-        if (!playerGunSO.isClickingHUD(eventSystemHUDtourelles, mousePosition.mousePos, raycasterHUDtourelles))
+        if (!playerGunSO.isClickingHUD(eventSystemHUDtourelles, mousePosition.mousePos, raycasterHUDtourelles) && !playerGunSO.isClickingHUD(eventSystemHUDtourelles, mousePosition.mousePos, raycasterHUDshop))
             canShoot = true;
     }
 
@@ -71,7 +79,7 @@ public class PlayerShoot : Shoot
         eventSystemHUDtourelles = GameObject.FindWithTag("EventSystem").GetComponent<EventSystem>();
 
         //Nombre de balle disponible = au nombre de balle maximum
-        remainBullet = playerGunSO.maxBullet;        
+        remainBullet = playerGunSO.maxBullet;
     }
 
     void Update()
@@ -93,10 +101,11 @@ public class PlayerShoot : Shoot
         remainBullet = remainBullet - 1;
         }
     }
+
     //Recharge
     public void Reload(InputAction.CallbackContext obj)
     {
-        if (remainBullet != playerGunSO.maxBullet)
+        if (remainBullet != playerGunSO.maxBullet && obj.started)
         {
         //Lance la coroutine suivante
         StartCoroutine(ReloadAnimation());
@@ -116,6 +125,12 @@ public class PlayerShoot : Shoot
         isReloading = false;
         //Lance la fonction onFinishReload de l'inspecteur
         onFinishReload.Invoke();
+        //Nombre de balle disponible = au nombre de balle maximum
+        remainBullet = playerGunSO.maxBullet;
+    }
+
+    public void IncreaseMaxBullet()
+    {
         //Nombre de balle disponible = au nombre de balle maximum
         remainBullet = playerGunSO.maxBullet;
     }

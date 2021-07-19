@@ -7,6 +7,7 @@ using UnityEngine;
 public class GameEventListener : MonoBehaviour
 {
     public GameEventSO eventSO;
+    //Evenement du raccourci
     public UnityEvent response;
 
     void OnEnable()

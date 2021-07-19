@@ -29,8 +29,14 @@ public class SentryManagement : MonoBehaviour
         lastClickedPlateform = newPlatform;
     }
 
+
+    /// <summary>
+    /// Lors d'un racourci du bouton Create ou Destroy du HUD
+    /// </summary>
     public void LeftButton()
     {
+        //Vérifie quelles fonctions lancer car les 2 boutons sont sur le même racourci
+        //Si aucune tourelle n'est présente sur la plateforme
         if(lastClickedPlateform.childCount == 0)
         {
             Create();
@@ -40,8 +46,12 @@ public class SentryManagement : MonoBehaviour
             Destroy();
         }
     }
+    /// <summary>
+    /// Lors d'un racourci du bouton Repair du HUD
+    /// </summary>
     public void RightButton()
     {
+        //Si il y a bien une tourelle à réparer
         if(lastClickedPlateform.childCount != 0)
         {
             Repair();
@@ -91,7 +101,7 @@ public class SentryManagement : MonoBehaviour
 
     public void Repair()
     {
-        if (MetalBehaviour.toCompareMetal >= metalToRepair)
+        if (MetalBehaviour.toCompareMetal >= metalToRepair && lastClickedPlateform.GetComponentInChildren<SentryBehaviour>().sentryHealth > 0)
         {
             //retire le prix de la construction de la tourelle en metal
             MetalBehaviour.instance.AddScore(-metalToRepair);

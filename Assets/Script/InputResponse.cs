@@ -16,6 +16,7 @@ public class InputResponse : MonoBehaviour
     {
         if(obj.started)
         {
+            //Lance le GameEventSO associé qui lance la reponse du GameEventListener
             leftShortcut.Raise();
         }
     }
@@ -24,6 +25,7 @@ public class InputResponse : MonoBehaviour
     {
         if(obj.started)
         {
+            //Lance le GameEventSO associé qui lance la reponse du GameEventListener
             rightShortcut.Raise();
         }
     }
@@ -44,5 +46,5 @@ public class InputResponse : MonoBehaviour
             onGameManagerAntebellum.Raise();
         }
     }
-    */
+*/
 }
