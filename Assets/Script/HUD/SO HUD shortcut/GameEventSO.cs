@@ -9,6 +9,7 @@ public class GameEventSO : ScriptableObject
     //Permet de lancer l'event dans "GameEventListener" via un raccourci clavier
     private UnityEngine.InputSystem.InputAction.CallbackContext obj;
 
+    //Lance l'event "response" via le script GameEventListener
     public void Raise()
     {
         foreach(var listener in listeners)

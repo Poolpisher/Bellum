@@ -9,6 +9,16 @@ public class BulletCountdown : MonoBehaviour
     //Nombre de balles max
     public static int maxBullet;
     TextMeshProUGUI txt;
+    public static BulletCountdown instance;
+
+    void OnEnable()
+    {
+        if (instance != null)
+        {
+            Destroy(this);
+        }
+        instance = this;
+    }
 
     public void Start()
     {
@@ -30,11 +40,6 @@ public class BulletCountdown : MonoBehaviour
     {
         //Remet les variables à niveau
         remainBullet = maxBullet;
-        RefreshHUD();
-    }
-
-    public void FinishReload()
-    {
         RefreshHUD();
     }
 

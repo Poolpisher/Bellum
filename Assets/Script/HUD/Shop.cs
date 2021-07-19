@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Shop : MonoBehaviour
 {    
+    //Référence de l'arme du joueur
+    [SerializeField] private PlayerGunSO playerStat;
     //Prix de l'améliorations du nombres de balles dans le chargeur
     [SerializeField] private int increaseMaxBulletPrice;
     //Nombres de balles à ajouter dans IncreaseMaxBullet
@@ -15,18 +17,27 @@ public class Shop : MonoBehaviour
     [SerializeField] private int shorterReloadToChange;
 
     //Améliorations du nombres de balles dans le chargeur
-    void IncreaseMaxBullet(InputAction.CallbackContext obj)
+    public void IncreaseMaxBullet()
     {
         if(GoldBehaviour.toCompareGold >= increaseMaxBulletPrice)
         {
-            //Control.maxBullet = maxBullet + increaseMaxBulletToAdd;
-            increaseMaxBulletPrice = increaseMaxBulletPrice + 10;
+            //GoldBehaviour
+            GoldBehaviour.instance.AddScore(-increaseMaxBulletPrice);
+            //BulletCountdown
+            BulletCountdown.maxBullet = BulletCountdown.maxBullet + increaseMaxBulletToAdd;
+            BulletCountdown.instance.Reload();
+            //PlayerGunSO
+            playerStat.maxBullet = playerStat.maxBullet + increaseMaxBulletToAdd;
+            //PlayerShoot (pour debug)
+            PlayerShoot.instance.IncreaseMaxBullet();
+            //Shop
+            increaseMaxBulletPrice = increaseMaxBulletPrice + 20;
             increaseMaxBulletToAdd = increaseMaxBulletToAdd + 10;
         }
     }
     
     //Améliorations de la vitesse de rechargement
-    void ShorterReload(InputAction.CallbackContext obj)
+    public void ShorterReload()
     {
         if(GoldBehaviour.toCompareGold >= shorterReloadPrice)
         {
@@ -41,6 +52,8 @@ public class Shop : MonoBehaviour
         }
     }
     
+    //Référence de la tourelle du joueur
+    [SerializeField] private SentryGunSO sentryStat;
     //Prix de l'améliorations de la cadence de tir des tourelles
     [SerializeField] private int increaseSentryCooldownPrice;
     //Améliorations de la cadence de tir des tourelles
@@ -50,23 +63,11 @@ public class Shop : MonoBehaviour
     //Améliorations de la jauge d'usure des tourelles
     [SerializeField] private int increaseSentryLife;
 
-    void SentryCooldown(InputAction.CallbackContext obj)
+    public void SentryCooldown()
     {
         
     }
-    void SentryLife(InputAction.CallbackContext obj)
-    {
-        
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
+    public void SentryLife()
     {
         
     }
